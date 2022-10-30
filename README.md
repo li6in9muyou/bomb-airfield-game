@@ -79,7 +79,7 @@ enum BombResult
 
 阻塞，最多等待 30 秒，如果用户没有输入就返回 `(-1,-1)`。
 
-## 等待用户摆好自己的飞机（）：飞机摆法列表
+## 等待下一个飞机摆法（）：坐标，上、下、左、右
 
 阻塞，返回格式见前述游戏数据类部分。
 
@@ -153,21 +153,36 @@ sequenceDiagram
 
 participant main as 主函数
 participant ui as 界面类
+participant gameLogic as 游戏逻辑类
 participant socket as 网络类
 participant remote as 远端炸飞机客户端
 
-main ->> ui: 等待用户摆好自己的飞机（）
+main ->> ui: 启动摆飞机阶段（）
+loop 飞机还没摆完
 activate main
+main ->> ui: 等待下一个飞机摆法（）
+deactivate main
 activate ui
-ui -->> main: 飞机摆法列表
+ui -->> main: 坐标，上、下、左、右
 deactivate ui
+activate main
+main ->> gameLogic: 摆飞机（坐标，上、下、左、右）
+deactivate main
+activate gameLogic
+gameLogic -->> main: 是否接受此飞机摆法
+deactivate gameLogic
+activate main
+main ->> ui: 上一个摆法是否合理（是或否）
+deactivate main
+activate ui
+deactivate ui
+end
 main ->> socket: 等待对手摆好飞机()
 activate socket
 socket -->> remote: 飞机已经摆好
 remote -->> socket: 飞机已经摆好
 socket -->> main: void
 deactivate socket
-deactivate main
 ```
 
 ## 炸飞机阶段
