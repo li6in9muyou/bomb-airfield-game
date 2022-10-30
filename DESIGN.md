@@ -1,11 +1,4 @@
-﻿---
-title: 组队开发联机对战游戏：炸飞机。bomb airfield game
-categories: [ProjectExperience]
-tags: [teamwork, c#]
-mermaid: true
----
-
-# 炸飞机游戏数据类
+﻿# 炸飞机游戏数据类
 
 游戏中有两个机场，一个摆有自己飞机的机场，另一个用来记录炸对手机场的结果。
 对手机场上飞机的摆法本方客户端是不可见的。
