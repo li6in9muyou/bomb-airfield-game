@@ -1,18 +1,19 @@
 ﻿namespace GameLogic
 {
-    class Coordinate
+    public class Coordinate
     {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
 
         Coordinate(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
-        static Void () {
-            return new Coordinate(-1, -1) 
+        static Coordinate Void ()
+        {
+            return new Coordinate(-1, -1);
         }
     }
 }
