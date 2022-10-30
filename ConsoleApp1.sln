@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online", "ClassLibrary2\Onl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{059C4769-E11E-4F1B-814D-CB4DAC73BAD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterfaceadapted", "UserInterfaceadapted\UserInterfaceadapted.csproj", "{9026E61E-0C81-454A-B197-BC1EAA46F197}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{9026E61E-0C81-454A-B197-BC1EAA46F197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
