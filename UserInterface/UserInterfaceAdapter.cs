@@ -9,7 +9,7 @@ namespace UserInterface
 
         void DrawAdditionalContent() { }
 
-        void DrawGameLogic(GameLogic game) { }
+        void DrawGameLogic(GameLogic.GameLogic game) { }
 
         Coordinate WaitLocalUserChooseBombLocation() { }
 
