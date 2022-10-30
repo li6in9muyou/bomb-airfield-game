@@ -3,9 +3,9 @@ using ClassLibrary1;
 
 namespace UserInterface
 {
-    public class UserInterfaceAdater
+    public class UserInterfaceAdapter
     {
-        UserInterfaceAdater() { }
+        UserInterfaceAdapter() { }
 
         void DrawAdditionalContent() { }
 
