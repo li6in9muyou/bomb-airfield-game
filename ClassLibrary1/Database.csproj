@@ -10,4 +10,9 @@
     <None Remove="NewFile1.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary2\Online.csproj" />
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
+  </ItemGroup>
+
 </Project>

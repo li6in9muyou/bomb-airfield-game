@@ -15,4 +15,8 @@
     <None Remove="NewFile1.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary2\Online.csproj" />
+  </ItemGroup>
+
 </Project>
