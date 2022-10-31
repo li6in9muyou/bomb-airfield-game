@@ -155,7 +155,7 @@ participant remote as 对方炸飞机客户端
 
 main ->> ui: 获取一个IP
 activate ui
-ui -->> main: IP address
+ui -->> main: IP address（加入别人的房间）或者空字符串（成为房主）
 deactivate ui
 
 alt 房主
