@@ -1,4 +1,4 @@
-﻿using GameLogic;
+﻿using Common;
 using ClassLibrary1;
 
 namespace UserInterface

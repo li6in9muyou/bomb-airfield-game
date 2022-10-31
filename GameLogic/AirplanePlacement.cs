@@ -1,4 +1,4 @@
-﻿using GameLogic;
+﻿using Common;
 
 namespace ClassLibrary1
 {
