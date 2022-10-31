@@ -7,16 +7,28 @@
 
 ## 摆飞机（坐标，上、下、左、右）：
 
+```c#
+public class Coordinate
+{
+    public int X;
+    public int Y;
+
+    public Coordinate(int x, int y);
+
+    public static Coordinate Void();
+}
+```
+
 ## 本方机场挨炸（坐标）：返回炸的结果，未炸中、炸中了机身、炸中了机头。
 
 炸的结果使用 C# 枚举类。
 
 ```c#
-enum BombResult
+public enum BombResult
 {
-    Hit = "炸中了",
-    Destroyed = "摧毁了",
-    Miss = "空了",
+    Miss,
+    Hit,
+    Destroyed
 }
 ```
 
