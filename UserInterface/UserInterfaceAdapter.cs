@@ -1,20 +1,30 @@
-﻿using Common;
-using ClassLibrary1;
+﻿using ClassLibrary1;
+using Common;
 
-namespace UserInterface
+namespace UserInterface;
+
+public class UserInterfaceAdapter
 {
-    public class UserInterfaceAdapter
+    public void DrawAdditionalContent(string message)
     {
-        UserInterfaceAdapter() { }
+    }
 
-        void DrawAdditionalContent() { }
+    public void DrawGameLogic(GameLogic.GameLogic game)
+    {
+    }
 
-        void DrawGameLogic(GameLogic.GameLogic game) { }
+    public Coordinate WaitLocalUserChooseBombLocation()
+    {
+        return Coordinate.Void();
+    }
 
-        Coordinate WaitLocalUserChooseBombLocation() { }
+    public AirplanePlacement[] WaitLocaluserPlaceAirplanes()
+    {
+        return Array.Empty<AirplanePlacement>();
+    }
 
-        AirplanePlacement[] WaitLocaluserPlaceAirplanes() { }
-
-        string WaitInputIPAddress() { }
+    public string WaitInputIpAddress()
+    {
+        return "";
     }
 }
