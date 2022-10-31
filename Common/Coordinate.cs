@@ -7,11 +7,11 @@
 
         public Coordinate(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
-        static Coordinate Void()
+        public static Coordinate Void()
         {
             return new Coordinate(-1, -1);
         }
