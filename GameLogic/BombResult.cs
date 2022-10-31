@@ -1,9 +1,9 @@
 ﻿namespace GameLogic
 {
-    enum BombResult
+    public enum BombResult
     {
-        Hit = "炸中了",
-        Destroyed = "摧毁了",
-        Miss = '空了',
+        Miss,
+        Hit,
+        Destroyed
     }
 }
