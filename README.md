@@ -73,7 +73,11 @@ public enum BombResult
 
 ### 对方玩家操作超时
 
-## 加入对方房间并等待和对手握手（IP 地址）、创建房间并等待对方加入（）
+## 加入对方房间并等待和对手握手（IP 地址）：我方是否先手
+
+## 创建房间（）:IP 地址
+
+## 等待对手加入（）：我方是否先手
 
 ## 等待对手摆好飞机（）
 
@@ -82,6 +86,8 @@ public enum BombResult
 ## 炸对方的机场并返回炸的结果（坐标）：炸的结果
 
 ## 等待对方来炸我方机场（）：坐标
+
+## 非功能性方法，善后（）
 
 阻塞，等待对方回传。
 
@@ -163,9 +169,11 @@ ui -->> main: void
 deactivate ui
 main ->> socket: 等待对方加入（）
 activate socket
+deactivate socket
 else 加入房间
 main ->> socket: 加入对方房间并等待和对手握手（IP 地址）
 activate socket
+deactivate socket
 end
 activate socket
 socket -->> remote: 建立连接或等待连接
