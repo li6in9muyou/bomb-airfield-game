@@ -1,19 +1,29 @@
 ﻿using Common;
 
-namespace Online
+namespace Online;
+
+public class Online
 {
-    public class Online
+    public void WaitOpponentPlaceAirplane()
     {
-        Online() { }
+    }
 
-        void WaitOpponentPlaceAirplane() { }
+    public BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate)
+    {
+        return BombResult.Miss;
+    }
 
-        BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate) { }
-        
-        Coordinate WaitOpponentToBombMyAirfield() { }
-        
-        void SendBombResultOfMyAirfield(BombResult result) { }
+    public Coordinate WaitOpponentToBombMyAirfield()
+    {
+        return new Coordinate(5, 5);
+    }
 
-        bool IsRemoteConnectionLost() { }
+    public void SendBombResultOfMyAirfield(BombResult result)
+    {
+    }
+
+    public bool IsRemoteConnectionLost()
+    {
+        return false;
     }
 }
