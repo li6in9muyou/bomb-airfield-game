@@ -1,4 +1,4 @@
-﻿namespace GameLogic
+﻿namespace Common
 {
     public enum BombResult
     {
