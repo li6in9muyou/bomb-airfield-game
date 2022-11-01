@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Common;
 
 namespace Online;
 
@@ -23,6 +24,25 @@ internal class OnlineTest
         {
             var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
             Console.Out.WriteLine("isFirst = {0}", isFirst);
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
+    public static void TestSendBombCoordinateAndReceiveResult()
+    {
+        var online = new Online();
+        try
+        {
+            var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            Console.Out.WriteLine("isFirst = {0}", isFirst);
+            var result = online.BombOpponentAirfieldAndWaitResult(new Coordinate(0, 0));
+            Console.Out.WriteLine("result = {0}", result);
         }
         catch (CanNotJoin)
         {
