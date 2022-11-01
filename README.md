@@ -67,6 +67,16 @@ public enum BombResult
 
 # 网络模块
 
+做一个网络类，一个读取数据的接口，类似一个parser。
+
+```c#
+interface ICommunicator {
+    bool HasError();
+    string Read();
+    string Write();
+}
+```
+
 ## 等待类操作的异常事件处理方法
 
 ### 网络超时
