@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\Database.csproj" />
-    <ProjectReference Include="..\ClassLibrary2\Online.csproj" />
+    <ProjectReference Include="..\Online\Online.csproj" />
     <ProjectReference Include="..\ConsoleApp1\ConsoleApp1.csproj" />
     <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
   </ItemGroup>

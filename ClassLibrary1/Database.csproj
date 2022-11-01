@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\Online.csproj" />
+    <ProjectReference Include="..\Online\Online.csproj" />
     <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
   </ItemGroup>
 
