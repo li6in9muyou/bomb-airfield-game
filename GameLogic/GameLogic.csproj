@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-    <Compile Remove="MyAirplanePlacement.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="Class1.cs"/>
+        <Compile Remove="MyAirplanePlacement.cs"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="NewFile1.txt" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="NewFile1.txt"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Online\Online.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Online\Online.csproj"/>
+    </ItemGroup>
 
 </Project>

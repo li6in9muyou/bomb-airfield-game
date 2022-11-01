@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="NewFile1.txt" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="NewFile1.txt"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Online\Online.csproj" />
-    <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Online\Online.csproj"/>
+        <ProjectReference Include="..\GameLogic\GameLogic.csproj"/>
+    </ItemGroup>
 
 </Project>
