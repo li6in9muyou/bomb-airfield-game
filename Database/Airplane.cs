@@ -2,17 +2,19 @@
 
 public class Airplane
 {
-    private Airplane(int x1, int y1, string direction1)
-    {
-        X = x1;
-        Y = y1;
-        Direction = direction1;
-    }
 
+    private int x, y;
+    private string direction = null;
     //up down left right
-    public int X { get; set; }
+    public int X { get { return x; } set { x = value; } }
+    public int Y { get { return y; } set { y = value; } }
+    public string Direction { get { return direction; } set { direction = value; } }
 
-    public int Y { get; set; }
-
-    public string Direction { get; set; }
+    public Airplane(int x1, int y1, string direction1)
+    {
+        x = x1;
+        y = y1;
+        direction = direction1;
+    }
+    public Airplane() { }
 }
