@@ -109,12 +109,43 @@ public class Online
 
     public BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate)
     {
-        return BombResult.Miss;
+        var (r, w) = GetRemoteRoomChannel();
+        var where = coordinate.X + "," + coordinate.Y;
+        w.WriteLine(where);
+        w.Flush();
+        var result = r.ReadLine();
+        switch (result)
+        {
+            case "hit":
+            {
+                return BombResult.Hit;
+            }
+            case "miss":
+            {
+                return BombResult.Miss;
+            }
+            case "destroy":
+            {
+                return BombResult.Destroyed;
+            }
+            default:
+            {
+                Console.Out.WriteLine("result = {0}", result);
+                throw new Exception();
+            }
+        }
     }
 
     public Coordinate WaitOpponentToBombMyAirfield()
     {
-        return new Coordinate(5, 5);
+        var (r, _) = GetRemoteRoomChannel();
+        var where = r.ReadLine();
+        var coordinates = where!.Split(',');
+        var x = coordinates[0];
+        var y = coordinates[1];
+        var xN = int.Parse(x);
+        var yN = int.Parse(y);
+        return new Coordinate(xN, yN);
     }
 
     public void SendBombResultOfMyAirfield(BombResult result)
