@@ -31,6 +31,7 @@ public class Online
         var myNumber = new Random().Next(0, 100);
         Console.Out.WriteLine("myNumber = {0}", myNumber);
         w.WriteLine(myNumber);
+        w.Flush();
         var received = r.ReadLine();
         Console.Out.WriteLine("received = {0}", received);
         var opponentNumber = int.Parse(received!);
