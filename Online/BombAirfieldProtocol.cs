@@ -4,7 +4,7 @@ using Common;
 
 namespace Online;
 
-public class BombAirfieldProtocol
+public class BombAnAirplaneProtocol
 {
     public static bool DoHandShake(ICommunicator com)
     {

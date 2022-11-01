@@ -1,5 +1,5 @@
-﻿using ClassLibrary1;
-using Common;
+﻿using Common;
+using GameLogic;
 
 namespace UserInterface;
 

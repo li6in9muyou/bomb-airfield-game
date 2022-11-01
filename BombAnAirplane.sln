@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{27ACBAEF-73A5-408E-A4F9-B2948622D47A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BombAnAirplane", "BombAnAirplane\BombAnAirplane.csproj", "{27ACBAEF-73A5-408E-A4F9-B2948622D47A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "ClassLibrary1\Database.csproj", "{D0720452-23AD-4C16-B909-CBBC783C4A5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{D0720452-23AD-4C16-B909-CBBC783C4A5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online", "Online\Online.csproj", "{41ED445D-82CF-43FF-B5C5-D717C54DAE31}"
 EndProject

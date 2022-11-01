@@ -1,10 +1,9 @@
 ﻿using Common;
 
-namespace ClassLibrary1
+namespace GameLogic;
+
+public class AirplanePlacement
 {
-    public class AirplanePlacement
-    {
-        Coordinate HeadCoord;
-        string Direction;
-    }
+    private string Direction;
+    private Coordinate HeadCoord;
 }

@@ -19,7 +19,7 @@ public class Online
         var ipa = IPAddress.Parse(ipAddress);
         _com = TcpCom.AsClient(ipa);
         _com.Start();
-        return BombAirfieldProtocol.DoHandShake(_com);
+        return BombAnAirplaneProtocol.DoHandShake(_com);
     }
 
     public string CreateRoom()
@@ -31,32 +31,32 @@ public class Online
     public bool WaitOpponentToJoin()
     {
         _com!.Start();
-        return BombAirfieldProtocol.DoHandShake(_com);
+        return BombAnAirplaneProtocol.DoHandShake(_com);
     }
 
     public void WaitOpponentPlaceAirplane()
     {
-        BombAirfieldProtocol.WaitOpponentPlaceAirPlane(_com!);
+        BombAnAirplaneProtocol.WaitOpponentPlaceAirPlane(_com!);
     }
 
     public void NotifyLocalReady()
     {
-        BombAirfieldProtocol.NotifyLocalReady(_com!);
+        BombAnAirplaneProtocol.NotifyLocalReady(_com!);
     }
 
     public BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate)
     {
-        return BombAirfieldProtocol.BombOpponentAirfieldAndWaitResult(_com!, coordinate);
+        return BombAnAirplaneProtocol.BombOpponentAirfieldAndWaitResult(_com!, coordinate);
     }
 
     public Coordinate WaitOpponentToBombMyAirfield()
     {
-        return BombAirfieldProtocol.WaitOpponentToBombMyAirfield(_com!);
+        return BombAnAirplaneProtocol.WaitOpponentToBombMyAirfield(_com!);
     }
 
     public void SendBombResultOfMyAirfield(BombResult result)
     {
-        BombAirfieldProtocol.SendBombResultOfMyAirfield(_com!, result);
+        BombAnAirplaneProtocol.SendBombResultOfMyAirfield(_com!, result);
     }
 
     public bool IsRemoteConnectionLost()
