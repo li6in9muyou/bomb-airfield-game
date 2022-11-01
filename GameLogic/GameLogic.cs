@@ -17,10 +17,13 @@ public class GameLogic
                 if (y < 0 || (y + 3) > 9) flag = false;
                 break;
             case "d":
+
                 break;
             case "l":
+
                 break;
             case "r":
+
                 break;
 
 

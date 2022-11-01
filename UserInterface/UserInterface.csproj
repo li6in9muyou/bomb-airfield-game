@@ -7,14 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Class1.cs"/>
+        <Compile Remove="Class1.cs" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Database\Database.csproj"/>
-        <ProjectReference Include="..\Online\Online.csproj"/>
-        <ProjectReference Include="..\BombAnAirplane\BombAnAirplane.csproj"/>
-        <ProjectReference Include="..\GameLogic\GameLogic.csproj"/>
+        <ProjectReference Include="..\Common\Common.csproj" />
+        <ProjectReference Include="..\Database\Database.csproj" />
+        <ProjectReference Include="..\Online\Online.csproj" />
+        <ProjectReference Include="..\BombAnAirplane\BombAnAirplane.csproj" />
+        <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
     </ItemGroup>
 
 </Project>
