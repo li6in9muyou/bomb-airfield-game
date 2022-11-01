@@ -24,9 +24,9 @@ public class Online
             Console.Out.WriteLine("_room is null in Online.AbandonRoom()");
     }
 
-    private bool DoHandShake()
+    private static bool DoHandShake((StreamReader r, StreamWriter w) readAndWrite)
     {
-        var (r, w) = GetRemoteRoomChannel();
+        var (r, w) = readAndWrite;
 
         var myNumber = new Random().Next(0, 100);
         Console.Out.WriteLine("myNumber = {0}", myNumber);
@@ -53,7 +53,7 @@ public class Online
             try
             {
                 _remoteRoom.Connect(ipa, 61234);
-                return DoHandShake();
+                return DoHandShake(GetRemoteRoomChannel());
             }
             catch (SocketException e)
             {
@@ -99,7 +99,7 @@ public class Online
         _room.Stop();
         Console.Out.WriteLine("stop listening on this port");
 
-        return DoHandShake();
+        return DoHandShake(GetRemoteRoomChannel());
     }
 
     public void WaitOpponentPlaceAirplane()
@@ -125,7 +125,7 @@ public class Online
         return false;
     }
 
-    private ReadAndWrite GetRemoteRoomChannel()
+    private (StreamReader, StreamWriter) GetRemoteRoomChannel()
     {
         if (_remoteRoom is null)
         {
@@ -140,10 +140,8 @@ public class Online
             _writer = new StreamWriter(s);
         }
 
-        return new ReadAndWrite(_reader!, _writer!);
+        return (_reader!, _writer!);
     }
-
-    private record ReadAndWrite(StreamReader Reader, StreamWriter Writer);
 }
 
 public class CanNotJoin : Exception
