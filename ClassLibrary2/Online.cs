@@ -39,7 +39,7 @@ public class Online
         return myNumber > opponentNumber;
     }
 
-    public void WaitJoinOpponentRoom(string ipAddress)
+    public bool WaitJoinOpponentRoom(string ipAddress)
     {
         // todo: 异常，这个地址连接超时
         // todo: 异常，这个地址不正确
