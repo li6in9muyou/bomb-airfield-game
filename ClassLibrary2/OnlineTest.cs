@@ -53,6 +53,24 @@ internal class OnlineTest
         }
     }
 
+    public static void TestWaitOpponentPlaceAirplane()
+    {
+        var online = new Online();
+        try
+        {
+            online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            online.NotifyLocalReady();
+            online.WaitOpponentPlaceAirplane();
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
     public static void TestSendResultOnMyAirfield()
     {
         var online = new Online();

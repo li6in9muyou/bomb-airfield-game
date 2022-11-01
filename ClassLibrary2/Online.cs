@@ -105,6 +105,18 @@ public class Online
 
     public void WaitOpponentPlaceAirplane()
     {
+        var (r, _) = GetRemoteRoomChannel();
+        var ok = r.ReadLine();
+        if (ok is not null && ok == "ok")
+            return;
+        throw new Exception();
+    }
+
+    public void NotifyLocalReady()
+    {
+        var (_, w) = GetRemoteRoomChannel();
+        w.WriteLine("ok");
+        w.Flush();
     }
 
     public BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate)
