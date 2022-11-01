@@ -41,12 +41,30 @@ public class Online
 
     public bool WaitJoinOpponentRoom(string ipAddress)
     {
-        // todo: 异常，这个地址连接超时
-        // todo: 异常，这个地址不正确
         // connect and handshake
         var ipa = IPAddress.Parse(ipAddress);
         _remoteRoom = new TcpClient();
-        _remoteRoom.Connect(ipa, 61234);
+
+        var lastErrorMessage = "";
+        for (var retryNum = 0; retryNum < 3; retryNum++)
+        {
+            if (retryNum > 0) Console.Out.WriteLine("\nretryNum = {0}", retryNum);
+
+            try
+            {
+                _remoteRoom.Connect(ipa, 61234);
+                return DoHandShake();
+            }
+            catch (SocketException e)
+            {
+                Console.Out.WriteLine("failed");
+                Console.WriteLine(e.Message);
+                lastErrorMessage = e.Message;
+            }
+        }
+
+        Console.Out.WriteLine("give up joining room {0}", ipa);
+        throw new CanNotJoin(lastErrorMessage);
     }
 
     private static string FetchPublicIPv6Address()
@@ -126,4 +144,11 @@ public class Online
     }
 
     private record ReadAndWrite(StreamReader Reader, StreamWriter Writer);
+}
+
+public class CanNotJoin : Exception
+{
+    public CanNotJoin(string? message) : base(message)
+    {
+    }
 }

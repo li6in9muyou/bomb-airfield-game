@@ -16,6 +16,23 @@ internal class OnlineTest
         online.AbandonRoom();
     }
 
+    public static void TestJoinRoom()
+    {
+        var online = new Online();
+        try
+        {
+            var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            Console.Out.WriteLine("isFirst = {0}", isFirst);
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
     public static void AnEchoServer()
     {
         var server = new TcpListener(IPAddress.Loopback, 61234);
