@@ -12,7 +12,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Online\Online.csproj"/>
-        <ProjectReference Include="..\GameLogic\GameLogic.csproj"/>
     </ItemGroup>
 
 </Project>
