@@ -153,6 +153,9 @@ public class Online
 
     public void SendBombResultOfMyAirfield(BombResult result)
     {
+        var (_, w) = GetRemoteRoomChannel();
+        w.WriteLine(result.ToString().ToLower());
+        w.Flush();
     }
 
     public bool IsRemoteConnectionLost()

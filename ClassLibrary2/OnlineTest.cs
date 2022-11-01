@@ -53,6 +53,26 @@ internal class OnlineTest
         }
     }
 
+    public static void TestSendResultOnMyAirfield()
+    {
+        var online = new Online();
+        try
+        {
+            var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            Console.Out.WriteLine("isFirst = {0}", isFirst);
+            var coordinate = online.WaitOpponentToBombMyAirfield();
+            Console.Out.WriteLine("coordinate = {0}", coordinate);
+            online.SendBombResultOfMyAirfield(BombResult.Destroyed);
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
     public static void AnEchoServer()
     {
         var server = new TcpListener(IPAddress.Loopback, 61234);
