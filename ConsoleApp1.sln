@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "ClassLibrary1\Database.csproj", "{D0720452-23AD-4C16-B909-CBBC783C4A5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online", "ClassLibrary2\Online.csproj", "{41ED445D-82CF-43FF-B5C5-D717C54DAE31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online", "Online\Online.csproj", "{41ED445D-82CF-43FF-B5C5-D717C54DAE31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{059C4769-E11E-4F1B-814D-CB4DAC73BAD5}"
 EndProject
