@@ -125,9 +125,9 @@ public interface ICommunicator
 
 阻塞，最多等待 30 秒，从进入这个方法开始计时，如果用户没有输入就返回 `(-1,-1)`。
 
-## 等待用户摆好自己的飞机（）：飞机摆法列表
+## 等待用户摆好自己的飞机（游戏逻辑类实例）：飞机摆法列表
 
-阻塞，返回格式见前述游戏数据类部分。
+阻塞，返回格式见前述游戏数据类部分。传入一个游戏逻辑类，用来判断用户的摆法是不是合理。
 
 ## 等待获取一个 IP 地址（）：IP 地址
 
@@ -208,17 +208,21 @@ participant ui as 界面类
 participant socket as 网络类
 participant remote as 远端炸飞机客户端
 
-main ->> ui: 等待用户摆好自己的飞机（）
+main ->> ui: 等待用户摆好自己的飞机（游戏逻辑类实例）
 activate main
+deactivate main
 activate ui
 ui -->> main: 飞机摆法列表
 deactivate ui
+activate main
 main ->> socket: 等待对手摆好飞机()
+deactivate main
 activate socket
 socket -->> remote: 飞机已经摆好
 remote -->> socket: 飞机已经摆好
 socket -->> main: void
 deactivate socket
+activate main
 deactivate main
 ```
 
