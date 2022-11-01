@@ -3,7 +3,7 @@ using GameLogic;
 
 namespace UserInterface;
 
-public class UserInterfaceAdapter
+public class UserInterfaceAdapter: IUserInterface
 {
     public void DrawAdditionalContent(string message)
     {
@@ -18,7 +18,7 @@ public class UserInterfaceAdapter
         return Coordinate.Void();
     }
 
-    public AirplanePlacement[] WaitLocaluserPlaceAirplanes()
+    public AirplanePlacement[] WaitLocalUserPlaceAirplanes()
     {
         return Array.Empty<AirplanePlacement>();
     }

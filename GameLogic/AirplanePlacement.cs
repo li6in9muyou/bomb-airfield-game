@@ -4,6 +4,6 @@ namespace GameLogic;
 
 public class AirplanePlacement
 {
-    private string Direction;
-    private Coordinate HeadCoord;
+    public string Direction;
+    public Coordinate HeadCoord;
 }
