@@ -5,6 +5,16 @@ namespace UserInterface;
 
 public class UserInterfaceAdapter: IUserInterface
 {
+    public AirplanePlacement[] WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string WaitUserEnterAnIpAddress(string recommended)
+    {
+        throw new NotImplementedException();
+    }
+
     public void DrawAdditionalContent(string message)
     {
     }
