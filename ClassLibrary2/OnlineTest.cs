@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Common;
 
 namespace Online;
 
@@ -23,6 +24,63 @@ internal class OnlineTest
         {
             var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
             Console.Out.WriteLine("isFirst = {0}", isFirst);
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
+    public static void TestSendBombCoordinateAndReceiveResult()
+    {
+        var online = new Online();
+        try
+        {
+            var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            Console.Out.WriteLine("isFirst = {0}", isFirst);
+            var result = online.BombOpponentAirfieldAndWaitResult(new Coordinate(0, 0));
+            Console.Out.WriteLine("result = {0}", result);
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
+    public static void TestWaitOpponentPlaceAirplane()
+    {
+        var online = new Online();
+        try
+        {
+            online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            online.NotifyLocalReady();
+            online.WaitOpponentPlaceAirplane();
+        }
+        catch (CanNotJoin)
+        {
+        }
+        finally
+        {
+            online.AbandonRoom();
+        }
+    }
+
+    public static void TestSendResultOnMyAirfield()
+    {
+        var online = new Online();
+        try
+        {
+            var isFirst = online.WaitJoinOpponentRoom(IPAddress.Loopback.ToString());
+            Console.Out.WriteLine("isFirst = {0}", isFirst);
+            var coordinate = online.WaitOpponentToBombMyAirfield();
+            Console.Out.WriteLine("coordinate = {0}", coordinate);
+            online.SendBombResultOfMyAirfield(BombResult.Destroyed);
         }
         catch (CanNotJoin)
         {

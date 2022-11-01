@@ -105,6 +105,18 @@ public class Online
 
     public void WaitOpponentPlaceAirplane()
     {
+        var (r, _) = GetRemoteRoomChannel();
+        var ok = r.ReadLine();
+        if (ok is not null && ok == "ok")
+            return;
+        throw new Exception();
+    }
+
+    public void NotifyLocalReady()
+    {
+        var (_, w) = GetRemoteRoomChannel();
+        w.WriteLine("ok");
+        w.Flush();
     }
 
     public BombResult BombOpponentAirfieldAndWaitResult(Coordinate coordinate)
@@ -140,16 +152,22 @@ public class Online
     {
         var (r, _) = GetRemoteRoomChannel();
         var where = r.ReadLine();
+        Console.Out.WriteLine("where = {0}", where);
         var coordinates = where!.Split(',');
         var x = coordinates[0];
         var y = coordinates[1];
         var xN = int.Parse(x);
         var yN = int.Parse(y);
+        Console.Out.WriteLine("x = {0}", xN);
+        Console.Out.WriteLine("y = {0}", yN);
         return new Coordinate(xN, yN);
     }
 
     public void SendBombResultOfMyAirfield(BombResult result)
     {
+        var (_, w) = GetRemoteRoomChannel();
+        w.WriteLine(result.ToString().ToLower());
+        w.Flush();
     }
 
     public bool IsRemoteConnectionLost()
