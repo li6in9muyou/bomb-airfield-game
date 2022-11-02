@@ -10,6 +10,7 @@ public interface ICommunicator
     void Write(string message);
     void Start();
     void Stop();
+    string RemoteHandle();
 }
 
 public class ExpectMismatch : Exception
