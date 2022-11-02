@@ -1,4 +1,5 @@
-﻿using Online;
+﻿using Common;
+using Online;
 using UserInterface;
 
 namespace BombAnAirplane;
@@ -34,19 +35,33 @@ internal static class Program
 
         // 我是不是先手
         Console.Out.WriteLine("isIBombFirst = {0}", isIBombFirst);
-        
-        var placements =  ui.WaitLocalUserPlaceAirplanes(game);
+
+        var placements = ui.WaitLocalUserPlaceAirplanes(game);
         foreach (var placement in placements)
         {
             game.setAirplane(placement.HeadCoord.X, placement.HeadCoord.Y, placement.Direction);
         }
+
         online.WaitOpponentPlaceAirplane();
 
-        if (isIBombFirst)
+        var isMyTurnToBomb = isIBombFirst;
+        while (!game.ShouldTerminate())
         {
-            var coordinate =  ui.WaitLocalUserChooseBombLocation(game);
-            var result =online.BombOpponentAirfieldAndWaitResult(coordinate);
-            game.LogBombResultOnOpponentAirfield(coordinate, result);
+            if (!isMyTurnToBomb)
+            {
+                var coordinate = ui.WaitLocalUserChooseBombLocation(game);
+                var result = online.BombOpponentAirfieldAndWaitResult(coordinate);
+                game.LogBombResultOnOpponentAirfield(coordinate, result);
+            }
+            else
+            {
+                ui.DrawAdditionalContent("需等待对方选定炸的位置");
+                var coordinate = online.WaitOpponentToBombMyAirfield();
+                BombResult result = game.GetBombResultOnMyAirfield(coordinate);
+                online.SendBombResultOfMyAirfield(result);
+            }
+
+            ui.DrawGameLogic(game);
         }
     }
 }
