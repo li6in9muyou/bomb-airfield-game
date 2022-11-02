@@ -1,9 +1,14 @@
-﻿namespace BombAnAirplane;
+﻿using UserInterface;
+
+namespace BombAnAirplane;
 
 internal static class Program
 {
     private static void Main()
     {
-        Console.WriteLine("Hello World!");
+        // init ui
+        IUserInterface ui = new ConsoleUi();
+        // init online
+        // init game
     }
 }
