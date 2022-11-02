@@ -330,3 +330,52 @@ activate ui
 deactivate ui
 deactivate main
 ```
+
+## 游戏胜负已分
+
+```mermaid
+sequenceDiagram
+
+participant main as 主函数
+participant game as 游戏数据类
+participant ui as 界面类
+participant online as 网络类
+participant remote as 远端炸飞机客户端
+
+
+main ->> game: 游戏结束了吗（）
+activate main
+deactivate main
+activate game
+game -->> main: 本局对战结果
+deactivate game
+activate main
+main ->> ui: 本局对战已经结束请选择退出房间或者再来一局（）
+deactivate main
+activate ui
+ui -->> main: 再来一局、退出房间
+deactivate ui
+alt 再来一局
+activate main
+main ->> online: 和远端握手分出先后手()
+deactivate main
+activate online
+online -->> remote: 握手数据包
+remote -->> online: 握手数据包
+online -->> main: 我方是先手还是后手
+deactivate online
+activate main
+deactivate main
+else 退出房间
+activate main
+main ->> online: 退出房间
+deactivate main
+activate online
+online -->> remote: 断开连接
+remote -->> online: 断开连接
+online -->> main: void
+deactivate online
+activate main
+deactivate main
+end
+```
