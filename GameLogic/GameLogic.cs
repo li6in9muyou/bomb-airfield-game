@@ -1,4 +1,5 @@
-﻿using Database;
+﻿using Common;
+using Database;
 
 namespace GameLogic;
 
@@ -32,5 +33,20 @@ public class GameLogic
 
 
         return flag;
+    }
+
+    public bool ShouldTerminate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void LogBombResultOnOpponentAirfield(Coordinate coordinate, BombResult result)
+    {
+        throw new NotImplementedException();
+    }
+
+    public BombResult GetBombResultOnMyAirfield(Coordinate coordinate)
+    {
+        throw new NotImplementedException();
     }
 }
