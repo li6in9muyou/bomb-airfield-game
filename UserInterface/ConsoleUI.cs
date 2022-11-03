@@ -15,7 +15,7 @@ public class ConsoleUi : IUserInterface
         Console.Out.WriteLine("game = {0}", game);
     }
 
-    public Coordinate WaitLocalUserChooseBombLocation()
+    public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
     {
         Console.Out.WriteLine(@"bomb where? \d,\d");
         var where = Console.ReadLine();

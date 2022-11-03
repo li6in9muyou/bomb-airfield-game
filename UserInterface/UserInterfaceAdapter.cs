@@ -3,7 +3,7 @@ using GameLogic;
 
 namespace UserInterface;
 
-public class UserInterfaceAdapter: IUserInterface
+public class UserInterfaceAdapter : IUserInterface
 {
     public AirplanePlacement[] WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
@@ -23,7 +23,7 @@ public class UserInterfaceAdapter: IUserInterface
     {
     }
 
-    public Coordinate WaitLocalUserChooseBombLocation()
+    public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
     {
         return Coordinate.Void();
     }
