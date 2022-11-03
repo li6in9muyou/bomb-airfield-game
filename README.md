@@ -210,6 +210,7 @@ sequenceDiagram
 participant main as 主函数
 participant ui as 界面类
 participant socket as 网络类
+participant game as 游戏逻辑类
 participant remote as 远端炸飞机客户端
 
 main ->> ui: 等待用户摆好自己的飞机（游戏逻辑类实例）
@@ -218,6 +219,14 @@ deactivate main
 activate ui
 ui -->> main: 飞机摆法列表
 deactivate ui
+loop 三架飞机，循环三次
+activate main
+main ->> game: 摆飞机（飞机摆法）
+deactivate main
+activate game
+game -->> main: void
+deactivate game
+end
 activate main
 main ->> socket: 等待对手摆好飞机()
 deactivate main
