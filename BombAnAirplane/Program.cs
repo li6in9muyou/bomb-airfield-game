@@ -54,7 +54,7 @@ internal static class Program
             {
                 ui.DrawAdditionalContent("需等待对方选定炸的位置");
                 var coordinate = online.WaitOpponentToBombMyAirfield();
-                BombResult result = game.GetBombResultOnMyAirfield(coordinate);
+                var result = game.GetBombResultOnMyAirfield(coordinate);
                 online.SendBombResultOfMyAirfield(result);
             }
 
