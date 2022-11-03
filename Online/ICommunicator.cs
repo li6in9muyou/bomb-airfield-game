@@ -34,6 +34,10 @@ public class MockCommunicator : ICommunicator
         _received = received;
     }
 
+    public MockCommunicator() : this(OnlineTest.TypicalMessagesFromRoomCreator)
+    {
+    }
+
     public bool IsLostConnection()
     {
         return false;
