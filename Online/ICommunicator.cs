@@ -9,6 +9,7 @@ public interface ICommunicator
     string Expect(Regex expected);
     void Write(string message);
     void Start();
+    void Start(string remoteHandle);
     void Stop();
     string RemoteHandle();
 }
@@ -44,6 +45,11 @@ public class MockCommunicator : ICommunicator
     }
 
     public void Start()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Start(string remoteHandle)
     {
         throw new NotImplementedException();
     }
