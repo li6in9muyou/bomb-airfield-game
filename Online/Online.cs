@@ -6,6 +6,10 @@ public class Online
 {
     private readonly ICommunicator _com;
 
+    public Online() : this(new TcpCom())
+    {
+    }
+
     public Online(ICommunicator com)
     {
         _com = com;
