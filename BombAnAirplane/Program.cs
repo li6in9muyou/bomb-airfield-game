@@ -1,5 +1,4 @@
-﻿using Common;
-using Online;
+﻿using Online;
 using UserInterface;
 
 namespace BombAnAirplane;
@@ -38,9 +37,7 @@ internal static class Program
 
         var placements = ui.WaitLocalUserPlaceAirplanes(game);
         foreach (var placement in placements)
-        {
-            game.setAirplane(placement.HeadCoord.X, placement.HeadCoord.Y, placement.Direction);
-        }
+            game.SetAirplane(placement.HeadCoord.X, placement.HeadCoord.Y, placement.Direction);
 
         online.WaitOpponentPlaceAirplane();
 
