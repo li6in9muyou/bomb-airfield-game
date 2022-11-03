@@ -5,7 +5,16 @@ namespace Online;
 
 public class Online
 {
-    private TcpCom? _com;
+    private ICommunicator? _com;
+
+    public Online()
+    {
+    }
+
+    public Online(ICommunicator com)
+    {
+        _com = com;
+    }
 
     public void AbandonRoom()
     {
@@ -20,17 +29,23 @@ public class Online
         _com.Start();
         return BombAnAirplaneProtocol.DoHandShake(_com);
     }
+    
+    public bool WaitJoinOpponentRoom()
+    {
+        // connect and handshake
+        _com!.Start();
+        return BombAnAirplaneProtocol.DoHandShake(_com!);
+    }
 
     public string CreateRoom()
     {
-        _com = TcpCom.AsServer();
-        return _com.ListenOn;
+        return _com!.RemoteHandle();
     }
 
     public bool WaitOpponentToJoin()
     {
         _com!.Start();
-        return BombAnAirplaneProtocol.DoHandShake(_com);
+        return BombAnAirplaneProtocol.DoHandShake(_com!);
     }
 
     public void WaitOpponentPlaceAirplane()

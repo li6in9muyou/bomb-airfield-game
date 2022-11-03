@@ -16,8 +16,10 @@ public class TcpCom : ICommunicator
     {
     }
 
-    public string ListenOn => _ipAddr!.ToString();
-
+    public string RemoteHandle()
+    {
+        return _ipAddr!.ToString();
+    }
 
     public bool IsLostConnection()
     {
