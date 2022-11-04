@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BombAnAirplane",
+    "\\UserInterface"
   ],
-  "SelectedNode": "\\BombAnAirplane.sln",
+  "SelectedNode": "\\UserInterface",
   "PreviewInSolutionExplorer": false
 }
