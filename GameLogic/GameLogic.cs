@@ -123,7 +123,7 @@ public class GameLogic
         return flag[0] && flag[1] && flag[2];
     }
 
-    public BombResult GetBombResultOnMyAirfieldd(Coordinate coordinate) //被炸判断
+    public BombResult GetBombResultOnMyAirfield(Coordinate coordinate) //被炸判断
     {
         int x = coordinate.X;
         int y = coordinate.Y;
