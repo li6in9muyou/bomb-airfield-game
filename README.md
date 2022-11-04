@@ -70,6 +70,24 @@ public enum BombResult
 
 # 网络模块
 
+## 炸飞机协议
+
+炸飞机协议的语法以EBNF描述如下，协议语义按照上边非终端符号的英文名字的意思来理解就可以了。协议时序定义见下文顺序图的描述。
+
+```text
+game = handshake, player ready, [{message}], game over;
+message 
+  = coordinate 
+  | bomb result
+  ;
+bomb result = "miss" | "hit" | "destroy";
+handshake = digit, digit;
+game over  = "end";
+player ready = "ok";
+coordinate = digit, "," , digit;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+```
+
 做一个网络沟通交流类，提供一个读取数据的接口，供炸飞机协议类使用。
 
 ```c#
