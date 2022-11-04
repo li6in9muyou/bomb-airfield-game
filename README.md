@@ -1,6 +1,17 @@
 ﻿# 炸飞机
 
-# 炸飞机游戏数据类
+# 炸飞机游戏逻辑类
+
+本类负责实现游戏逻辑，并提供当前的游戏状态给需要查询的其他模块，游戏状态表示如下。
+
+- 飞机摆法列表：一个列表，里面各元素记录有机头坐标和飞机朝向。
+- 系统猜想的敌方飞机的摆法：一个列表，里面各元素记录有机头坐标和飞机朝向。
+- 本方机场挨炸：一个列表，装有挨炸位置的坐标。
+- 我方炸对方机场得到的结果：一个列表，里面各元素记录有坐标和炸的结果。
+
+修改上述的游戏状态是不会改变游戏逻辑类内部的游戏状态的。
+
+## 设计思路
 
 游戏中有两个机场，一个摆有自己飞机的机场，另一个用来记录炸对手机场的结果。
 对手机场上飞机的摆法本方客户端是不可见的。
@@ -55,14 +66,7 @@ public enum BombResult
 
 ## 游戏结束了吗（）：如果有一方被炸中机头的次数等于摆有的飞机数则这一方输，另一方赢，游戏结束。
 
-## 现在的状态（）：供读者读取游戏状态，具体表示见下文。
-
-## 游戏状态的表示
-
-- 飞机摆法列表：一个列表，里面各元素记录有机头坐标和飞机朝向。
-- 系统猜想的敌方飞机的摆法：一个列表，里面各元素记录有机头坐标和飞机朝向。
-- 本方机场挨炸：一个列表，装有挨炸位置的坐标。
-- 我方炸对方机场得到的结果：一个列表，里面各元素记录有坐标和炸的结果。
+## 导出当前游戏状态（）：供读者读取游戏状态，具体表示见上文。
 
 ## 实现细节设计
 
@@ -140,7 +144,7 @@ public interface ICommunicator
     - 对手正在选定要炸的位置
     - 对手已经离线
 
-## 绘制游戏数据状态（游戏数据类实例）
+## 绘制游戏数据状态（游戏逻辑类实例）
 
 ## 等待本回合用户要炸的对方机场的坐标（游戏逻辑类实例）：坐标
 
@@ -157,9 +161,9 @@ public interface ICommunicator
 
 # 人工智能模块
 
-## 本回合要炸的对方机场的坐标（游戏数据类实例）：坐标
+## 本回合要炸的对方机场的坐标（游戏逻辑类实例）：坐标
 
-## 推断对方飞机的摆法（游戏数据类实例）：飞机摆法列表
+## 推断对方飞机的摆法（游戏逻辑类实例）：飞机摆法列表
 
 返回值定义见上文。
 
@@ -271,7 +275,7 @@ sequenceDiagram
 participant main as 主函数
 participant ui as 界面类
 participant socket as 网络类
-participant game as 游戏数据类
+participant game as 游戏逻辑类
 participant remote as 远端炸飞机客户端
 
 main ->> ui: 绘制其他内容（需等待对方选定炸的位置）
@@ -298,7 +302,7 @@ activate socket
 deactivate main
 socket -->> remote: 炸的结果
 deactivate socket
-main ->> ui: 绘制游戏数据状态（游戏数据类实例）
+main ->> ui: 绘制游戏数据状态（游戏逻辑类实例）
 activate main
 activate ui
 deactivate ui
@@ -314,7 +318,7 @@ participant main as 主函数
 participant ai as 人工智能类
 participant ui as 界面类
 participant socket as 网络类
-participant game as 游戏数据类
+participant game as 游戏逻辑类
 participant remote as 远端炸飞机客户端
 
 
@@ -326,7 +330,7 @@ ui -->> main: 是或否
 deactivate ui
 
 alt 不开启AI代玩
-main ->> ui: 等待本回合用户要炸的对方机场的坐标（游戏数据类实例）
+main ->> ui: 等待本回合用户要炸的对方机场的坐标（游戏逻辑类实例）
 activate main
 deactivate main
 activate ui
@@ -356,7 +360,7 @@ deactivate main
 activate game
 deactivate game
 activate main
-main ->> ui: 绘制游戏数据状态（游戏数据类实例）
+main ->> ui: 绘制游戏数据状态（游戏逻辑类实例）
 activate ui
 deactivate ui
 deactivate main
@@ -368,7 +372,7 @@ deactivate main
 sequenceDiagram
 
 participant main as 主函数
-participant game as 游戏数据类
+participant game as 游戏逻辑类
 participant ui as 界面类
 participant online as 网络类
 participant remote as 远端炸飞机客户端
