@@ -35,9 +35,7 @@ internal static class Program
         // 我是不是先手
         Console.Out.WriteLine("isIBombFirst = {0}", isIBombFirst);
 
-        var placements = ui.WaitLocalUserPlaceAirplanes(game);
-        foreach (var placement in placements)
-            game.SetAirplane(placement.HeadCoord.X, placement.HeadCoord.Y, placement.Direction);
+        ui.WaitLocalUserPlaceAirplanes(game);
 
         online.WaitOpponentPlaceAirplane();
 
