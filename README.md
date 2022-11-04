@@ -70,6 +70,24 @@ public enum BombResult
 
 # 网络模块
 
+## 炸飞机协议
+
+炸飞机协议的语法以EBNF描述如下，协议语义按照上边非终端符号的英文名字的意思来理解就可以了。协议时序定义见下文顺序图的描述。
+
+```text
+game = handshake, player ready, [{message}], game over;
+message 
+  = coordinate 
+  | bomb result
+  ;
+bomb result = "miss" | "hit" | "destroy";
+handshake = digit, digit;
+game over  = "end";
+player ready = "ok";
+coordinate = digit, "," , digit;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+```
+
 做一个网络沟通交流类，提供一个读取数据的接口，供炸飞机协议类使用。
 
 ```c#
@@ -124,9 +142,10 @@ public interface ICommunicator
 
 ## 绘制游戏数据状态（游戏数据类实例）
 
-## 等待本回合用户要炸的对方机场的坐标（）：坐标
+## 等待本回合用户要炸的对方机场的坐标（游戏逻辑类实例）：坐标
 
 阻塞，最多等待 30 秒，从进入这个方法开始计时，如果用户没有输入就返回 `(-1,-1)`。
+本方法接受一个游戏逻辑类实例的目的是为了避免用户重复炸已经炸过的地方。
 
 ## 等待用户摆好自己的飞机（游戏逻辑类实例）：飞机摆法列表
 
@@ -209,6 +228,7 @@ sequenceDiagram
 participant main as 主函数
 participant ui as 界面类
 participant socket as 网络类
+participant game as 游戏逻辑类
 participant remote as 远端炸飞机客户端
 
 main ->> ui: 等待用户摆好自己的飞机（游戏逻辑类实例）
@@ -217,6 +237,14 @@ deactivate main
 activate ui
 ui -->> main: 飞机摆法列表
 deactivate ui
+loop 三架飞机，循环三次
+activate main
+main ->> game: 摆飞机（飞机摆法）
+deactivate main
+activate game
+game -->> main: void
+deactivate game
+end
 activate main
 main ->> socket: 等待对手摆好飞机()
 deactivate main
