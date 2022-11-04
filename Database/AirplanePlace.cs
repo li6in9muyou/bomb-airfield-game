@@ -75,7 +75,7 @@ public class AirplanePlace
         return true;
     }
 
-    public void MergeAirplane()
+    private void MergeAirplane()
     {
         if (_airplane1 != null)
         {
@@ -109,12 +109,12 @@ public class AirplanePlace
         value[0] = _x[i];
         value[1] = _y[i];
 
-        var flag = _head.ContainsKey(key); //这个key，value是否已经被存到Dictionary中，没有存返回flase
+        var flag = _head.ContainsKey(key); //这个key，value是否已经被存到Dictionary中，没有存返回false
         if (!flag) _head.Add(key, value); //没有被存那就现在存
     }
 
     //至少调用3*9=27次，这里将存入mergeBody的操作提取出来，节省代码空间
-    private void Addbody(int x, int y)
+    private void AddBody(int x, int y)
     {
         var key = x * 10 + y;
         int[] value = { x, y };
@@ -135,56 +135,56 @@ public class AirplanePlace
         {
             //上，下，左，右
             case "u":
-                Addbody(x, y + 1);
-                Addbody(x - 1, y + 1);
-                Addbody(x - 2, y + 1);
-                Addbody(x + 1, y + 1);
-                Addbody(x + 2, y + 1);
+                AddBody(x, y + 1);
+                AddBody(x - 1, y + 1);
+                AddBody(x - 2, y + 1);
+                AddBody(x + 1, y + 1);
+                AddBody(x + 2, y + 1);
 
-                Addbody(x, y + 2);
+                AddBody(x, y + 2);
 
-                Addbody(x, y + 3);
-                Addbody(x - 1, y + 3);
-                Addbody(x + 1, y + 3);
+                AddBody(x, y + 3);
+                AddBody(x - 1, y + 3);
+                AddBody(x + 1, y + 3);
                 break;
             case "d":
-                Addbody(x, y - 1);
-                Addbody(x - 1, y - 1);
-                Addbody(x - 2, y - 1);
-                Addbody(x + 1, y - 1);
-                Addbody(x + 2, y - 1);
+                AddBody(x, y - 1);
+                AddBody(x - 1, y - 1);
+                AddBody(x - 2, y - 1);
+                AddBody(x + 1, y - 1);
+                AddBody(x + 2, y - 1);
 
-                Addbody(x, y - 2);
+                AddBody(x, y - 2);
 
-                Addbody(x, y - 3);
-                Addbody(x - 1, y - 3);
-                Addbody(x + 1, y - 3);
+                AddBody(x, y - 3);
+                AddBody(x - 1, y - 3);
+                AddBody(x + 1, y - 3);
                 break;
             case "l":
-                Addbody(x + 1, y);
-                Addbody(x + 1, y - 1);
-                Addbody(x + 1, y - 2);
-                Addbody(x + 1, y + 1);
-                Addbody(x + 1, y + 2);
+                AddBody(x + 1, y);
+                AddBody(x + 1, y - 1);
+                AddBody(x + 1, y - 2);
+                AddBody(x + 1, y + 1);
+                AddBody(x + 1, y + 2);
 
-                Addbody(x + 2, y);
+                AddBody(x + 2, y);
 
-                Addbody(x + 3, y);
-                Addbody(x + 3, y - 1);
-                Addbody(x + 3, y + 1);
+                AddBody(x + 3, y);
+                AddBody(x + 3, y - 1);
+                AddBody(x + 3, y + 1);
                 break;
             case "r":
-                Addbody(x - 1, y);
-                Addbody(x - 1, y - 1);
-                Addbody(x - 1, y - 2);
-                Addbody(x - 1, y + 1);
-                Addbody(x - 1, y + 2);
+                AddBody(x - 1, y);
+                AddBody(x - 1, y - 1);
+                AddBody(x - 1, y - 2);
+                AddBody(x - 1, y + 1);
+                AddBody(x - 1, y + 2);
 
-                Addbody(x - 2, y);
+                AddBody(x - 2, y);
 
-                Addbody(x - 3, y);
-                Addbody(x - 3, y - 1);
-                Addbody(x - 3, y + 1);
+                AddBody(x - 3, y);
+                AddBody(x - 3, y - 1);
+                AddBody(x - 3, y + 1);
                 break;
         }
     }
