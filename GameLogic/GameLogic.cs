@@ -19,22 +19,22 @@ public class GameLogic
             //x→增，y↓增
             //上，下，左，右
             case "u":
-                if ((y + 3) > 9 || (x + 2) > 9 || (x - 2) < 0) flag = false;
+                if (y + 3 > 9 || x + 2 > 9 || x - 2 < 0) flag = false;
                 break;
             case "d":
-                if ((y - 3) < 0 || (x + 2) > 9 || (x - 2) < 0) flag = false;
+                if (y - 3 < 0 || x + 2 > 9 || x - 2 < 0) flag = false;
                 break;
             case "l":
-                if ((x + 3) > 9 || (y + 1) > 9 || (y - 1) < 0) flag = false;
+                if (x + 3 > 9 || y + 1 > 9 || y - 1 < 0) flag = false;
                 break;
             case "r":
-                if ((x - 3) < 0 || (y - 1) < 0 || (y + 1) > 9) flag = false;
+                if (x - 3 < 0 || y - 1 < 0 || y + 1 > 9) flag = false;
                 break;
         }
 
         if (!flag) return false; //如果flag满足上述任何一个越界条件，flag=false，则返回
         //如不满足，则检测飞机重叠情况，由于采用了dictionary数据结构，只需要拿飞机坐标调用其中的方法judgeCoor()检测有没有在head||body中，ture表示重叠
-        bool f = airplanePlace.judgeCoor(x, y);
+        var f = airplanePlace.judgeCoor(x, y);
         switch (direction)
         {
             //上，下，左，右
@@ -101,36 +101,33 @@ public class GameLogic
 
     public void LogBombResultOnOpponentAirfield(Coordinate coordinate, BombResult result) //炸敌方结果存储在OpponentAirfield表中
     {
-        int x = coordinate.X;
-        int y = coordinate.Y;
-        OpponentAirfield opponentAirfield = OpponentAirfield.getOpponentAirfield();
+        var x = coordinate.X;
+        var y = coordinate.Y;
+        var opponentAirfield = OpponentAirfield.getOpponentAirfield();
         opponentAirfield.AddCoordinate(x, y, result);
     }
 
     public bool ShouldTerminate() //判断游戏是否结束
     {
         //即判断三个飞机头坐标是否在BeBombed表中
-        AirplanePlace airplanePlace = AirplanePlace.getAirplanePlace();
-        BeBombed beBombed = BeBombed.getBeBombed();
-        int[] x = airplanePlace.getX();
-        int[] y = airplanePlace.getY();
-        bool[] flag = new bool[x.Length];
-        for (int i = 0; i < x.Length; i++)
-        {
-            flag[i] = beBombed.judge(x[i], y[i]);
-        }
+        var airplanePlace = AirplanePlace.getAirplanePlace();
+        var beBombed = BeBombed.getBeBombed();
+        var x = airplanePlace.getX();
+        var y = airplanePlace.getY();
+        var flag = new bool[x.Length];
+        for (var i = 0; i < x.Length; i++) flag[i] = beBombed.judge(x[i], y[i]);
 
         return flag[0] && flag[1] && flag[2];
     }
 
     public BombResult GetBombResultOnMyAirfield(Coordinate coordinate) //被炸判断
     {
-        int x = coordinate.X;
-        int y = coordinate.Y;
+        var x = coordinate.X;
+        var y = coordinate.Y;
         //对当前坐标轰炸，获取本方机场AirplanePlace类,以便确定,获取被炸表，以便添加
-        AirplanePlace airplanePlace = AirplanePlace.getAirplanePlace();
-        BeBombed beBombed = BeBombed.getBeBombed();
-        bool flag = airplanePlace.judgeHead(x, y);
+        var airplanePlace = AirplanePlace.getAirplanePlace();
+        var beBombed = BeBombed.getBeBombed();
+        var flag = airplanePlace.judgeHead(x, y);
 
         if (flag)
         {
@@ -138,7 +135,7 @@ public class GameLogic
             return BombResult.Destroyed;
         }
 
-        bool flag2 = airplanePlace.judgebody(x, y);
+        var flag2 = airplanePlace.judgebody(x, y);
         if (flag2)
         {
             beBombed.AddBeBombed(x, y, BombResult.Hit);
