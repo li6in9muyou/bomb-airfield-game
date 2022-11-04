@@ -9,6 +9,7 @@ public interface ICommunicator
     string Expect(Regex expected);
     void Write(string message);
     void Start();
+    void Start(string remoteHandle);
     void Stop();
     string RemoteHandle();
 }
@@ -23,38 +24,67 @@ public class ExpectMismatch : Exception
 
 public class MockCommunicator : ICommunicator
 {
+    private readonly string[] _received;
+    private readonly List<string> _send = new();
+    private int _current;
+    private string? _remoteHandle;
+
+    public MockCommunicator(string[] received)
+    {
+        _received = received;
+    }
+
+    public MockCommunicator() : this(OnlineTest.TypicalMessagesFromRoomCreator)
+    {
+    }
+
     public bool IsLostConnection()
     {
-        throw new NotImplementedException();
+        return false;
     }
 
     public string Read()
     {
-        throw new NotImplementedException();
+        if (_current < _received.Length) return _received[_current++];
+
+        throw new Exception();
     }
 
     public string Expect(Regex expected)
     {
-        throw new NotImplementedException();
+        var t = Read();
+        if (!expected.IsMatch(t)) throw new ExpectMismatch(expected, t);
+        return t;
     }
 
     public void Write(string message)
     {
-        throw new NotImplementedException();
+        _send.Add(message);
     }
 
     public void Start()
     {
-        throw new NotImplementedException();
+        Console.Out.WriteLine("MockCommunicator.Start()");
+    }
+
+    public void Start(string remoteHandle)
+    {
+        _remoteHandle = remoteHandle;
+        Console.Out.WriteLine($"MockCommunicator.Start({remoteHandle})");
     }
 
     public void Stop()
     {
-        throw new NotImplementedException();
+        Console.Out.WriteLine("MockCommunicator.Stop()");
     }
 
     public string RemoteHandle()
     {
-        throw new NotImplementedException();
+        return _remoteHandle!;
+    }
+
+    public string[] GetMessagesSentToRemote()
+    {
+        return _send.ToArray();
     }
 }
