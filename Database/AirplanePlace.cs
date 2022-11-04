@@ -27,11 +27,11 @@ public class AirplanePlace
         }
         if (Airplane2 != null)
         {
-            X[1] = Airplane2.X; Y[0] = Airplane2.Y; direction[1] = Airplane2.Direction;
+            X[1] = Airplane2.X; Y[1] = Airplane2.Y; direction[1] = Airplane2.Direction;
         }
         if (Airplane3 != null)
         {
-            X[2] = Airplane3.X; Y[0] = Airplane3.Y; direction[2] = Airplane3.Direction;
+            X[2] = Airplane3.X; Y[2] = Airplane3.Y; direction[2] = Airplane3.Direction;
 
         }
     }

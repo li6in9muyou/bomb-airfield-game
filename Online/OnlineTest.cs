@@ -7,6 +7,16 @@ namespace Online;
 
 internal class OnlineTest
 {
+    public static readonly string[] TypicalMessagesFromRoomCreator =
+    {
+        "42",
+        "ok",
+        "3,3",
+        "0,3",
+        "5,5",
+        "9,9"
+    };
+
     public static void TestCreateRoom()
     {
         var online = new Online();
