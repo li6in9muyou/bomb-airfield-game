@@ -9,7 +9,7 @@ public class GameLogic
     {
         //传入飞机头，方向，经过算法(排除机头坐标重复，飞机重叠，坐标超载等情况)，返回bool值，true成功--》传入数据类中，false失败--》需要再次输入(逻辑在界面类实现)
         var flag = true;
-        var airplanePlace = AirplanePlace.getAirplanePlace(); //获取存有
+        var airplanePlace = AirplanePlace.GetAirplanePlace(); //获取存有
         //飞机坐标的类，机场类
         if (x < 0 || x > 9 || y < 0 || y > 9) return false; //任何坐标越界直接返回
 
@@ -34,61 +34,61 @@ public class GameLogic
 
         if (!flag) return false; //如果flag满足上述任何一个越界条件，flag=false，则返回
         //如不满足，则检测飞机重叠情况，由于采用了dictionary数据结构，只需要拿飞机坐标调用其中的方法judgeCoor()检测有没有在head||body中，ture表示重叠
-        var f = airplanePlace.judgeCoor(x, y);
+        var f = airplanePlace.JudgeCoor(x, y);
         switch (direction)
         {
             //上，下，左，右
             case "u":
-                f = f || airplanePlace.judgeCoor(x, y + 1);
-                f = f || airplanePlace.judgeCoor(x - 1, y + 1);
-                f = f || airplanePlace.judgeCoor(x - 2, y + 1);
-                f = f || airplanePlace.judgeCoor(x + 1, y + 1);
-                f = f || airplanePlace.judgeCoor(x + 2, y + 1);
+                f = f || airplanePlace.JudgeCoor(x, y + 1);
+                f = f || airplanePlace.JudgeCoor(x - 1, y + 1);
+                f = f || airplanePlace.JudgeCoor(x - 2, y + 1);
+                f = f || airplanePlace.JudgeCoor(x + 1, y + 1);
+                f = f || airplanePlace.JudgeCoor(x + 2, y + 1);
 
-                f = f || airplanePlace.judgeCoor(x, y + 2);
+                f = f || airplanePlace.JudgeCoor(x, y + 2);
 
-                f = f || airplanePlace.judgeCoor(x, y + 3);
-                f = f || airplanePlace.judgeCoor(x - 1, y + 3);
-                f = f || airplanePlace.judgeCoor(x + 1, y + 3);
+                f = f || airplanePlace.JudgeCoor(x, y + 3);
+                f = f || airplanePlace.JudgeCoor(x - 1, y + 3);
+                f = f || airplanePlace.JudgeCoor(x + 1, y + 3);
                 break;
             case "d":
-                f = f || airplanePlace.judgeCoor(x, y - 1);
-                f = f || airplanePlace.judgeCoor(x - 1, y - 1);
-                f = f || airplanePlace.judgeCoor(x - 2, y - 1);
-                f = f || airplanePlace.judgeCoor(x + 1, y - 1);
-                f = f || airplanePlace.judgeCoor(x + 2, y - 1);
+                f = f || airplanePlace.JudgeCoor(x, y - 1);
+                f = f || airplanePlace.JudgeCoor(x - 1, y - 1);
+                f = f || airplanePlace.JudgeCoor(x - 2, y - 1);
+                f = f || airplanePlace.JudgeCoor(x + 1, y - 1);
+                f = f || airplanePlace.JudgeCoor(x + 2, y - 1);
 
-                f = f || airplanePlace.judgeCoor(x, y - 2);
+                f = f || airplanePlace.JudgeCoor(x, y - 2);
 
-                f = f || airplanePlace.judgeCoor(x, y - 3);
-                f = f || airplanePlace.judgeCoor(x - 1, y - 3);
-                f = f || airplanePlace.judgeCoor(x + 1, y - 3);
+                f = f || airplanePlace.JudgeCoor(x, y - 3);
+                f = f || airplanePlace.JudgeCoor(x - 1, y - 3);
+                f = f || airplanePlace.JudgeCoor(x + 1, y - 3);
                 break;
             case "l":
-                f = f || airplanePlace.judgeCoor(x + 1, y);
-                f = f || airplanePlace.judgeCoor(x + 1, y - 1);
-                f = f || airplanePlace.judgeCoor(x + 1, y - 2);
-                f = f || airplanePlace.judgeCoor(x + 1, y + 1);
-                f = f || airplanePlace.judgeCoor(x + 1, y + 2);
+                f = f || airplanePlace.JudgeCoor(x + 1, y);
+                f = f || airplanePlace.JudgeCoor(x + 1, y - 1);
+                f = f || airplanePlace.JudgeCoor(x + 1, y - 2);
+                f = f || airplanePlace.JudgeCoor(x + 1, y + 1);
+                f = f || airplanePlace.JudgeCoor(x + 1, y + 2);
 
-                f = f || airplanePlace.judgeCoor(x + 2, y);
+                f = f || airplanePlace.JudgeCoor(x + 2, y);
 
-                f = f || airplanePlace.judgeCoor(x + 3, y);
-                f = f || airplanePlace.judgeCoor(x + 3, y - 1);
-                f = f || airplanePlace.judgeCoor(x + 3, y + 1);
+                f = f || airplanePlace.JudgeCoor(x + 3, y);
+                f = f || airplanePlace.JudgeCoor(x + 3, y - 1);
+                f = f || airplanePlace.JudgeCoor(x + 3, y + 1);
                 break;
             case "r":
-                f = f || airplanePlace.judgeCoor(x - 1, y);
-                f = f || airplanePlace.judgeCoor(x - 1, y - 1);
-                f = f || airplanePlace.judgeCoor(x - 1, y - 2);
-                f = f || airplanePlace.judgeCoor(x - 1, y + 1);
-                f = f || airplanePlace.judgeCoor(x - 1, y + 2);
+                f = f || airplanePlace.JudgeCoor(x - 1, y);
+                f = f || airplanePlace.JudgeCoor(x - 1, y - 1);
+                f = f || airplanePlace.JudgeCoor(x - 1, y - 2);
+                f = f || airplanePlace.JudgeCoor(x - 1, y + 1);
+                f = f || airplanePlace.JudgeCoor(x - 1, y + 2);
 
-                f = f || airplanePlace.judgeCoor(x - 2, y);
+                f = f || airplanePlace.JudgeCoor(x - 2, y);
 
-                f = f || airplanePlace.judgeCoor(x - 3, y);
-                f = f || airplanePlace.judgeCoor(x - 3, y - 1);
-                f = f || airplanePlace.judgeCoor(x - 3, y + 1);
+                f = f || airplanePlace.JudgeCoor(x - 3, y);
+                f = f || airplanePlace.JudgeCoor(x - 3, y - 1);
+                f = f || airplanePlace.JudgeCoor(x - 3, y + 1);
                 break;
         }
 
@@ -110,10 +110,10 @@ public class GameLogic
     public bool ShouldTerminate() //判断游戏是否结束
     {
         //即判断三个飞机头坐标是否在BeBombed表中
-        var airplanePlace = AirplanePlace.getAirplanePlace();
+        var airplanePlace = AirplanePlace.GetAirplanePlace();
         var beBombed = BeBombed.getBeBombed();
-        var x = airplanePlace.getX();
-        var y = airplanePlace.getY();
+        var x = airplanePlace.GetX();
+        var y = airplanePlace.GetY();
         var flag = new bool[x.Length];
         for (var i = 0; i < x.Length; i++) flag[i] = beBombed.judge(x[i], y[i]);
 
@@ -125,9 +125,9 @@ public class GameLogic
         var x = coordinate.X;
         var y = coordinate.Y;
         //对当前坐标轰炸，获取本方机场AirplanePlace类,以便确定,获取被炸表，以便添加
-        var airplanePlace = AirplanePlace.getAirplanePlace();
+        var airplanePlace = AirplanePlace.GetAirplanePlace();
         var beBombed = BeBombed.getBeBombed();
-        var flag = airplanePlace.judgeHead(x, y);
+        var flag = airplanePlace.JudgeHead(x, y);
 
         if (flag)
         {
@@ -135,7 +135,7 @@ public class GameLogic
             return BombResult.Destroyed;
         }
 
-        var flag2 = airplanePlace.judgebody(x, y);
+        var flag2 = airplanePlace.Judgebody(x, y);
         if (flag2)
         {
             beBombed.AddBeBombed(x, y, BombResult.Hit);

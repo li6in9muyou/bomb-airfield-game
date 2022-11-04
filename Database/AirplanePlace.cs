@@ -2,19 +2,19 @@
 
 public class AirplanePlace
 {
-    private static AirplanePlace airplanePlace; //静态私有成员变量
-    private Airplane Airplane1;
-    private Airplane Airplane2;
-    private Airplane Airplane3;
-    private readonly Dictionary<int, int[]> body = new();
-    private readonly string[] direction = new string[3];
+    private static AirplanePlace _airplanePlace; //静态私有成员变量
+    private readonly Dictionary<int, int[]> _body = new();
+    private readonly string[] _direction = new string[3];
 
     //存头坐标集合，身体坐标集合，仅用来(本方挨炸环节、绘制图像环节)，快速判断并返回炸的结果 
     //通过新加入飞机(AddAirplane)时调用 私有 方法mergeHead(i)，mergeBody(i)来填充
-    private readonly Dictionary<int, int[]> head = new();
+    private readonly Dictionary<int, int[]> _head = new();
 
-    private readonly int[] X = new int[3];
-    private readonly int[] Y = new int[3];
+    private readonly int[] _x = new int[3];
+    private readonly int[] _y = new int[3];
+    private Airplane _airplane1;
+    private Airplane _airplane2;
+    private Airplane _airplane3;
 
     //私有构造函数
     private AirplanePlace()
@@ -22,50 +22,50 @@ public class AirplanePlace
     }
 
     //检测一个坐标是否在head/body中
-    public bool judgeCoor(int x, int y)
+    public bool JudgeCoor(int x, int y)
     {
         var key = x * 10 + y;
-        var flag = head.ContainsKey(key);
-        var flag2 = body.ContainsKey(key);
+        var flag = _head.ContainsKey(key);
+        var flag2 = _body.ContainsKey(key);
         return flag || flag2; //只要有其中一个在，就返回ture，意思是已经重叠
     }
 
-    public bool judgeHead(int x, int y)
+    public bool JudgeHead(int x, int y)
     {
         var key = x * 10 + y;
-        return head.ContainsKey(key);
+        return _head.ContainsKey(key);
     }
 
-    public bool judgebody(int x, int y)
+    public bool Judgebody(int x, int y)
     {
         var key = x * 10 + y;
-        return body.ContainsKey(key);
+        return _body.ContainsKey(key);
     }
 
 
     public bool AddAirplane(int x, int y, string d)
     {
         //存1，2，3，这里逻辑有问题，但是人和程序其中一个能跑就行
-        if (Airplane1 == null)
+        if (_airplane1 == null)
         {
-            Airplane1 = new Airplane(x, y, d);
-            mergeAirplane();
-            mergeHead(0);
-            mergeBody(0);
+            _airplane1 = new Airplane(x, y, d);
+            MergeAirplane();
+            MergeHead(0);
+            MergeBody(0);
         }
-        else if (Airplane2 == null)
+        else if (_airplane2 == null)
         {
-            Airplane2 = new Airplane(x, y, d);
-            mergeAirplane();
-            mergeHead(1);
-            mergeBody(1);
+            _airplane2 = new Airplane(x, y, d);
+            MergeAirplane();
+            MergeHead(1);
+            MergeBody(1);
         }
-        else if (Airplane3 == null)
+        else if (_airplane3 == null)
         {
-            Airplane3 = new Airplane(x, y, d);
-            mergeAirplane();
-            mergeHead(2);
-            mergeBody(2);
+            _airplane3 = new Airplane(x, y, d);
+            MergeAirplane();
+            MergeHead(2);
+            MergeBody(2);
         }
         else
         {
@@ -75,116 +75,116 @@ public class AirplanePlace
         return true;
     }
 
-    public void mergeAirplane()
+    public void MergeAirplane()
     {
-        if (Airplane1 != null)
+        if (_airplane1 != null)
         {
-            X[0] = Airplane1.X;
-            Y[0] = Airplane1.Y;
-            direction[0] = Airplane1.Direction;
+            _x[0] = _airplane1.X;
+            _y[0] = _airplane1.Y;
+            _direction[0] = _airplane1.Direction;
         }
 
-        if (Airplane2 != null)
+        if (_airplane2 != null)
         {
-            X[1] = Airplane2.X;
-            Y[1] = Airplane2.Y;
-            direction[1] = Airplane2.Direction;
+            _x[1] = _airplane2.X;
+            _y[1] = _airplane2.Y;
+            _direction[1] = _airplane2.Direction;
         }
 
-        if (Airplane3 != null)
+        if (_airplane3 != null)
         {
-            X[2] = Airplane3.X;
-            Y[2] = Airplane3.Y;
-            direction[2] = Airplane3.Direction;
+            _x[2] = _airplane3.X;
+            _y[2] = _airplane3.Y;
+            _direction[2] = _airplane3.Direction;
         }
     }
 
-    private void mergeHead(int i)
+    private void MergeHead(int i)
     {
-        mergeAirplane(); //再调用一遍
+        MergeAirplane(); //再调用一遍
         //存三个飞机头坐标到Dictionary_head中
 
-        var key = X[i] * 10 + Y[i];
+        var key = _x[i] * 10 + _y[i];
         var value = new int[2];
-        value[0] = X[i];
-        value[1] = Y[i];
+        value[0] = _x[i];
+        value[1] = _y[i];
 
-        var flag = head.ContainsKey(key); //这个key，value是否已经被存到Dictionary中，没有存返回flase
-        if (!flag) head.Add(key, value); //没有被存那就现在存
+        var flag = _head.ContainsKey(key); //这个key，value是否已经被存到Dictionary中，没有存返回flase
+        if (!flag) _head.Add(key, value); //没有被存那就现在存
     }
 
     //至少调用3*9=27次，这里将存入mergeBody的操作提取出来，节省代码空间
-    private void addbody(int x, int y)
+    private void Addbody(int x, int y)
     {
         var key = x * 10 + y;
         int[] value = { x, y };
-        var flag = body.ContainsKey(key);
-        if (!flag) body.Add(key, value);
+        var flag = _body.ContainsKey(key);
+        if (!flag) _body.Add(key, value);
     }
 
-    private void mergeBody(int i)
+    private void MergeBody(int i)
     {
         //根据机头，方向，算出飞机身体坐标并存在Dictionary_body中
 
-        mergeAirplane(); //再调用一遍
+        MergeAirplane(); //再调用一遍
         //机头x坐标，y坐标，方向
-        var x = X[i];
-        var y = Y[i];
-        var d = direction[i];
+        var x = _x[i];
+        var y = _y[i];
+        var d = _direction[i];
         switch (d)
         {
             //上，下，左，右
             case "u":
-                addbody(x, y + 1);
-                addbody(x - 1, y + 1);
-                addbody(x - 2, y + 1);
-                addbody(x + 1, y + 1);
-                addbody(x + 2, y + 1);
+                Addbody(x, y + 1);
+                Addbody(x - 1, y + 1);
+                Addbody(x - 2, y + 1);
+                Addbody(x + 1, y + 1);
+                Addbody(x + 2, y + 1);
 
-                addbody(x, y + 2);
+                Addbody(x, y + 2);
 
-                addbody(x, y + 3);
-                addbody(x - 1, y + 3);
-                addbody(x + 1, y + 3);
+                Addbody(x, y + 3);
+                Addbody(x - 1, y + 3);
+                Addbody(x + 1, y + 3);
                 break;
             case "d":
-                addbody(x, y - 1);
-                addbody(x - 1, y - 1);
-                addbody(x - 2, y - 1);
-                addbody(x + 1, y - 1);
-                addbody(x + 2, y - 1);
+                Addbody(x, y - 1);
+                Addbody(x - 1, y - 1);
+                Addbody(x - 2, y - 1);
+                Addbody(x + 1, y - 1);
+                Addbody(x + 2, y - 1);
 
-                addbody(x, y - 2);
+                Addbody(x, y - 2);
 
-                addbody(x, y - 3);
-                addbody(x - 1, y - 3);
-                addbody(x + 1, y - 3);
+                Addbody(x, y - 3);
+                Addbody(x - 1, y - 3);
+                Addbody(x + 1, y - 3);
                 break;
             case "l":
-                addbody(x + 1, y);
-                addbody(x + 1, y - 1);
-                addbody(x + 1, y - 2);
-                addbody(x + 1, y + 1);
-                addbody(x + 1, y + 2);
+                Addbody(x + 1, y);
+                Addbody(x + 1, y - 1);
+                Addbody(x + 1, y - 2);
+                Addbody(x + 1, y + 1);
+                Addbody(x + 1, y + 2);
 
-                addbody(x + 2, y);
+                Addbody(x + 2, y);
 
-                addbody(x + 3, y);
-                addbody(x + 3, y - 1);
-                addbody(x + 3, y + 1);
+                Addbody(x + 3, y);
+                Addbody(x + 3, y - 1);
+                Addbody(x + 3, y + 1);
                 break;
             case "r":
-                addbody(x - 1, y);
-                addbody(x - 1, y - 1);
-                addbody(x - 1, y - 2);
-                addbody(x - 1, y + 1);
-                addbody(x - 1, y + 2);
+                Addbody(x - 1, y);
+                Addbody(x - 1, y - 1);
+                Addbody(x - 1, y - 2);
+                Addbody(x - 1, y + 1);
+                Addbody(x - 1, y + 2);
 
-                addbody(x - 2, y);
+                Addbody(x - 2, y);
 
-                addbody(x - 3, y);
-                addbody(x - 3, y - 1);
-                addbody(x - 3, y + 1);
+                Addbody(x - 3, y);
+                Addbody(x - 3, y - 1);
+                Addbody(x - 3, y + 1);
                 break;
         }
     }
@@ -192,39 +192,39 @@ public class AirplanePlace
     //这个写了不一定要用，或者说最好不要用到
     public Airplane GetAirplane1()
     {
-        return Airplane1;
+        return _airplane1;
     }
 
     public Airplane GetAirplane2()
     {
-        return Airplane2;
+        return _airplane2;
     }
 
     public Airplane GetAirplane3()
     {
-        return Airplane3;
+        return _airplane3;
     }
 
-    public int[] getX()
+    public int[] GetX()
     {
-        return X;
+        return _x;
     }
 
-    public int[] getY()
+    public int[] GetY()
     {
-        return Y;
+        return _y;
     }
 
-    public string[] getDirection()
+    public string[] GetDirection()
     {
-        return direction;
+        return _direction;
     }
 
     //静态公有工厂方法，返回唯一实例
-    public static AirplanePlace getAirplanePlace()
+    public static AirplanePlace GetAirplanePlace()
     {
-        if (airplanePlace == null)
-            airplanePlace = new AirplanePlace();
-        return airplanePlace;
+        if (_airplanePlace == null)
+            _airplanePlace = new AirplanePlace();
+        return _airplanePlace;
     }
 }
