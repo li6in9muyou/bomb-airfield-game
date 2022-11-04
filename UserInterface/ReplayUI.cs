@@ -33,26 +33,28 @@ public class ReplayUi : IUserInterface
         return coordinate;
     }
 
-    public AirplanePlacement[] WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
+    public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
-        return new[]
+        AirplanePlacement[] ap =
         {
-            new AirplanePlacement
+            new()
             {
                 Direction = "d",
                 HeadCoord = new Coordinate(9, 9)
             },
-            new AirplanePlacement
+            new()
             {
                 Direction = "l",
                 HeadCoord = new Coordinate(0, 0)
             },
-            new AirplanePlacement
+            new()
             {
                 Direction = "u",
                 HeadCoord = new Coordinate(3, 3)
             }
         };
+        foreach (var p in ap)
+            game.SetAirplane(p.HeadCoord.X, p.HeadCoord.Y, p.Direction);
     }
 
     public string WaitUserEnterAnIpAddress(string recommended)
