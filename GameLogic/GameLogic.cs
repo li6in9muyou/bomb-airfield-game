@@ -111,11 +111,11 @@ public class GameLogic
     {
         //即判断三个飞机头坐标是否在BeBombed表中
         var airplanePlace = AirplanePlace.GetAirplanePlace();
-        var beBombed = BeBombed.getBeBombed();
+        var beBombed = BeBombed.GetBeBombed();
         var x = airplanePlace.GetX();
         var y = airplanePlace.GetY();
         var flag = new bool[x.Length];
-        for (var i = 0; i < x.Length; i++) flag[i] = beBombed.judge(x[i], y[i]);
+        for (var i = 0; i < x.Length; i++) flag[i] = beBombed.Judge(x[i], y[i]);
 
         return flag[0] && flag[1] && flag[2];
     }
@@ -126,7 +126,7 @@ public class GameLogic
         var y = coordinate.Y;
         //对当前坐标轰炸，获取本方机场AirplanePlace类,以便确定,获取被炸表，以便添加
         var airplanePlace = AirplanePlace.GetAirplanePlace();
-        var beBombed = BeBombed.getBeBombed();
+        var beBombed = BeBombed.GetBeBombed();
         var flag = airplanePlace.JudgeHead(x, y);
 
         if (flag)
