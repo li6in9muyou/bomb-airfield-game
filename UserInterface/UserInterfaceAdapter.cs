@@ -1,4 +1,4 @@
-﻿using Common;
+﻿/*using Common;
 using GameLogic;
 
 namespace UserInterface;
@@ -27,4 +27,4 @@ public class UserInterfaceAdapter: IUserInterface
     {
         return "";
     }
-}
+}*/
