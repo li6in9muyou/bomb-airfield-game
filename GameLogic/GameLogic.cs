@@ -33,62 +33,62 @@ public class GameLogic
         }
 
         if (!flag) return false; //如果flag满足上述任何一个越界条件，flag=false，则返回
-        //如不满足，则检测飞机重叠情况，由于采用了dictionary数据结构，只需要拿飞机坐标调用其中的方法judgeCoor()检测有没有在head||body中，ture表示重叠
-        var f = airplanePlace.JudgeCoor(x, y);
+        //如不满足，则检测飞机重叠情况，由于采用了dictionary数据结构，只需要拿飞机坐标调用其中的方法JudgeCoord()检测有没有在head||body中，ture表示重叠
+        var f = airplanePlace.JudgeCoord(x, y);
         switch (direction)
         {
             //上，下，左，右
             case "u":
-                f = f || airplanePlace.JudgeCoor(x, y + 1);
-                f = f || airplanePlace.JudgeCoor(x - 1, y + 1);
-                f = f || airplanePlace.JudgeCoor(x - 2, y + 1);
-                f = f || airplanePlace.JudgeCoor(x + 1, y + 1);
-                f = f || airplanePlace.JudgeCoor(x + 2, y + 1);
+                f = f || airplanePlace.JudgeCoord(x, y + 1);
+                f = f || airplanePlace.JudgeCoord(x - 1, y + 1);
+                f = f || airplanePlace.JudgeCoord(x - 2, y + 1);
+                f = f || airplanePlace.JudgeCoord(x + 1, y + 1);
+                f = f || airplanePlace.JudgeCoord(x + 2, y + 1);
 
-                f = f || airplanePlace.JudgeCoor(x, y + 2);
+                f = f || airplanePlace.JudgeCoord(x, y + 2);
 
-                f = f || airplanePlace.JudgeCoor(x, y + 3);
-                f = f || airplanePlace.JudgeCoor(x - 1, y + 3);
-                f = f || airplanePlace.JudgeCoor(x + 1, y + 3);
+                f = f || airplanePlace.JudgeCoord(x, y + 3);
+                f = f || airplanePlace.JudgeCoord(x - 1, y + 3);
+                f = f || airplanePlace.JudgeCoord(x + 1, y + 3);
                 break;
             case "d":
-                f = f || airplanePlace.JudgeCoor(x, y - 1);
-                f = f || airplanePlace.JudgeCoor(x - 1, y - 1);
-                f = f || airplanePlace.JudgeCoor(x - 2, y - 1);
-                f = f || airplanePlace.JudgeCoor(x + 1, y - 1);
-                f = f || airplanePlace.JudgeCoor(x + 2, y - 1);
+                f = f || airplanePlace.JudgeCoord(x, y - 1);
+                f = f || airplanePlace.JudgeCoord(x - 1, y - 1);
+                f = f || airplanePlace.JudgeCoord(x - 2, y - 1);
+                f = f || airplanePlace.JudgeCoord(x + 1, y - 1);
+                f = f || airplanePlace.JudgeCoord(x + 2, y - 1);
 
-                f = f || airplanePlace.JudgeCoor(x, y - 2);
+                f = f || airplanePlace.JudgeCoord(x, y - 2);
 
-                f = f || airplanePlace.JudgeCoor(x, y - 3);
-                f = f || airplanePlace.JudgeCoor(x - 1, y - 3);
-                f = f || airplanePlace.JudgeCoor(x + 1, y - 3);
+                f = f || airplanePlace.JudgeCoord(x, y - 3);
+                f = f || airplanePlace.JudgeCoord(x - 1, y - 3);
+                f = f || airplanePlace.JudgeCoord(x + 1, y - 3);
                 break;
             case "l":
-                f = f || airplanePlace.JudgeCoor(x + 1, y);
-                f = f || airplanePlace.JudgeCoor(x + 1, y - 1);
-                f = f || airplanePlace.JudgeCoor(x + 1, y - 2);
-                f = f || airplanePlace.JudgeCoor(x + 1, y + 1);
-                f = f || airplanePlace.JudgeCoor(x + 1, y + 2);
+                f = f || airplanePlace.JudgeCoord(x + 1, y);
+                f = f || airplanePlace.JudgeCoord(x + 1, y - 1);
+                f = f || airplanePlace.JudgeCoord(x + 1, y - 2);
+                f = f || airplanePlace.JudgeCoord(x + 1, y + 1);
+                f = f || airplanePlace.JudgeCoord(x + 1, y + 2);
 
-                f = f || airplanePlace.JudgeCoor(x + 2, y);
+                f = f || airplanePlace.JudgeCoord(x + 2, y);
 
-                f = f || airplanePlace.JudgeCoor(x + 3, y);
-                f = f || airplanePlace.JudgeCoor(x + 3, y - 1);
-                f = f || airplanePlace.JudgeCoor(x + 3, y + 1);
+                f = f || airplanePlace.JudgeCoord(x + 3, y);
+                f = f || airplanePlace.JudgeCoord(x + 3, y - 1);
+                f = f || airplanePlace.JudgeCoord(x + 3, y + 1);
                 break;
             case "r":
-                f = f || airplanePlace.JudgeCoor(x - 1, y);
-                f = f || airplanePlace.JudgeCoor(x - 1, y - 1);
-                f = f || airplanePlace.JudgeCoor(x - 1, y - 2);
-                f = f || airplanePlace.JudgeCoor(x - 1, y + 1);
-                f = f || airplanePlace.JudgeCoor(x - 1, y + 2);
+                f = f || airplanePlace.JudgeCoord(x - 1, y);
+                f = f || airplanePlace.JudgeCoord(x - 1, y - 1);
+                f = f || airplanePlace.JudgeCoord(x - 1, y - 2);
+                f = f || airplanePlace.JudgeCoord(x - 1, y + 1);
+                f = f || airplanePlace.JudgeCoord(x - 1, y + 2);
 
-                f = f || airplanePlace.JudgeCoor(x - 2, y);
+                f = f || airplanePlace.JudgeCoord(x - 2, y);
 
-                f = f || airplanePlace.JudgeCoor(x - 3, y);
-                f = f || airplanePlace.JudgeCoor(x - 3, y - 1);
-                f = f || airplanePlace.JudgeCoor(x - 3, y + 1);
+                f = f || airplanePlace.JudgeCoord(x - 3, y);
+                f = f || airplanePlace.JudgeCoord(x - 3, y - 1);
+                f = f || airplanePlace.JudgeCoord(x - 3, y + 1);
                 break;
         }
 

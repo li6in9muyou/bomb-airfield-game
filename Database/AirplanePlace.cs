@@ -22,7 +22,7 @@ public class AirplanePlace
     }
 
     //检测一个坐标是否在head/body中
-    public bool JudgeCoor(int x, int y)
+    public bool JudgeCoord(int x, int y)
     {
         var key = x * 10 + y;
         var flag = _head.ContainsKey(key);
