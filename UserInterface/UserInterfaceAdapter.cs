@@ -36,7 +36,6 @@ public class UserInterfaceAdapter : IUserInterface
             airPlanePlacement.HeadCoord = coordinate;
             aps[i++] = airPlanePlacement;
         }
-        return aps;
     }
 
     public string WaitUserEnterAnIpAddress(string recommended)
