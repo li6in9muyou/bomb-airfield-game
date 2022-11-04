@@ -36,7 +36,7 @@ public class AirplanePlace
         return _head.ContainsKey(key);
     }
 
-    public bool Judgebody(int x, int y)
+    public bool JudgeBody(int x, int y)
     {
         var key = x * 10 + y;
         return _body.ContainsKey(key);

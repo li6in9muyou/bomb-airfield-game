@@ -135,7 +135,7 @@ public class GameLogic
             return BombResult.Destroyed;
         }
 
-        var flag2 = airplanePlace.Judgebody(x, y);
+        var flag2 = airplanePlace.JudgeBody(x, y);
         if (flag2)
         {
             beBombed.AddBeBombed(x, y, BombResult.Hit);
