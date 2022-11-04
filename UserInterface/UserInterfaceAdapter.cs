@@ -21,7 +21,7 @@ public class CoorRoot
 }
 public class UserInterfaceAdapter : IUserInterface
 {
-    public AirplanePlacement[] WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
+    public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
         //未设置GameLogic状态
         String JsonAP = UiCache.WaitAirplanesPlacement();
