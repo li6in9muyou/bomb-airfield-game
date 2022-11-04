@@ -1,23 +1,26 @@
 ﻿# 炸飞机
 
 # 炸飞机游戏数据类
+
 游戏中有两个机场，一个摆有自己飞机的机场，另一个用来记录炸对手机场的结果。
 对手机场上飞机的摆法本方客户端是不可见的。
 数据类包括：
-存有3个飞机头+方向的AirplanePlace类(单例)
-可实例化的“飞机头+方向”的Airplane类(非单例)
-本方机场被炸的坐标集，BeBombed(单例)，用HashSet存一系列坐标点
-敌方机场被炸的坐标集+状态，OpponentAirfield(单例)，用什么类型的数据结构还不知道
+存有3个飞机头+方向的AirplanePlace类（单例）
+可实例化的“飞机头+方向”的Airplane类（非单例）
+本方机场被炸的坐标集，BeBombed、（单例），用HashSet存一系列坐标点
+敌方机场被炸的坐标集+状态，OpponentAirfield（单例），用什么类型的数据结构还不知道
 
 一些约定：
 飞机原点坐标约定为左上角(0,0),x➡右增，y⬇下增
-本方机场图像状态=飞机头坐标+方向+被炸的坐标集(分别在AirplanePlace和BeBombed类中。需要写算法计算具体状态，已经保证不会越界/重叠)
-敌方机场状态=坐标+状态(都在OpponentAirfield类中)
+本方机场图像状态=飞机头坐标+方向+被炸的坐标集
+（分别在AirplanePlace和BeBombed类中。需要写算法计算具体状态，已经保证不会越界/重叠）
+敌方机场状态=坐标+状态（都在OpponentAirfield类中）
 
 ## 摆飞机（坐标，上、下、左、右）：
+
 怎么用?
-实例化一个游戏逻辑类对象(GameLogic类)，不断调用其中的方法setAirplane(int x,int y,String d),
-若传入成功，返回bool类型的true，若传入不成功，则可能是(飞机机头/机身坐标越界、重叠)，需要提示用户，返回false
+实例化一个游戏逻辑类对象（GameLogic类），不断调用其中的方法setAirplane(int x,int y,String d),
+若传入成功，返回bool类型的true，若传入不成功，则可能是（飞机机头/机身坐标越界、重叠），需要提示用户，返回false
 里面的算法逻辑：
 1、机头/机身坐标是否越界
 2、获取已有飞机坐标，判断是否有飞机坐标重叠
@@ -66,6 +69,24 @@ public enum BombResult
 使用单例模式来保证只有一个实例。
 
 # 网络模块
+
+## 炸飞机协议
+
+炸飞机协议的语法以EBNF描述如下，协议语义按照上边非终端符号的英文名字的意思来理解就可以了。协议时序定义见下文顺序图的描述。
+
+```text
+game = handshake, player ready, [{message}], game over;
+message 
+  = coordinate 
+  | bomb result
+  ;
+bomb result = "miss" | "hit" | "destroy";
+handshake = digit, digit;
+game over  = "end";
+player ready = "ok";
+coordinate = digit, "," , digit;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+```
 
 做一个网络沟通交流类，提供一个读取数据的接口，供炸飞机协议类使用。
 
@@ -121,9 +142,10 @@ public interface ICommunicator
 
 ## 绘制游戏数据状态（游戏数据类实例）
 
-## 等待本回合用户要炸的对方机场的坐标（）：坐标
+## 等待本回合用户要炸的对方机场的坐标（游戏逻辑类实例）：坐标
 
 阻塞，最多等待 30 秒，从进入这个方法开始计时，如果用户没有输入就返回 `(-1,-1)`。
+本方法接受一个游戏逻辑类实例的目的是为了避免用户重复炸已经炸过的地方。
 
 ## 等待用户摆好自己的飞机（游戏逻辑类实例）：飞机摆法列表
 
@@ -206,6 +228,7 @@ sequenceDiagram
 participant main as 主函数
 participant ui as 界面类
 participant socket as 网络类
+participant game as 游戏逻辑类
 participant remote as 远端炸飞机客户端
 
 main ->> ui: 等待用户摆好自己的飞机（游戏逻辑类实例）
@@ -214,6 +237,14 @@ deactivate main
 activate ui
 ui -->> main: 飞机摆法列表
 deactivate ui
+loop 三架飞机，循环三次
+activate main
+main ->> game: 摆飞机（飞机摆法）
+deactivate main
+activate game
+game -->> main: void
+deactivate game
+end
 activate main
 main ->> socket: 等待对手摆好飞机()
 deactivate main
@@ -329,4 +360,53 @@ main ->> ui: 绘制游戏数据状态（游戏数据类实例）
 activate ui
 deactivate ui
 deactivate main
+```
+
+## 游戏胜负已分
+
+```mermaid
+sequenceDiagram
+
+participant main as 主函数
+participant game as 游戏数据类
+participant ui as 界面类
+participant online as 网络类
+participant remote as 远端炸飞机客户端
+
+
+main ->> game: 游戏结束了吗（）
+activate main
+deactivate main
+activate game
+game -->> main: 本局对战结果
+deactivate game
+activate main
+main ->> ui: 本局对战已经结束请选择退出房间或者再来一局（）
+deactivate main
+activate ui
+ui -->> main: 再来一局、退出房间
+deactivate ui
+alt 再来一局
+activate main
+main ->> online: 和远端握手分出先后手()
+deactivate main
+activate online
+online -->> remote: 握手数据包
+remote -->> online: 握手数据包
+online -->> main: 我方是先手还是后手
+deactivate online
+activate main
+deactivate main
+else 退出房间
+activate main
+main ->> online: 退出房间
+deactivate main
+activate online
+online -->> remote: 断开连接
+remote -->> online: 断开连接
+online -->> main: void
+deactivate online
+activate main
+deactivate main
+end
 ```
