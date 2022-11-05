@@ -3,8 +3,17 @@ using GameLogic;
 
 namespace UserInterface;
 
-public class ConsoleUi : IUserInterface
+public class ReplayUi : IUserInterface
 {
+    private readonly Stack<Coordinate> _bombLocations;
+    private readonly string _ipAddress;
+
+    public ReplayUi(string ipAddress, IEnumerable<Coordinate> bombLocations)
+    {
+        _ipAddress = ipAddress;
+        _bombLocations = new Stack<Coordinate>(bombLocations);
+    }
+
     public void DrawAdditionalContent(string message)
     {
         Console.Out.WriteLine("message = {0}", message);
@@ -18,15 +27,10 @@ public class ConsoleUi : IUserInterface
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
     {
         Console.Out.WriteLine(@"bomb where? \d,\d");
-        var where = Console.ReadLine();
-        var coordinates = where!.Split(',');
-        var x = coordinates[0];
-        var y = coordinates[1];
-        var xN = int.Parse(x);
-        var yN = int.Parse(y);
-        Console.Out.WriteLine("x = {0}", xN);
-        Console.Out.WriteLine("y = {0}", yN);
-        return new Coordinate(xN, yN);
+        Console.Out.WriteLine("mocking input");
+        var coordinate = _bombLocations.Pop();
+        Console.Out.WriteLine("coordinate = {0}", coordinate);
+        return coordinate;
     }
 
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
@@ -55,7 +59,8 @@ public class ConsoleUi : IUserInterface
 
     public string WaitUserEnterAnIpAddress(string recommended)
     {
-        Console.Out.WriteLine(@"to join room, enter an ip addr");
-        return Console.ReadLine()!;
+        Console.Out.WriteLine("mocking input");
+        Console.Out.WriteLine("_ipAddress = {0}", _ipAddress);
+        return _ipAddress;
     }
 }

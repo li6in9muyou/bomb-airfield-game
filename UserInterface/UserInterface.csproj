@@ -1,33 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Remove="Class1.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Database\Database.csproj" />
-        <ProjectReference Include="..\Online\Online.csproj" />
-        <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="WebHtmlView\node_modules\bootstrap\CHANGELOG.md" />
-      <Content Include="WebHtmlView\node_modules\bootstrap\Gruntfile.js" />
-      <Content Include="WebHtmlView\node_modules\bootstrap\LICENSE" />
-      <Content Include="WebHtmlView\node_modules\bootstrap\package.json" />
-      <Content Include="WebHtmlView\node_modules\bootstrap\README.md" />
-      <Content Include="WebHtmlView\node_modules\jquery\AUTHORS.txt" />
-      <Content Include="WebHtmlView\node_modules\jquery\bower.json" />
-      <Content Include="WebHtmlView\node_modules\jquery\LICENSE.txt" />
-      <Content Include="WebHtmlView\node_modules\jquery\package.json" />
-      <Content Include="WebHtmlView\node_modules\jquery\README.md" />
-      <Content Include="WebHtmlView\node_modules\path-to-regexp\History.md" />
-    </ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\Online\Online.csproj" />
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+  </ItemGroup>
 </Project>
