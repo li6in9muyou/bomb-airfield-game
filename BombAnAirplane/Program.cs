@@ -1,4 +1,5 @@
-﻿using Online;
+﻿using Common;
+using Online;
 using UserInterface;
 
 namespace BombAnAirplane;
@@ -8,7 +9,13 @@ internal static class Program
     private static void Main()
     {
         // init ui
-        IUserInterface ui = new ConsoleUi();
+        IUserInterface ui = new ReplayUi("", new[]
+        {
+            new Coordinate(0, 0),
+            new Coordinate(1, 1),
+            new Coordinate(2, 6),
+            new Coordinate(3, 7)
+        });
         // init online
         ICommunicator communicator = new MockCommunicator();
         var online = new Online.Online(communicator);
