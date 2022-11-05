@@ -4,8 +4,8 @@ namespace Database;
 
 public record GameStateSnapShot
 (
-    Airplane[] AiPredictedOpponentAirplanes,
+    //Airplane[] AiPredictedOpponentAirplanes,
     Tuple<Coordinate, BombResult>[] BombResultsOnOpponentAirfield,
-    Coordinate[] MyAirfieldWasBombedAt,
+    Tuple<Coordinate, BombResult>[] MyAirfieldWasBombedAt,
     Airplane[] MyAirplanes
 );

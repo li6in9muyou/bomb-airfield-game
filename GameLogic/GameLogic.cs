@@ -7,7 +7,44 @@ public class GameLogic
 {
     public GameStateSnapShot CaptureCurrentGameState()
     {
-        throw new NotImplementedException();
+        List<Tuple<Coordinate, BombResult>> BombResultsOnOpponentAirfield = new List<Tuple<Coordinate, BombResult>>();
+
+        List<Tuple<Coordinate, BombResult>> MyAirfieldWasBombedAt = new List<Tuple<Coordinate, BombResult>>();
+        List<Airplane> MyAirplanes = new List<Airplane>();
+
+        //获取敌方机场，实例化一个单例
+        OpponentAirfield opponentAirfield = OpponentAirfield.getOpponentAirfield();
+        //从单例中获取数据结构,这个数据结构中存有敌方机场的状态
+        Dictionary<int, BombResult> BombResults = opponentAirfield.getOpponent();
+        foreach (int Key in BombResults.Keys)
+        {
+            Coordinate C = new Coordinate(Key / 10, Key % 10);
+            BombResult B = BombResults[Key];
+            Tuple<Coordinate, BombResult> tuple = new(C, B);
+            BombResultsOnOpponentAirfield.Add(tuple);
+        }
+        //获取本方飞机，实例化AirplanePlace单例
+        AirplanePlace airplanePlace = AirplanePlace.GetAirplanePlace();
+        for (int i = 0; i < 3; i++)
+        {
+            if (airplanePlace.GetAirplane(i)!=null)
+            MyAirplanes.Add(airplanePlace.GetAirplane(i));
+        }
+
+        //获取本方机场信息：坐标，状态 实例化BeBombed单例
+        BeBombed beBombed = BeBombed.GetBeBombed();
+        //从单例中获取存有本方机场状态的数据结构
+        Dictionary<int, BombResult> Beb = beBombed.GetBeb();
+        foreach (int Key in Beb.Keys)
+        {
+            Coordinate C=new Coordinate(Key / 10, Key % 10);
+            BombResult B = Beb[Key];
+            Tuple<Coordinate, BombResult> tuple = new(C, B);
+            MyAirfieldWasBombedAt.Add(tuple);
+        }
+
+        GameStateSnapShot gameState = new GameStateSnapShot(BombResultsOnOpponentAirfield.ToArray(),MyAirfieldWasBombedAt.ToArray(),MyAirplanes.ToArray());
+        return gameState;
     }
 
     public bool SetAirplane(int x, int y, string direction) //摆飞机
