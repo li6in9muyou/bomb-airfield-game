@@ -190,20 +190,18 @@ public class AirplanePlace
     }
 
     //这个写了不一定要用，或者说最好不要用到
-    public Airplane GetAirplane1()
+    public Airplane GetAirplane(int i)
     {
-        return _airplane1;
+        switch (i)
+        {
+            case 0:return _airplane1;break;
+            case 1:return _airplane2;break;
+            case 2:return _airplane3;break;
+        }
+        return null;
     }
 
-    public Airplane GetAirplane2()
-    {
-        return _airplane2;
-    }
 
-    public Airplane GetAirplane3()
-    {
-        return _airplane3;
-    }
 
     public int[] GetX()
     {
