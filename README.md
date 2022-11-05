@@ -64,7 +64,7 @@ public enum BombResult
 
 ## 登记炸对方机场的结果（坐标，炸的结果）：炸的结果同上条。
 
-## 游戏结束了吗（）：如果有一方被炸中机头的次数等于摆有的飞机数则这一方输，另一方赢，游戏结束。
+## 我的飞机全部被摧毁了吗（）：返回是或否。
 
 ## 导出当前游戏状态（）：供读者读取游戏状态，具体表示见上文。
 
@@ -170,6 +170,42 @@ public interface ICommunicator
 返回值定义见上文。
 
 # 游戏流程
+
+## 整个程序流程
+
+```text
+各子系统初始化
+询问玩家如何联机
+while ( true ) {
+  两个客户端握手并分出先后手
+  游戏主循环
+  通知用户本轮游戏的结果
+  如果用户选择退出
+    两个客户端关闭连接
+    跳出循环
+}
+系统退出
+```
+
+## 游戏主循环
+
+```text
+while ( !本地玩家输了 ）{
+  通知对方我方没有输并等待回应
+  如果对方回应他输了，跳出循环
+  
+  如果是本方回合
+    等待UI传回本方玩家要炸的坐标
+    传给远端并等待回应
+    更新游戏状态
+  否则
+    等待远端发来坐标
+    查询炸的结果
+    返回炸的结果
+    
+  切换到另一个玩家的回合
+}
+```
 
 ## 游戏各子系统初始化
 
@@ -380,14 +416,8 @@ participant online as 网络类
 participant remote as 远端炸飞机客户端
 
 
-main ->> game: 游戏结束了吗（）
-activate main
-deactivate main
-activate game
-game -->> main: 本局对战结果
-deactivate game
-activate main
 main ->> ui: 本局对战已经结束请选择退出房间或者再来一局（）
+activate main
 deactivate main
 activate ui
 ui -->> main: 再来一局、退出房间
