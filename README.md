@@ -64,7 +64,7 @@ public enum BombResult
 
 ## 登记炸对方机场的结果（坐标，炸的结果）：炸的结果同上条。
 
-## 游戏结束了吗（）：如果有一方被炸中机头的次数等于摆有的飞机数则这一方输，另一方赢，游戏结束。
+## 我的飞机全部被摧毁了吗（）：返回是或否。
 
 ## 导出当前游戏状态（）：供读者读取游戏状态，具体表示见上文。
 
@@ -378,14 +378,8 @@ participant online as 网络类
 participant remote as 远端炸飞机客户端
 
 
-main ->> game: 游戏结束了吗（）
-activate main
-deactivate main
-activate game
-game -->> main: 本局对战结果
-deactivate game
-activate main
 main ->> ui: 本局对战已经结束请选择退出房间或者再来一局（）
+activate main
 deactivate main
 activate ui
 ui -->> main: 再来一局、退出房间
