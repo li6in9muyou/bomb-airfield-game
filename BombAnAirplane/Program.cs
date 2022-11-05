@@ -64,6 +64,7 @@ internal static class Program
             }
 
             ui.DrawGameLogic(game);
+            isMyTurnToBomb = !isMyTurnToBomb;
         }
     }
 }
