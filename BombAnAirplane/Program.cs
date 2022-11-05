@@ -49,7 +49,7 @@ internal static class Program
         var isMyTurnToBomb = isIBombFirst;
         while (!game.ShouldTerminate())
         {
-            if (!isMyTurnToBomb)
+            if (isMyTurnToBomb)
             {
                 var coordinate = ui.WaitLocalUserChooseBombLocation(game);
                 var result = online.BombOpponentAirfieldAndWaitResult(coordinate);
