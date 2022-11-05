@@ -15,5 +15,10 @@
         {
             return new Coordinate(-1, -1);
         }
+
+        public override string ToString()
+        {
+            return $"Coordinate({nameof(X)}: {X}, {nameof(Y)}: {Y})";
+        }
     }
 }
