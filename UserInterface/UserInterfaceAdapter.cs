@@ -42,7 +42,6 @@ public class UserInterfaceAdapter : IUserInterface
     {
         String ipAddress = UiCache.WaitIpAddress();
         return ipAddress;
-        throw new NotImplementedException();
     }
 
     public void DrawAdditionalContent(string message)
