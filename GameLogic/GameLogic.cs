@@ -10,6 +10,56 @@ public class GameLogic
         throw new NotImplementedException();
     }
 
+    public bool IsPlanesPlacementReasonable(AirplanePlacement[] aps)
+    {
+        if (aps.Length != 3) return false;
+        //表示相对位置的数组
+        int[][] refer = new int[4][];
+        refer[0] = new int[] {0,-19,-9,1,11,21,2,-7,3,13};//上
+        refer[1] = new int[] {0,-21,-11,-1,9,19,-2,-13,-3,7};//下
+        refer[2] = new int[] {0,8,9,10,11,12,20,29,30,31 };//左
+        refer[3] = new int[] {0,-12,-11,-10,-9,-8,-20,-31,-30,-29};//右
+        //表示位置是否被占用
+        bool[] isoccupied = new bool[100];
+        for (int i = 0; i < 100; i++) isoccupied[i] = false;
+        //遍历三个飞机
+        for (int i = 0; i < 3; i++)
+        {
+            Coordinate c = aps[i].HeadCoord;
+            String d=aps[i].Direction;//u d l r
+            int id = c.X * 10 + c.Y;
+            int[]? r=null;
+            if (d.Equals("u")) r = refer[0];
+            if (d.Equals("d")) r = refer[1];
+            if (d.Equals("l")) r = refer[2];
+            if (d.Equals("r")) r = refer[3];
+            //遍历这个飞机的所有点
+            if(r!=null)
+            for (int j = 0; j < 10; j++)
+            {
+                //当前点的id
+                int buf_id = id;
+                buf_id += r[j];
+                //出界错误
+                if (buf_id < 0 || buf_id > 99)
+                {
+                    Console.WriteLine(i+","+j+"出界错误:"+buf_id/10+","+buf_id%10);
+                    return false;
+                }
+                //重叠错误
+                if (isoccupied[buf_id])
+                {
+                    Console.WriteLine(i+","+j+"重叠错误:"+buf_id/10+","+buf_id%10);
+                    return false;
+                }
+                else//无错误，占点
+                {
+                    isoccupied[buf_id] = true;
+                }
+            }
+        }
+        return true;
+    }
     public bool SetAirplane(int x, int y, string direction) //摆飞机
     {
         //传入飞机头，方向，经过算法(排除机头坐标重复，飞机重叠，坐标超载等情况)，返回bool值，true成功--》传入数据类中，false失败--》需要再次输入(逻辑在界面类实现)
