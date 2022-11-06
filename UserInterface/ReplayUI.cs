@@ -14,6 +14,21 @@ public class ReplayUi : IUserInterface
         _bombLocations = new Stack<Coordinate>(bombLocations);
     }
 
+    public bool WaitLocalUserDecideWhetherContinue()
+    {
+        return false;
+    }
+
+    public void DrawLocalUserLost()
+    {
+        Console.Out.WriteLine("local user has lost");
+    }
+
+    public void DrawLocalUserWon()
+    {
+        Console.Out.WriteLine("local user has won");
+    }
+
     public void DrawAdditionalContent(string message)
     {
         Console.Out.WriteLine("message = {0}", message);
