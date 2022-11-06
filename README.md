@@ -94,6 +94,8 @@ message
 bomb result = "miss" | "hit" | "destroy";
 handshake = digit, digit;
 game over  = "end";
+yield = "yield";
+continue = "continue";
 player ready = "ok";
 coordinate = digit, "," , digit;
 digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
