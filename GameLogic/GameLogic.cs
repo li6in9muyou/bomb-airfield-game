@@ -199,7 +199,7 @@ public class GameLogic
         opponentAirfield.AddCoordinate(x, y, result);
     }
 
-    public bool ShouldTerminate() //判断游戏是否结束
+    public bool MyAirfieldIsDoomed() //判断游戏是否结束
     {
         //即判断三个飞机头坐标是否在BeBombed表中
         var airplanePlace = AirplanePlace.GetAirplanePlace();
