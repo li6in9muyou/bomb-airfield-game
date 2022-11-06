@@ -1,38 +1,56 @@
 ﻿using Common;
 using GameLogic;
 using Newtonsoft.Json;
-using System.Threading;
 
 namespace UserInterface;
+
 public class Ap
 {
-    public string direction { get; set; }
-    public int x { get; set; }
-    public int y { get; set; }
+    public string Direction { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 }
+
 public class ApRoot
 {
-    public List <Ap > Aps { get; set; }
+    public List<Ap> Aps { get; set; }
 }
-public class CoorRoot
+
+public class CoordRoot
 {
-    public int x { get; set; }
-    public int y { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 }
+
 public class UserInterfaceAdapter : IUserInterface
 {
+    public void DrawLocalUserLost()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DrawLocalUserWon()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool WaitLocalUserDecideWhetherToContinue()
+    {
+        throw new NotImplementedException();
+    }
+
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
         //未设置GameLogic状态
-        String JsonAP = UiCache.WaitAirplanesPlacement();
-        ApRoot apRoot = JsonConvert.DeserializeObject<ApRoot>(JsonAP);
-        AirplanePlacement[] aps = new AirplanePlacement[apRoot.Aps.Count];
-        int i = 0;
+        var jsonAp = UiCache.WaitAirplanesPlacement();
+        var apRoot = JsonConvert.DeserializeObject<ApRoot>(jsonAp);
+        var aps = new AirplanePlacement[apRoot.Aps.Count];
+        var i = 0;
         foreach (var ap in apRoot.Aps)
         {
             var airPlanePlacement = new AirplanePlacement();
-            airPlanePlacement.Direction = ap.direction;
-            var coordinate = new Coordinate(ap.x, ap.y);
+            airPlanePlacement.Direction = ap.Direction;
+            var coordinate = new Coordinate(ap.X, ap.Y);
             airPlanePlacement.HeadCoord = coordinate;
             aps[i++] = airPlanePlacement;
         }
@@ -40,7 +58,7 @@ public class UserInterfaceAdapter : IUserInterface
 
     public string WaitUserEnterAnIpAddress(string recommended)
     {
-        String ipAddress = UiCache.WaitIpAddress();
+        var ipAddress = UiCache.WaitIpAddress();
         return ipAddress;
         throw new NotImplementedException();
     }
@@ -56,9 +74,9 @@ public class UserInterfaceAdapter : IUserInterface
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
     {
         //未设置GameLogic状态
-        String JsonCoor = UiCache.WaitBombLocation();
-        CoorRoot coorRoot = JsonConvert.DeserializeObject<CoorRoot>(JsonCoor);
-        Coordinate coordinate = new Coordinate(coorRoot.x, coorRoot.y);
+        var jsonCoord = UiCache.WaitBombLocation();
+        var coordRoot = JsonConvert.DeserializeObject<CoordRoot>(jsonCoord);
+        var coordinate = new Coordinate(coordRoot.X, coordRoot.Y);
         return coordinate;
     }
 
