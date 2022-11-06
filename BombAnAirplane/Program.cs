@@ -8,8 +8,8 @@ internal static class Program
 {
     private static void Main()
     {
-        var note = Logging.GetLogger("游戏主循环");
-        note.Debug("你好世界");
+        var note = Logging.GetLogger("GameMainLoop");
+        note.Debug("game has started");
         // 各子系统初始化
         IUserInterface ui = new ReplayUi("", new[]
         {
