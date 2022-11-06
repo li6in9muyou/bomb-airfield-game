@@ -5,6 +5,22 @@ namespace UserInterface;
 
 public class ConsoleUi : IUserInterface
 {
+    public void DrawLocalUserLost()
+    {
+        Console.Out.WriteLine("local user has lost");
+    }
+
+    public void DrawLocalUserWon()
+    {
+        Console.Out.WriteLine("local user has won");
+    }
+
+    public bool WaitLocalUserDecideWhetherToContinue()
+    {
+        Console.Out.WriteLine(@"keep playing? y/n");
+        return Console.ReadLine() == "y";
+    }
+
     public void DrawAdditionalContent(string message)
     {
         Console.Out.WriteLine("message = {0}", message);
