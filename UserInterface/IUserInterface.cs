@@ -9,4 +9,7 @@ public interface IUserInterface
     Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game);
     void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game);
     string WaitUserEnterAnIpAddress(string recommended);
+    void DrawLocalUserLost();
+    void DrawLocalUserWon();
+    bool WaitLocalUserDecideWhetherToContinue();
 }

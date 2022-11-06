@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{548291FC-2205-41CF-B0FF-6C1135E8F999}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BombAnAirplaneTests", "BombAnAirplaneTests\BombAnAirplaneTests.csproj", "{250A45FF-1D73-4267-9BDE-DD5E0952D6B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{548291FC-2205-41CF-B0FF-6C1135E8F999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{548291FC-2205-41CF-B0FF-6C1135E8F999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{548291FC-2205-41CF-B0FF-6C1135E8F999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250A45FF-1D73-4267-9BDE-DD5E0952D6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250A45FF-1D73-4267-9BDE-DD5E0952D6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250A45FF-1D73-4267-9BDE-DD5E0952D6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250A45FF-1D73-4267-9BDE-DD5E0952D6B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
