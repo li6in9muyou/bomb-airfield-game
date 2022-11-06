@@ -6,13 +6,19 @@ namespace UserInterface;
 
 public class HeadlessUi : IUserInterface
 {
+    private readonly IEnumerable<AirplanePlacement> _airplanePlacements;
     private readonly Stack<Coordinate> _bombLocations;
     private readonly string _ipAddress;
     private readonly IEasyLogger _note;
 
-    public HeadlessUi(string ipAddress, IEnumerable<Coordinate> bombLocations)
+    public HeadlessUi(
+        string ipAddress,
+        IEnumerable<Coordinate> bombLocations,
+        IEnumerable<AirplanePlacement> airplanePlacements
+    )
     {
         _ipAddress = ipAddress;
+        _airplanePlacements = airplanePlacements;
         _bombLocations = new Stack<Coordinate>(bombLocations);
         _note = Logging.GetLogger("GameMainLoop");
     }
@@ -51,25 +57,7 @@ public class HeadlessUi : IUserInterface
 
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
-        AirplanePlacement[] ap =
-        {
-            new()
-            {
-                Direction = "d",
-                HeadCoord = new Coordinate(9, 9)
-            },
-            new()
-            {
-                Direction = "l",
-                HeadCoord = new Coordinate(0, 0)
-            },
-            new()
-            {
-                Direction = "u",
-                HeadCoord = new Coordinate(3, 3)
-            }
-        };
-        foreach (var p in ap)
+        foreach (var p in _airplanePlacements)
             game.SetAirplane(p.HeadCoord.X, p.HeadCoord.Y, p.Direction);
     }
 
