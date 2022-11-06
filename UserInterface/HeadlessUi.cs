@@ -20,7 +20,7 @@ public class HeadlessUi : IUserInterface
         _ipAddress = ipAddress;
         _airplanePlacements = airplanePlacements;
         _bombLocations = new Stack<Coordinate>(bombLocations.Reverse());
-        _note = Logging.GetLogger("GameMainLoop");
+        _note = Logging.GetLogger("MOCK--HeadlessUi");
     }
 
     public bool WaitLocalUserDecideWhetherToContinue()
