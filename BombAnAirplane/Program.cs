@@ -40,7 +40,7 @@ internal static class Program
                 }
             }
         );
-        ICommunicator communicator = new MockCommunicator(new[]
+        ICommunicator communicator = new MockReceiving(new[]
         {
             "999",
             "ok",

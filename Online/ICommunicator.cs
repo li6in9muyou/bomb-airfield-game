@@ -22,20 +22,16 @@ public class ExpectMismatch : Exception
     }
 }
 
-public class MockCommunicator : ICommunicator
+public class MockReceiving : ICommunicator
 {
     private readonly string[] _received;
     private readonly List<string> _send = new();
     private int _current;
     private string? _remoteHandle;
 
-    public MockCommunicator(string[] received)
+    public MockReceiving(string[] received)
     {
         _received = received;
-    }
-
-    public MockCommunicator() : this(OnlineTest.TypicalMessagesFromRoomCreator)
-    {
     }
 
     public bool IsLostConnection()
@@ -64,18 +60,18 @@ public class MockCommunicator : ICommunicator
 
     public void Start()
     {
-        Console.Out.WriteLine("MockCommunicator.Start()");
+        Console.Out.WriteLine("MockReceiving.Start()");
     }
 
     public void Start(string remoteHandle)
     {
         _remoteHandle = remoteHandle;
-        Console.Out.WriteLine($"MockCommunicator.Start({remoteHandle})");
+        Console.Out.WriteLine($"MockReceiving.Start({remoteHandle})");
     }
 
     public void Stop()
     {
-        Console.Out.WriteLine("MockCommunicator.Stop()");
+        Console.Out.WriteLine("MockReceiving.Stop()");
     }
 
     public string RemoteHandle()
