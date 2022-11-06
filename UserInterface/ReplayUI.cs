@@ -14,7 +14,7 @@ public class ReplayUi : IUserInterface
         _bombLocations = new Stack<Coordinate>(bombLocations);
     }
 
-    public bool WaitLocalUserDecideWhetherContinue()
+    public bool WaitLocalUserDecideWhetherToContinue()
     {
         return false;
     }
@@ -77,5 +77,10 @@ public class ReplayUi : IUserInterface
         Console.Out.WriteLine("mocking input");
         Console.Out.WriteLine("_ipAddress = {0}", _ipAddress);
         return _ipAddress;
+    }
+
+    public bool WaitLocalUserDecideWhetherContinue()
+    {
+        return false;
     }
 }
