@@ -36,6 +36,7 @@ public class UserInterfaceAdapter : IUserInterface
             airPlanePlacement.HeadCoord = coordinate;
             aps[i++] = airPlanePlacement;
         }
+        //isAirplanePlacementReasonable
     }
 
     public string WaitUserEnterAnIpAddress(string recommended)
@@ -46,10 +47,15 @@ public class UserInterfaceAdapter : IUserInterface
 
     public void DrawAdditionalContent(string message)
     {
+        UIServer.SendMsg("stateMsg",message);
     }
 
     public void DrawGameLogic(GameLogic.GameLogic game)
     {
+        //发送轰炸位置、结果
+        var BL = new { x = 1, y = 1, result = 1 };
+        String JsonData = JsonConvert.SerializeObject(BL);
+        UIServer.SendMsg("bombResult",JsonData);
     }
 
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
