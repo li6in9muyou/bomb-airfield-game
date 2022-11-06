@@ -69,4 +69,23 @@ public class BombAnAirplaneProtocol
     {
         com.Write(result.ToString().ToLower());
     }
+
+    public static bool WaitOpponentToSurrender(ICommunicator com)
+    {
+        var r = com.Expect(new Regex("(yield)|(continue)"));
+        if (r == "continue") return false;
+        com.Write("end");
+        return true;
+    }
+
+    public static void WaitNotifyStillStanding(ICommunicator com)
+    {
+        com.Write("continue");
+    }
+
+    public static void WaitSurrenderToOpponent(ICommunicator com)
+    {
+        com.Write("yield");
+        com.Write("end");
+    }
 }
