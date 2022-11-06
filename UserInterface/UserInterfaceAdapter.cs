@@ -21,6 +21,21 @@ public class CoorRoot
 }
 public class UserInterfaceAdapter : IUserInterface
 {
+    public void DrawLocalUserLost()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DrawLocalUserWon()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool WaitLocalUserDecideWhetherToContinue()
+    {
+        throw new NotImplementedException();
+    }
+
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
         //未设置GameLogic状态
