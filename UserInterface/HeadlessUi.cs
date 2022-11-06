@@ -58,7 +58,11 @@ public class HeadlessUi : IUserInterface
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
         foreach (var p in _airplanePlacements)
-            game.SetAirplane(p.HeadCoord.X, p.HeadCoord.Y, p.Direction);
+        {
+            var good = game.SetAirplane(p.HeadCoord.X, p.HeadCoord.Y, p.Direction);
+            if (!good)
+                _note.Error($"can not set airplane at {p.HeadCoord.X},{p.HeadCoord.Y} heading {p.Direction}");
+        }
     }
 
     public string WaitUserEnterAnIpAddress(string recommended)
