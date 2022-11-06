@@ -1,4 +1,6 @@
 ﻿using System.Text.RegularExpressions;
+using Common;
+using Easy.Logger.Interfaces;
 
 namespace Online;
 
@@ -24,6 +26,7 @@ public class ExpectMismatch : Exception
 
 public class MockReceiving : ICommunicator
 {
+    private readonly IEasyLogger _note;
     private readonly string[] _received;
     private readonly List<string> _send = new();
     private int _current;
@@ -32,6 +35,7 @@ public class MockReceiving : ICommunicator
     public MockReceiving(string[] received)
     {
         _received = received;
+        _note = Logging.GetLogger("Mock--CommunicatorReceiving");
     }
 
     public bool IsLostConnection()
@@ -41,7 +45,12 @@ public class MockReceiving : ICommunicator
 
     public string Read()
     {
-        if (_current < _received.Length) return _received[_current++];
+        if (_current < _received.Length)
+        {
+            var r = _received[_current++];
+            _note.Debug($"reading {r}");
+            return r;
+        }
 
         throw new Exception();
     }
@@ -55,23 +64,24 @@ public class MockReceiving : ICommunicator
 
     public void Write(string message)
     {
+        _note.Debug($"writing {message}");
         _send.Add(message);
     }
 
     public void Start()
     {
-        Console.Out.WriteLine("MockReceiving.Start()");
+        _note.Debug("MockReceiving.Start()");
     }
 
     public void Start(string remoteHandle)
     {
         _remoteHandle = remoteHandle;
-        Console.Out.WriteLine($"MockReceiving.Start({remoteHandle})");
+        _note.Debug($"MockReceiving.Start({remoteHandle})");
     }
 
     public void Stop()
     {
-        Console.Out.WriteLine("MockReceiving.Stop()");
+        _note.Debug("MockReceiving.Stop()");
     }
 
     public string RemoteHandle()
