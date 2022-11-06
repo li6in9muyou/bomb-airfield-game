@@ -7,9 +7,96 @@ public class GameLogic
 {
     public GameStateSnapShot CaptureCurrentGameState()
     {
-        throw new NotImplementedException();
+        List<Tuple<Coordinate, BombResult>> BombResultsOnOpponentAirfield = new List<Tuple<Coordinate, BombResult>>();
+
+        List<Tuple<Coordinate, BombResult>> MyAirfieldWasBombedAt = new List<Tuple<Coordinate, BombResult>>();
+        List<Airplane> MyAirplanes = new List<Airplane>();
+
+        //获取敌方机场，实例化一个单例
+        OpponentAirfield opponentAirfield = OpponentAirfield.getOpponentAirfield();
+        //从单例中获取数据结构,这个数据结构中存有敌方机场的状态
+        Dictionary<int, BombResult> BombResults = opponentAirfield.getOpponent();
+        foreach (int Key in BombResults.Keys)
+        {
+            Coordinate C = new Coordinate(Key / 10, Key % 10);
+            BombResult B = BombResults[Key];
+            Tuple<Coordinate, BombResult> tuple = new(C, B);
+            BombResultsOnOpponentAirfield.Add(tuple);
+        }
+        //获取本方飞机，实例化AirplanePlace单例
+        AirplanePlace airplanePlace = AirplanePlace.GetAirplanePlace();
+        for (int i = 0; i < 3; i++)
+        {
+            if (airplanePlace.GetAirplane(i)!=null)
+            MyAirplanes.Add(airplanePlace.GetAirplane(i));
+        }
+
+        //获取本方机场信息：坐标，状态 实例化BeBombed单例
+        BeBombed beBombed = BeBombed.GetBeBombed();
+        //从单例中获取存有本方机场状态的数据结构
+        Dictionary<int, BombResult> Beb = beBombed.GetBeb();
+        foreach (int Key in Beb.Keys)
+        {
+            Coordinate C=new Coordinate(Key / 10, Key % 10);
+            BombResult B = Beb[Key];
+            Tuple<Coordinate, BombResult> tuple = new(C, B);
+            MyAirfieldWasBombedAt.Add(tuple);
+        }
+
+        GameStateSnapShot gameState = new GameStateSnapShot(BombResultsOnOpponentAirfield.ToArray(),MyAirfieldWasBombedAt.ToArray(),MyAirplanes.ToArray());
+        return gameState;
     }
 
+    public bool IsPlanesPlacementReasonable(AirplanePlacement[] aps)
+    {
+        if (aps.Length != 3) return false;
+        //表示相对位置的数组
+        int[][] refer = new int[4][];
+        refer[0] = new int[] {0,-19,-9,1,11,21,2,-7,3,13};//上
+        refer[1] = new int[] {0,-21,-11,-1,9,19,-2,-13,-3,7};//下
+        refer[2] = new int[] {0,8,9,10,11,12,20,29,30,31 };//左
+        refer[3] = new int[] {0,-12,-11,-10,-9,-8,-20,-31,-30,-29};//右
+        //表示位置是否被占用
+        bool[] isoccupied = new bool[100];
+        for (int i = 0; i < 100; i++) isoccupied[i] = false;
+        //遍历三个飞机
+        for (int i = 0; i < 3; i++)
+        {
+            Coordinate c = aps[i].HeadCoord;
+            String d=aps[i].Direction;//u d l r
+            int id = c.X * 10 + c.Y;
+            int[]? r=null;
+            if (d.Equals("u")) r = refer[0];
+            if (d.Equals("d")) r = refer[1];
+            if (d.Equals("l")) r = refer[2];
+            if (d.Equals("r")) r = refer[3];
+            //遍历这个飞机的所有点
+            if(r!=null)
+            for (int j = 0; j < 10; j++)
+            {
+                //当前点的id
+                int buf_id = id;
+                buf_id += r[j];
+                //出界错误
+                if (buf_id < 0 || buf_id > 99)
+                {
+                    Console.WriteLine(i+","+j+"出界错误:"+buf_id/10+","+buf_id%10);
+                    return false;
+                }
+                //重叠错误
+                if (isoccupied[buf_id])
+                {
+                    Console.WriteLine(i+","+j+"重叠错误:"+buf_id/10+","+buf_id%10);
+                    return false;
+                }
+                else//无错误，占点
+                {
+                    isoccupied[buf_id] = true;
+                }
+            }
+        }
+        return true;
+    }
     public bool SetAirplane(int x, int y, string direction) //摆飞机
     {
         //传入飞机头，方向，经过算法(排除机头坐标重复，飞机重叠，坐标超载等情况)，返回bool值，true成功--》传入数据类中，false失败--》需要再次输入(逻辑在界面类实现)
@@ -112,7 +199,7 @@ public class GameLogic
         opponentAirfield.AddCoordinate(x, y, result);
     }
 
-    public bool ShouldTerminate() //判断游戏是否结束
+    public bool MyAirfieldIsDoomed() //判断游戏是否结束
     {
         //即判断三个飞机头坐标是否在BeBombed表中
         var airplanePlace = AirplanePlace.GetAirplanePlace();

@@ -21,7 +21,7 @@ public class GameLogicTests
             new Coordinate(9, 2),
             BombResult.Destroyed
         );
-        Assert.True(game.ShouldTerminate());
+        Assert.True(game.MyAirfieldIsDoomed());
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class GameLogicTests
             BombResult.Destroyed,
             game.GetBombResultOnMyAirfield(thirdHead)
         );
-        Assert.True(game.ShouldTerminate());
+        Assert.True(game.MyAirfieldIsDoomed());
     }
 
     [Fact]
