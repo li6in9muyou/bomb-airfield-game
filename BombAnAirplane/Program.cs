@@ -11,7 +11,7 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        IUserInterface ui = new ReplayUi("", new[]
+        IUserInterface ui = new HeadlessUi("", new[]
         {
             new Coordinate(0, 0),
             new Coordinate(1, 1),

@@ -1,17 +1,20 @@
 ﻿using Common;
+using Easy.Logger.Interfaces;
 using GameLogic;
 
 namespace UserInterface;
 
-public class ReplayUi : IUserInterface
+public class HeadlessUi : IUserInterface
 {
     private readonly Stack<Coordinate> _bombLocations;
     private readonly string _ipAddress;
+    private readonly IEasyLogger _note;
 
-    public ReplayUi(string ipAddress, IEnumerable<Coordinate> bombLocations)
+    public HeadlessUi(string ipAddress, IEnumerable<Coordinate> bombLocations)
     {
         _ipAddress = ipAddress;
         _bombLocations = new Stack<Coordinate>(bombLocations);
+        _note = Logging.GetLogger("GameMainLoop");
     }
 
     public bool WaitLocalUserDecideWhetherToContinue()
@@ -21,30 +24,28 @@ public class ReplayUi : IUserInterface
 
     public void DrawLocalUserLost()
     {
-        Console.Out.WriteLine("local user has lost");
+        _note.Info("local user has lost");
     }
 
     public void DrawLocalUserWon()
     {
-        Console.Out.WriteLine("local user has won");
+        _note.Info("local user has won");
     }
 
     public void DrawAdditionalContent(string message)
     {
-        Console.Out.WriteLine("message = {0}", message);
+        _note.Info($"show {message} to local user");
     }
 
     public void DrawGameLogic(GameLogic.GameLogic game)
     {
-        Console.Out.WriteLine("game = {0}", game);
+        _note.Info("current game state is rendered");
     }
 
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
     {
-        Console.Out.WriteLine(@"bomb where? \d,\d");
-        Console.Out.WriteLine("mocking input");
         var coordinate = _bombLocations.Pop();
-        Console.Out.WriteLine("coordinate = {0}", coordinate);
+        _note.Info($"local user bombs {coordinate.X},{coordinate.Y}");
         return coordinate;
     }
 
@@ -74,13 +75,13 @@ public class ReplayUi : IUserInterface
 
     public string WaitUserEnterAnIpAddress(string recommended)
     {
-        Console.Out.WriteLine("mocking input");
-        Console.Out.WriteLine("_ipAddress = {0}", _ipAddress);
+        _note.Info($"local enters an ip addr of {_ipAddress}");
         return _ipAddress;
     }
 
     public bool WaitLocalUserDecideWhetherContinue()
     {
+        _note.Info("local refuse to continue");
         return false;
     }
 }
