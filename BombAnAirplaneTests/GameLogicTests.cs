@@ -77,7 +77,7 @@ public class GameLogicTests
             new(new Coordinate(5, 6), BombResult.Hit),
             new(new Coordinate(5, 7), BombResult.Hit),
             new(new Coordinate(5, 8), BombResult.Hit),
-            new(new Coordinate(5, 9), BombResult.Hit),
+            new(new Coordinate(5, 9), BombResult.Miss),
             new(firstHead, BombResult.Destroyed),
             new(secondHead, BombResult.Destroyed),
             new(thirdHead, BombResult.Destroyed)
