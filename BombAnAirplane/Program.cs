@@ -18,7 +18,22 @@ internal static class Program
             new Coordinate(2, 6),
             new Coordinate(3, 7)
         });
-        ICommunicator communicator = new MockCommunicator();
+        ICommunicator communicator = new MockCommunicator(new[]
+        {
+            "999",
+            "ok",
+            "3,3",
+            "continue",
+            "destroy",
+            "0,3",
+            "continue",
+            "destroy",
+            "5,5",
+            "continue",
+            "destroy",
+            "yield",
+            "end"
+        });
         var online = new Online.Online(communicator);
 
         // 询问玩家如何联机
