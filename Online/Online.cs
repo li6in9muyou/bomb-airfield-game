@@ -38,6 +38,21 @@ public class Online
         return BombAnAirplaneProtocol.DoHandShake(_com);
     }
 
+    public void WaitSurrenderToOpponent()
+    {
+        BombAnAirplaneProtocol.WaitSurrenderToOpponent(_com);
+    }
+
+    public void WaitNotifyStillStanding()
+    {
+        BombAnAirplaneProtocol.WaitNotifyStillStanding(_com);
+    }
+
+    public bool WaitOpponentToSurrender()
+    {
+        return BombAnAirplaneProtocol.WaitOpponentToSurrender(_com);
+    }
+
     public void WaitOpponentPlaceAirplane()
     {
         BombAnAirplaneProtocol.WaitOpponentPlaceAirPlane(_com);
