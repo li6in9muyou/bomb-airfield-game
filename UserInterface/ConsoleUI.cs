@@ -1,10 +1,17 @@
 ﻿using Common;
-using GameLogic;
+using Easy.Logger.Interfaces;
 
 namespace UserInterface;
 
 public class ConsoleUi : IUserInterface
 {
+    private readonly IEasyLogger _note;
+
+    public ConsoleUi()
+    {
+        _note = Logging.GetLogger("ConsoleUi");
+    }
+
     public void DrawLocalUserLost()
     {
         Console.Out.WriteLine("local user has lost");
@@ -47,26 +54,23 @@ public class ConsoleUi : IUserInterface
 
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
-        AirplanePlacement[] ap =
+        for (var i = 0; i < 3; i++)
         {
-            new()
+            bool validPlacement;
+            do
             {
-                Direction = "d",
-                HeadCoord = new Coordinate(9, 9)
-            },
-            new()
-            {
-                Direction = "l",
-                HeadCoord = new Coordinate(0, 0)
-            },
-            new()
-            {
-                Direction = "u",
-                HeadCoord = new Coordinate(3, 3)
-            }
-        };
-        foreach (var p in ap)
-            game.SetAirplane(p.HeadCoord.X, p.HeadCoord.Y, p.Direction);
+                Console.Out.WriteLine(@"enter airplane placement ^[udlr],\d,\d$");
+                var text = Console.ReadLine();
+                _note.Info($"user input: {text}");
+                var a = text!.Split(',');
+                validPlacement = game.SetAirplane(int.Parse(a[1]), int.Parse(a[2]), a[0]);
+
+                if (!validPlacement)
+                    Console.Out.WriteLine("invalid placement, try again...");
+                else
+                    Console.Out.WriteLine("good placement!!!");
+            } while (!validPlacement);
+        }
     }
 
     public string WaitUserEnterAnIpAddress(string recommended)
