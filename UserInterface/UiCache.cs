@@ -11,6 +11,7 @@ public class UiCache
     {
         while (IpAddress==null)
         {
+            Console.WriteLine("IP:"+IpAddress);
             Thread.Sleep(3000);
         }
         return IpAddress;
@@ -20,6 +21,7 @@ public class UiCache
     {
         while (!isBombLocationNew)
         {
+            Console.WriteLine("BL:"+BombLocation);
             Thread.Sleep(3000);
         }
         isBombLocationNew = false;
@@ -30,6 +32,7 @@ public class UiCache
     {
         while (AirplanesPlacement==null)
         {
+            Console.WriteLine("AP:"+AirplanesPlacement);
             Thread.Sleep(3000);
         }
         return AirplanesPlacement;

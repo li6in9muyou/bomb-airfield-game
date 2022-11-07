@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Fleck;
+using System.Threading;
 namespace UserInterface;
 
 public class MsgRoot
@@ -11,8 +12,15 @@ public class UIServer
 {
     private static WebSocketServer? _server;
     private static IWebSocketConnection? _socket;
-    public static void Init() 
+
+    public static void Init()
     {
+        Thread serverThread = new Thread(new ThreadStart(ServerRun));
+        serverThread.Start();
+    }
+    private static void ServerRun() 
+    {
+        Console.WriteLine("Server Running...");
         _server = new WebSocketServer("ws://127.0.0.1:9898");
         _server.Start(socket => {
             socket.OnOpen = () =>
@@ -26,7 +34,7 @@ public class UIServer
                 Console.WriteLine("Close");
             };
             socket.OnMessage = message => {
-                Console.WriteLine(message);//接收消息，判断类型，放入相应缓存
+                Console.WriteLine("接到消息："+message);//接收消息，判断类型，放入相应缓存
                 SaveMsg(message);
             };
         });
@@ -34,7 +42,11 @@ public class UIServer
         {
             Console.Write("> ");
             String? cmd = Console.ReadLine();
-            if (cmd!=null&&cmd.Equals("close"))break;
+            if (cmd != null)
+            {
+                if (cmd.Equals("close"))break;
+                _socket.Send(cmd);
+            }
         }
     }
     public static void SendMsg(String header,String body)
@@ -51,7 +63,18 @@ public class UIServer
     {
         if (_socket != null)
         {
-            MsgRoot msgRoot = JsonConvert.DeserializeObject<MsgRoot>(msg);
+            MsgRoot? msgRoot;
+            try
+            {
+                msgRoot = JsonConvert.DeserializeObject<MsgRoot>(msg);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                _socket.Send("不能解析");
+                return;
+            };
+            if(msgRoot!=null)
             if (msgRoot.header.Equals("IpAddress"))
             {
                 UiCache.SetIpAddress(msgRoot.body);
