@@ -24,7 +24,7 @@ public class ConsoleUi : IUserInterface
 
     public bool WaitLocalUserDecideWhetherToContinue()
     {
-        Console.Out.WriteLine(@"keep playing? y/n");
+        Console.Out.WriteLine(@"keep playing? y|n");
         return Console.ReadLine() == "y";
     }
 
@@ -47,8 +47,7 @@ public class ConsoleUi : IUserInterface
         var y = coordinates[1];
         var xN = int.Parse(x);
         var yN = int.Parse(y);
-        Console.Out.WriteLine("x = {0}", xN);
-        Console.Out.WriteLine("y = {0}", yN);
+        _note.Info($"user input coord {xN},{yN}");
         return new Coordinate(xN, yN);
     }
 
@@ -76,6 +75,8 @@ public class ConsoleUi : IUserInterface
     public string WaitUserEnterAnIpAddress(string recommended)
     {
         Console.Out.WriteLine(@"to join room, enter an ip addr");
-        return Console.ReadLine()!;
+        var ipAddr = Console.ReadLine();
+        _note.Info($"user input \"{ipAddr}\"");
+        return ipAddr!;
     }
 }
