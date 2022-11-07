@@ -11,7 +11,8 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        IUserInterface ui = new ConsoleUi();
+        UIServer.Init();
+        IUserInterface ui = new UserInterfaceAdapter();
         ICommunicator communicator = new TcpCom();
         var online = new Online.Online(communicator);
 
