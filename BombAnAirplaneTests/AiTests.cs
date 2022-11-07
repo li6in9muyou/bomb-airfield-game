@@ -42,6 +42,59 @@ public class AiTests
     }
 
     [Fact]
+    public void ShouldProvideOneOffConvenientMethod()
+    {
+        Assert.Equal(
+            new Coordinate(1, 3),
+            BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(
+                Array.Empty<Tuple<Coordinate, BombResult>>()
+            )
+        );
+        Assert.Equal(
+            new Coordinate(3, 2),
+            BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(
+                new[]
+                {
+                    new Tuple<Coordinate, BombResult>(new Coordinate(1, 3), BombResult.Miss)
+                }
+            )
+        );
+        Assert.Equal(
+            new Coordinate(6, 6),
+            BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(
+                new[]
+                {
+                    new Tuple<Coordinate, BombResult>(new Coordinate(1, 3), BombResult.Miss),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(3, 2), BombResult.Destroyed)
+                }
+            )
+        );
+        Assert.Equal(
+            new Coordinate(4, 7),
+            BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(
+                new[]
+                {
+                    new Tuple<Coordinate, BombResult>(new Coordinate(1, 3), BombResult.Miss),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(3, 2), BombResult.Destroyed),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(6, 6), BombResult.Miss)
+                }
+            )
+        );
+        Assert.Equal(
+            new Coordinate(7, 6),
+            BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(
+                new[]
+                {
+                    new Tuple<Coordinate, BombResult>(new Coordinate(1, 3), BombResult.Miss),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(3, 2), BombResult.Destroyed),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(6, 6), BombResult.Miss),
+                    new Tuple<Coordinate, BombResult>(new Coordinate(4, 7), BombResult.Miss)
+                }
+            )
+        );
+    }
+
+    [Fact]
     public void ShouldPrettyPrintAirfield()
     {
         var node = new Node(9);

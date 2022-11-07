@@ -191,4 +191,14 @@ public class BombAnAirplaneAi
     {
         return _prospectiveAirfields;
     }
+
+    public static Coordinate SuggestNextBombLocationAccordingToBombResults(
+        IEnumerable<Tuple<Coordinate, BombResult>> history
+    )
+    {
+        var ai = new BombAnAirplaneAi();
+        foreach (var (coord, result) in history) ai.LogBombResult(coord.X, coord.Y, result);
+
+        return ai.SuggestNextBombLocation();
+    }
 }
