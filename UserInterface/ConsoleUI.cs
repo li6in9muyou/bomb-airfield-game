@@ -30,12 +30,31 @@ public class ConsoleUi : IUserInterface
 
     public void DrawAdditionalContent(string message)
     {
-        Console.Out.WriteLine("message = {0}", message);
+        Console.Out.WriteLine("\nADDITIONAL CONTENT");
+        Console.Out.WriteLine(message);
+        Console.Out.WriteLine("END");
     }
 
     public void DrawGameLogic(GameLogic.GameLogic game)
     {
-        Console.Out.WriteLine("game = {0}", game);
+        var state = game.CaptureCurrentGameState();
+        Console.Out.WriteLine("\n\nCURRENT GAME STATE");
+
+        Console.Out.WriteLine("your airplanes:");
+        foreach (var airplane in state.MyAirplanes)
+            Console.Out.WriteLine($"{airplane.Direction} ${airplane.X},${airplane.Y}");
+
+        Console.Out.WriteLine("your airfield:");
+        foreach (var (coordinate, bombResult) in state.MyAirfieldWasBombedAt)
+            Console.Out.WriteLine($"{coordinate.X},{coordinate.Y} is {bombResult}");
+
+        Console.Out.WriteLine("opponent airfield:");
+        foreach (var (coordinate, bombResult) in state.BombResultsOnOpponentAirfield)
+            Console.Out.WriteLine($"{coordinate.X},{coordinate.Y} is {bombResult}");
+
+        Console.Out.WriteLine("END");
+        Console.Out.WriteLine();
+        Console.Out.WriteLine();
     }
 
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
