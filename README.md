@@ -399,7 +399,7 @@ activate ui
 ui -->> main: 坐标
 deactivate ui
 else 开启AI代玩
-main ->> ai: 本回合要炸的对方机场的坐标（）
+main ->> ai: 本回合要炸的对方机场的坐标（对方机场的炸的结果）
 activate main
 deactivate main
 activate ai
