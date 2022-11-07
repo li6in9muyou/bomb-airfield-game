@@ -1,5 +1,4 @@
 ﻿using Common;
-using GameLogic;
 using Online;
 using UserInterface;
 
@@ -12,52 +11,8 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        IUserInterface ui = new HeadlessUi(
-            "",
-            new[]
-            {
-                new Coordinate(0, 0),
-                new Coordinate(1, 1),
-                new Coordinate(2, 6),
-                new Coordinate(3, 7)
-            },
-            new[]
-            {
-                new AirplanePlacement
-                {
-                    Direction = "d",
-                    HeadCoord = new Coordinate(9, 9)
-                },
-                new AirplanePlacement
-                {
-                    Direction = "l",
-                    HeadCoord = new Coordinate(0, 0)
-                },
-                new AirplanePlacement
-                {
-                    Direction = "u",
-                    HeadCoord = new Coordinate(3, 3)
-                }
-            }
-        );
-        ICommunicator communicator = new MockReceiving(new[]
-        {
-            "999",
-            "ok",
-            "3,3",
-            "continue",
-            "destroy",
-            "continue",
-            "0,3",
-            "continue",
-            "destroy",
-            "continue",
-            "5,5",
-            "continue",
-            "destroy",
-            "yield",
-            "end"
-        });
+        IUserInterface ui = new ConsoleUi();
+        ICommunicator communicator = new TcpCom();
         var online = new Online.Online(communicator);
 
         // 询问玩家如何联机
