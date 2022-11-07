@@ -42,7 +42,7 @@ public class ConsoleUi : IUserInterface
 
         Console.Out.WriteLine("your airplanes:");
         foreach (var airplane in state.MyAirplanes)
-            Console.Out.WriteLine($"{airplane.Direction} ${airplane.X},${airplane.Y}");
+            Console.Out.WriteLine($"{airplane.Direction} {airplane.X},{airplane.Y}");
 
         Console.Out.WriteLine("your airfield:");
         foreach (var (coordinate, bombResult) in state.MyAirfieldWasBombedAt)
