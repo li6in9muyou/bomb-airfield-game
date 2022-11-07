@@ -73,171 +73,122 @@ public class Node
 
 public class BombAnAirplaneAi
 {
-    private static readonly int[][] AirplaneHeadingNorth = Reshape(
-        9, 2,
-        new[]
-        {
-            +1, -2, +1, -1, +1, 0, +1, +1, +1, +2, +2, 0, +3, -1, +3, 0, +3, +1
-        }
-    );
+    private readonly List<AirfieldGridStatus[][]> _allAirfields = new(70000);
 
-    private static readonly int[][] AirplaneHeadingSouth = Reshape(
-        9, 2,
-        new[]
-        {
-            -1, -2, -1, -1, -1, 0, -1, +1, -1, +2, -2, 0, -3, -1, -3, 0, -3, +1
-        }
-    );
-
-    private static readonly int[][] AirplaneHeadingWest = Reshape(
-        9, 2,
-        new[]
-        {
-            -2, +1, -1, +1, 0, +1, +1, +1, +2, +1, 0, +2, -1, +3, 0, +3, +1, +3
-        }
-    );
-
-    private static readonly int[][] AirplaneHeadingEast = Reshape(
-        9, 2,
-        new[]
-        {
-            -2, -1, -1, -1, 0, -1, +1, -1, +2, -1, 0, -2, -1, -3, 0, -3, +1, -3
-        }
-    );
-
-    private readonly uint _airfieldSideLength;
-    private readonly uint _airplaneCount;
-    private AirfieldGridStatus[][] _workingAirfield;
-
-    private BombAnAirplaneAi(uint airfieldSideLength, uint airplaneCount)
+    private readonly AirfieldGridStatus[][] _knownOpponentAirfield =
     {
-        _airfieldSideLength = airfieldSideLength;
-        _airplaneCount = airplaneCount;
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10],
+        new AirfieldGridStatus[10]
+    };
 
-        var tmp = new List<AirfieldGridStatus[]>();
-        for (var i = 0; i < _airfieldSideLength; i++)
-        {
-            var row = new List<AirfieldGridStatus>();
-            for (var j = 0; j < _airfieldSideLength; j++) row.Add(AirfieldGridStatus.Empty);
-            tmp.Add(row.ToArray());
-        }
+    private AirfieldGridStatus[][][] _prospectiveAirfields;
 
-        _workingAirfield = tmp.ToArray();
-    }
-
-
-    public BombAnAirplaneAi() : this(10, 3)
+    public BombAnAirplaneAi()
     {
-    }
-
-    private static int[][] Reshape(int rows, int cols, IReadOnlyList<int> array)
-    {
-        var ans = new List<int[]>();
-        for (var i = 0; i < rows; i += 1)
+        var allAirfields = File.ReadAllText("./dump.txt").Split("\r\n\r\n").Where(t => t.Length > 5);
+        foreach (var airfield in allAirfields)
         {
-            var row = new int[cols];
-            for (var j = 0; j < cols; j++) row[j] = array[i * cols + j];
-            ans.Add(row);
-        }
-
-        return ans.ToArray();
-    }
-
-    private void Dfs(int nthAirplane, List<Node> vn)
-    {
-        if (nthAirplane > _airplaneCount)
-        {
-            var node = new Node(_workingAirfield);
-            vn.Add(node);
-            return;
-        }
-
-        var b = DeepCopy(_workingAirfield);
-
-        for (var dir = 0; dir < 4; dir++)
-        for (var i = 0; i < _airfieldSideLength; i++)
-        for (var j = 0; j < _airfieldSideLength; j++)
-        {
-            _workingAirfield = DeepCopy(b);
-            var validPlacement = true;
-            if (_workingAirfield[i][j] != AirfieldGridStatus.Empty) continue;
-
-            _workingAirfield[i][j] = AirfieldGridStatus.Cockpit;
-            for (var k = 0; k < 9; k++)
+            var text = airfield.Split("\r\n").Where(t => t.Length == 10).ToArray();
+            var thisAirfield = new[]
             {
-                int ii, jj;
-                switch (dir)
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10],
+                new AirfieldGridStatus[10]
+            };
+            for (var i = 0; i < 10; i++)
+            for (var j = 0; j < 10; j++)
+                thisAirfield[i][j] = text[i][j] switch
                 {
-                    case 0:
-                        ii = i + AirplaneHeadingNorth[k][0];
-                        jj = j + AirplaneHeadingNorth[k][1];
-                        break;
-                    case 1:
-                        ii = i + AirplaneHeadingSouth[k][0];
-                        jj = j + AirplaneHeadingSouth[k][1];
-                        break;
-                    case 2:
-                        ii = i + AirplaneHeadingWest[k][0];
-                        jj = j + AirplaneHeadingWest[k][1];
-                        break;
-                    default:
-                        ii = i + AirplaneHeadingEast[k][0];
-                        jj = j + AirplaneHeadingEast[k][1];
-                        break;
-                }
+                    '@' => AirfieldGridStatus.Cockpit,
+                    '*' => AirfieldGridStatus.Fuselage,
+                    _ => AirfieldGridStatus.Empty
+                };
+            _allAirfields.Add(thisAirfield);
+        }
 
-                if (ii < 0 || ii >= _airfieldSideLength || jj < 0 || jj >= _airfieldSideLength)
+        _prospectiveAirfields = _allAirfields.Where(_ => true).ToArray();
+    }
+
+    public void LogBombResult(int x, int y, BombResult result)
+    {
+        _knownOpponentAirfield[x][y] = result switch
+        {
+            BombResult.Destroyed => AirfieldGridStatus.Cockpit,
+            BombResult.Hit => AirfieldGridStatus.Fuselage,
+            BombResult.Miss => AirfieldGridStatus.Empty,
+            _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
+        };
+        _prospectiveAirfields = _allAirfields.Where(
+            airfield =>
+            {
+                return airfield[x][y] == result switch
                 {
-                    validPlacement = false;
-                    break;
-                }
+                    BombResult.Destroyed => AirfieldGridStatus.Cockpit,
+                    BombResult.Hit => AirfieldGridStatus.Fuselage,
+                    BombResult.Miss => AirfieldGridStatus.Empty,
+                    _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
+                };
+            }).ToArray();
+    }
 
-                if (_workingAirfield[ii][jj] != AirfieldGridStatus.Empty)
+    public Coordinate SuggestNextBombLocation()
+    {
+        int ii = 0, jj = 0, maxEarn = 0;
+        for (var i = 0; i < 10; i++)
+        for (var j = 0; j < 10; j++)
+            if (_knownOpponentAirfield[i][j] == AirfieldGridStatus.Unknown)
+            {
+                int p1 = 0, p2 = 0, p3 = 0;
+                foreach (var airfield in _prospectiveAirfields)
+                    switch (airfield[i][j])
+                    {
+                        case AirfieldGridStatus.Fuselage:
+                        {
+                            p1++;
+                            break;
+                        }
+                        case AirfieldGridStatus.Cockpit:
+                        {
+                            p2++;
+                            break;
+                        }
+                        case AirfieldGridStatus.Empty:
+                            p3++;
+                            break;
+                        case AirfieldGridStatus.Unknown:
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                var earn = p3 * (p1 + p2) + p2 * (p1 + p3) + p1 * (p2 + p3);
+                if (earn > maxEarn)
                 {
-                    validPlacement = false;
-                    break;
+                    ii = i;
+                    jj = j;
+                    maxEarn = earn;
                 }
-
-                _workingAirfield[ii][jj] = AirfieldGridStatus.Fuselage;
             }
 
-            if (validPlacement) Dfs(nthAirplane + 1, vn);
-        }
+        return new Coordinate(ii, jj);
     }
 
-    public AirfieldGridStatus[][][] GetAllPrediction(
-        Tuple<Coordinate, BombResult>[] currentBombResult
-    )
+    public AirfieldGridStatus[][][] GetAllPrediction()
     {
-        for (var i = 0; i < _airfieldSideLength; i++)
-        for (var j = 0; j < _airfieldSideLength; j++)
-            _workingAirfield[i][j] = AirfieldGridStatus.Empty;
-        List<Node> temp = new(), ret = new();
-
-        Dfs(1, temp);
-
-        HashSet<Node> unique = new();
-        foreach (var node in temp.Where(node => !unique.Contains(node)))
-        {
-            ret.Add(node);
-            Console.Out.WriteLine(node);
-            unique.Add(node);
-        }
-
-        return ret.Select(node => node.Airfield).ToArray();
-    }
-
-    private static AirfieldGridStatus[][] DeepCopy(AirfieldGridStatus[][] source)
-    {
-        var tmp = new List<AirfieldGridStatus[]>();
-        foreach (var t in source)
-        {
-            var row = new List<AirfieldGridStatus>();
-            for (var j = 0; j < source[0].Length; j++)
-                row.Add(t[j]);
-            tmp.Add(row.ToArray());
-        }
-
-        return tmp.ToArray();
+        return _prospectiveAirfields;
     }
 }
