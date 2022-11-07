@@ -72,13 +72,17 @@ public class ConsoleUi : IUserInterface
 
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
+        var suggestions = new Stack<string>(new[] { "u,2,2", "d,6,3", "r,8,7" }.Reverse());
         for (var i = 0; i < 3; i++)
         {
             bool validPlacement;
             do
             {
-                Console.Out.WriteLine(@"enter airplane placement ^[udlr],\d,\d$");
-                var text = Console.ReadLine();
+                Console.Out.WriteLine(
+                    @"enter airplane placement ^[udlr],\d,\d$"
+                    + $" press enter to accept {suggestions.Peek()}"
+                );
+                var text = Console.ReadLine() ?? suggestions.Pop();
                 _note.Info($"user input: {text}");
                 var a = text!.Split(',');
                 validPlacement = game.SetAirplane(int.Parse(a[1]), int.Parse(a[2]), a[0]);
