@@ -82,7 +82,8 @@ public class ConsoleUi : IUserInterface
                     @"enter airplane placement ^[udlr],\d,\d$"
                     + $" press enter to accept {suggestions.Peek()}"
                 );
-                var text = Console.ReadLine() ?? suggestions.Pop();
+                var text = Console.ReadLine();
+                if (text == "") text = suggestions.Pop();
                 _note.Info($"user input: {text}");
                 var a = text!.Split(',');
                 validPlacement = game.SetAirplane(int.Parse(a[1]), int.Parse(a[2]), a[0]);
