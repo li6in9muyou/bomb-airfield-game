@@ -55,6 +55,7 @@ public class Online
 
     public void WaitOpponentPlaceAirplane()
     {
+        NotifyLocalReady();
         BombAnAirplaneProtocol.WaitOpponentPlaceAirPlane(_com);
     }
 

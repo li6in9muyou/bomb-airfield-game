@@ -70,7 +70,10 @@ public class TcpCom : ICommunicator
             try
             {
                 _remote.Connect(_ipAddr, 61234);
-                break;
+                var s = _remote.GetStream();
+                _reader = new StreamReader(s);
+                _writer = new StreamWriter(s);
+                return;
             }
             catch (SocketException e)
             {
