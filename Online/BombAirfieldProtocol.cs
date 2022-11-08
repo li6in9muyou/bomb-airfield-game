@@ -31,7 +31,7 @@ public class BombAnAirplaneProtocol
     {
         var where = coordinate.X + "," + coordinate.Y;
         com.Write(where);
-        var result = com.Expect(new Regex(@"(hit)|(miss)|(destroy)"));
+        var result = com.Expect(new Regex(@"(hit)|(miss)|(destroyed)"));
         Note.Info($"bomb on opponent airfield at {coordinate.X},{coordinate.Y} is a {result}");
         switch (result)
         {
@@ -43,7 +43,7 @@ public class BombAnAirplaneProtocol
             {
                 return BombResult.Miss;
             }
-            case "destroy":
+            case "destroyed":
             {
                 return BombResult.Destroyed;
             }
