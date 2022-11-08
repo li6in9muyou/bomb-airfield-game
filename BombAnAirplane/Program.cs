@@ -12,6 +12,7 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
+        UIServer.Init();
         IUserInterface ui = new HeadlessUi(
             "",
             new[]
@@ -40,7 +41,7 @@ internal static class Program
                 }
             }
         );
-        ICommunicator communicator = new MockCommunicator(new[]
+        ICommunicator communicator = new MockReceiving(new[]
         {
             "999",
             "ok",
