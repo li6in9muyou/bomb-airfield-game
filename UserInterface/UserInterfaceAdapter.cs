@@ -45,12 +45,12 @@ public class UserInterfaceAdapter : IUserInterface
         while (true)
         {//未完，没有返回值，没有通知前端
             //获取数据
-        var jsonAp = UiCache.WaitAirplanesPlacement();
-        var apRoot = JsonConvert.DeserializeObject<ApRoot>(jsonAp);
-        var aps = new AirplanePlacement[apRoot!.Aps.Count];
-        var i = 0;
-        foreach (var ap in apRoot.Aps)
-        {
+            var jsonAp = UiCache.WaitAirplanesPlacement();
+            var apRoot = JsonConvert.DeserializeObject<ApRoot>(jsonAp);
+            var aps = new AirplanePlacement[apRoot!.Aps.Count];
+            var i = 0;
+            foreach (var ap in apRoot.Aps)
+            {
             var airPlanePlacement = new AirplanePlacement
             {
                 Direction = ap.Direction,
@@ -67,7 +67,7 @@ public class UserInterfaceAdapter : IUserInterface
                     game.SetAirplane(ap.X,ap.Y,ap.Direction);
                 }
                 break;
-            }else continue;
+            }
         }
     }
 

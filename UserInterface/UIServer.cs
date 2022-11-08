@@ -62,7 +62,7 @@ public class UIServer
             if (cmd != null)
             {
                 if (cmd.Equals("close")) break;
-                _socket?.Send(cmd);
+                SendMsg("stateMsg",cmd);
             }
         }
     }
@@ -75,6 +75,7 @@ public class UIServer
             var data = new { header, body };
             var jsonData = JsonConvert.SerializeObject(data);
             _socket.Send(jsonData);
+            Console.WriteLine("已发送消息："+header+"=>"+body);
         }
     }
 
