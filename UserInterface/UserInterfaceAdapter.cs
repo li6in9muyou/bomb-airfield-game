@@ -43,7 +43,8 @@ public class UserInterfaceAdapter : IUserInterface
     public void WaitLocalUserPlaceAirplanes(GameLogic.GameLogic game)
     {
         while (true)
-        {//未完，没有返回值，没有通知前端
+        {
+            //未完，没有返回值，没有通知前端
             //获取数据
             var jsonAp = UiCache.WaitAirplanesPlacement();
             var apRoot = JsonConvert.DeserializeObject<ApRoot>(jsonAp);
@@ -51,21 +52,23 @@ public class UserInterfaceAdapter : IUserInterface
             var i = 0;
             foreach (var ap in apRoot.Aps)
             {
-            var airPlanePlacement = new AirplanePlacement
-            {
-                Direction = ap.Direction,
-                HeadCoord = new Coordinate(ap.X, ap.Y)
-            };
+                var airPlanePlacement = new AirplanePlacement
+                {
+                    Direction = ap.Direction,
+                    HeadCoord = new Coordinate(ap.X, ap.Y)
+                };
                 aps[i++] = airPlanePlacement;
             }
+
             //判断数据是否合理
-            bool isPPR=game.IsPlanesPlacementReasonable(aps);
+            bool isPPR = game.IsPlanesPlacementReasonable(aps);
             if (isPPR)
             {
                 foreach (var ap in apRoot.Aps)
                 {
-                    game.SetAirplane(ap.X,ap.Y,ap.Direction);
+                    game.SetAirplane(ap.X, ap.Y, ap.Direction);
                 }
+
                 break;
             }
         }
@@ -93,8 +96,9 @@ public class UserInterfaceAdapter : IUserInterface
             var BL = new { x = b.Item1.X, y = b.Item1.Y, result = b.Item2.ToString() };
             JsonData += JsonConvert.SerializeObject(BL) + ",";
         }
+
         JsonData += "]";
-        UIServer.SendMsg("bombResult",JsonData);
+        UIServer.SendMsg("bombResult", JsonData);
     }
 
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
@@ -103,10 +107,5 @@ public class UserInterfaceAdapter : IUserInterface
         var coordRoot = JsonConvert.DeserializeObject<CoordRoot>(jsonCoord);
         var coordinate = new Coordinate(coordRoot!.X, coordRoot.Y);
         return coordinate;
-    }
-
-    public AirplanePlacement[] WaitLocalUserPlaceAirplanes()
-    {
-        return Array.Empty<AirplanePlacement>();
     }
 }
