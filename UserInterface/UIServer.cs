@@ -1,6 +1,11 @@
+using System.Diagnostics;
 using Newtonsoft.Json;
 using Fleck;
 using System.Threading;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+
 namespace UserInterface;
 
 public class MsgRoot
@@ -17,6 +22,15 @@ public class UIServer
     {
         Thread serverThread = new Thread(new ThreadStart(ServerRun));
         serverThread.Start();
+        Task.Run(() =>
+        {
+            new WebHostBuilder()
+                .UseKestrel()
+                .UseUrls("http://127.0.0.1:8080")
+                .UseStartup<StartUp>()
+                .Build().Run();
+            Process.Start("explorer", "http:/127.0.0.1:8080/index.html");
+        });
     }
     private static void ServerRun() 
     {
@@ -85,6 +99,20 @@ public class UIServer
             {
                 UiCache.SetAirplanesPlacement(msgRoot.body);
             }
+        }
+    }
+    
+    private class StartUp
+    {
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseDefaultFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"./WebHtmlView")
+                )
+            });
         }
     }
 }
