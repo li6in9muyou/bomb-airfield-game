@@ -108,9 +108,4 @@ public class UserInterfaceAdapter : IUserInterface
         var coordinate = new Coordinate(coordRoot!.X, coordRoot.Y);
         return coordinate;
     }
-
-    public AirplanePlacement[] WaitLocalUserPlaceAirplanes()
-    {
-        return Array.Empty<AirplanePlacement>();
-    }
 }
