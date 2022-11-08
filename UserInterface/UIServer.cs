@@ -1,10 +1,9 @@
 using System.Diagnostics;
-using Newtonsoft.Json;
 using Fleck;
-using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 
 namespace UserInterface;
 
@@ -110,7 +109,7 @@ public class UIServer
                 }
         }
     }
-    
+
     private class StartUp
     {
         public void Configure(IApplicationBuilder app)
