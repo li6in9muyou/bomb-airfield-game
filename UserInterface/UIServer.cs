@@ -78,7 +78,7 @@ public class UIServer
         }
     }
 
-    public static void SaveMsg(string msg)
+    private static void SaveMsg(string msg)
     {
         if (_socket != null)
         {
