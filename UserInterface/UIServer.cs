@@ -13,6 +13,7 @@ public class MsgRoot
     public string header { get; set; }
     public string body { get; set; }
 }
+
 public class UIServer
 {
     private static WebSocketServer? _server;
@@ -20,7 +21,7 @@ public class UIServer
 
     public static void Init()
     {
-        Thread serverThread = new Thread(new ThreadStart(ServerRun));
+        var serverThread = new Thread(ServerRun);
         serverThread.Start();
         Task.Run(() =>
         {
@@ -32,11 +33,13 @@ public class UIServer
             Process.Start("explorer", "http:/127.0.0.1:8080/index.html");
         });
     }
-    private static void ServerRun() 
+
+    private static void ServerRun()
     {
         Console.WriteLine("Server Running...");
         _server = new WebSocketServer("ws://127.0.0.1:9898");
-        _server.Start(socket => {
+        _server.Start(socket =>
+        {
             socket.OnOpen = () =>
             {
                 _socket = socket;
@@ -47,33 +50,36 @@ public class UIServer
                 _socket = null;
                 Console.WriteLine("Close");
             };
-            socket.OnMessage = message => {
-                Console.WriteLine("接到消息："+message);//接收消息，判断类型，放入相应缓存
+            socket.OnMessage = message =>
+            {
+                Console.WriteLine("接到消息：" + message); //接收消息，判断类型，放入相应缓存
                 SaveMsg(message);
             };
         });
-        while (true) 
+        while (true)
         {
             Console.Write("> ");
-            String? cmd = Console.ReadLine();
+            var cmd = Console.ReadLine();
             if (cmd != null)
             {
-                if (cmd.Equals("close"))break;
-                _socket.Send(cmd);
+                if (cmd.Equals("close")) break;
+                _socket?.Send(cmd);
             }
         }
     }
-    public static void SendMsg(String header,String body)
+
+    public static void SendMsg(string header, string body)
     {
         if (_socket != null)
         {
             //俩参数，一头一内容，在此合并
-            var data = new { header = header, body = body };
-            string jsonData = JsonConvert.SerializeObject(data);
+            var data = new { header, body };
+            var jsonData = JsonConvert.SerializeObject(data);
             _socket.Send(jsonData);
         }
     }
-    public static void SaveMsg(String msg)
+
+    public static void SaveMsg(string msg)
     {
         if (_socket != null)
         {
@@ -87,18 +93,21 @@ public class UIServer
                 Console.WriteLine(e);
                 _socket.Send("不能解析");
                 return;
-            };
-            if(msgRoot!=null)
-            if (msgRoot.header.Equals("IpAddress"))
-            {
-                UiCache.SetIpAddress(msgRoot.body);
-            }else if (msgRoot.header.Equals("BombLocation"))
-            {
-                UiCache.SetBombLocation(msgRoot.body);
-            }else if (msgRoot.header.Equals("AirplanesPlacement"))
-            {
-                UiCache.SetAirplanesPlacement(msgRoot.body);
             }
+
+            if (msgRoot != null)
+                switch (msgRoot.header)
+                {
+                    case "IpAddress":
+                        UiCache.SetIpAddress(msgRoot.body);
+                        break;
+                    case "BombLocation":
+                        UiCache.SetBombLocation(msgRoot.body);
+                        break;
+                    case "AirplanesPlacement":
+                        UiCache.SetAirplanesPlacement(msgRoot.body);
+                        break;
+                }
         }
     }
     
