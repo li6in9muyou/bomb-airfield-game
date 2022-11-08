@@ -13,7 +13,7 @@ public class Ap
 
 public class ApRoot
 {
-    public List<Ap> Aps { get; set; }
+    public List<Ap> Aps { get; set; } = new();
 }
 
 public class CoordRoot
@@ -44,14 +44,15 @@ public class UserInterfaceAdapter : IUserInterface
         //未设置GameLogic状态
         var jsonAp = UiCache.WaitAirplanesPlacement();
         var apRoot = JsonConvert.DeserializeObject<ApRoot>(jsonAp);
-        var aps = new AirplanePlacement[apRoot.Aps.Count];
+        var aps = new AirplanePlacement[apRoot!.Aps.Count];
         var i = 0;
         foreach (var ap in apRoot.Aps)
         {
-            var airPlanePlacement = new AirplanePlacement();
-            airPlanePlacement.Direction = ap.Direction;
-            var coordinate = new Coordinate(ap.X, ap.Y);
-            airPlanePlacement.HeadCoord = coordinate;
+            var airPlanePlacement = new AirplanePlacement
+            {
+                Direction = ap.Direction,
+                HeadCoord = new Coordinate(ap.X, ap.Y)
+            };
             aps[i++] = airPlanePlacement;
         }
         //isAirplanePlacementReasonable
@@ -65,15 +66,15 @@ public class UserInterfaceAdapter : IUserInterface
 
     public void DrawAdditionalContent(string message)
     {
-        UIServer.SendMsg("stateMsg",message);
+        UIServer.SendMsg("stateMsg", message);
     }
 
     public void DrawGameLogic(GameLogic.GameLogic game)
     {
         //发送轰炸位置、结果
-        var BL = new { x = 1, y = 1, result = 1 };
-        String JsonData = JsonConvert.SerializeObject(BL);
-        UIServer.SendMsg("bombResult",JsonData);
+        var bl = new { x = 1, y = 1, result = 1 };
+        var jsonData = JsonConvert.SerializeObject(bl);
+        UIServer.SendMsg("bombResult", jsonData);
     }
 
     public Coordinate WaitLocalUserChooseBombLocation(GameLogic.GameLogic game)
@@ -81,7 +82,7 @@ public class UserInterfaceAdapter : IUserInterface
         //未设置GameLogic状态
         var jsonCoord = UiCache.WaitBombLocation();
         var coordRoot = JsonConvert.DeserializeObject<CoordRoot>(jsonCoord);
-        var coordinate = new Coordinate(coordRoot.X, coordRoot.Y);
+        var coordinate = new Coordinate(coordRoot!.X, coordRoot.Y);
         return coordinate;
     }
 

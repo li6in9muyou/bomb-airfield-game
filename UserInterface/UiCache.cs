@@ -2,53 +2,58 @@
 
 public class UiCache
 {
-    private static String? IpAddress = null;
-    private static String? BombLocation = null;
-    private static Boolean isBombLocationNew = false;
-    private static String? AirplanesPlacement = null;
+    private static string? _ipAddress;
+    private static string? _bombLocation;
+    private static bool _isBombLocationNew;
+    private static string? _airplanesPlacement;
 
-    public static String WaitIpAddress()
+    public static string WaitIpAddress()
     {
-        while (IpAddress==null)
+        while (_ipAddress == null)
         {
-            Console.WriteLine("IP:"+IpAddress);
+            Console.WriteLine("IP:" + _ipAddress);
             Thread.Sleep(3000);
         }
-        return IpAddress;
+
+        return _ipAddress;
     }
 
-    public static String WaitBombLocation()
+    public static string WaitBombLocation()
     {
-        while (!isBombLocationNew)
+        while (!_isBombLocationNew)
         {
-            Console.WriteLine("BL:"+BombLocation);
+            Console.WriteLine("BL:" + _bombLocation);
             Thread.Sleep(3000);
         }
-        isBombLocationNew = false;
-        return BombLocation;
-    }
-    
-    public static String WaitAirplanesPlacement()
-    {
-        while (AirplanesPlacement==null)
-        {
-            Console.WriteLine("AP:"+AirplanesPlacement);
-            Thread.Sleep(3000);
-        }
-        return AirplanesPlacement;
+
+        _isBombLocationNew = false;
+        return _bombLocation!;
     }
 
-    public static void SetIpAddress(String i)
+    public static string WaitAirplanesPlacement()
     {
-        IpAddress = i;
+        while (_airplanesPlacement == null)
+        {
+            Console.WriteLine("AP:" + _airplanesPlacement);
+            Thread.Sleep(3000);
+        }
+
+        return _airplanesPlacement;
     }
-    public static void SetBombLocation(String b)
+
+    public static void SetIpAddress(string i)
     {
-        BombLocation = b;
-        isBombLocationNew = true;
+        _ipAddress = i;
     }
-    public static void SetAirplanesPlacement(String a)
+
+    public static void SetBombLocation(string b)
     {
-        AirplanesPlacement = a;
+        _bombLocation = b;
+        _isBombLocationNew = true;
+    }
+
+    public static void SetAirplanesPlacement(string a)
+    {
+        _airplanesPlacement = a;
     }
 }
