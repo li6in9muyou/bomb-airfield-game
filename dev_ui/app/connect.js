@@ -1,38 +1,30 @@
-/*
- * @Author: error: git config user.name && git config user.email & please set dead value or install git
- * @Date: 2022-11-01 22:09:56
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-11-07 22:07:45
- * @FilePath: \炸飞机\app\connect.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 let tool = {
-   getMyIP: function getMyIP(){
-    return 123
-   },//获取本机的后端IP 用于构建房间
-   getYourIp: function getYourIp(){
-   return 123
+   createRoom(){
+     //告诉后端本机已经创建房间,其他人输入IP地址可以加入
+   },
+   tellCreateStart(){
+    return true //告诉我是否有人加入房间
+   },
+   tellJoinStart(ip){
+    return true //传入要加入房间的ip 告诉我是否加入房间成功
    },
    getYourAttack: function getYourAttack(){
-      return 123
+      return 123//得到敌方的攻击位置和结果
    },
    sendMyAttack: function sendMyAttack(){
-      return true
+      return true//发送我的攻击位置
    },
    sendMyPosition: function sendMyPosition(){
-      return true
+      return true//发送飞机布局位置
    },
-   allReady(){
-      return true
+   getYourReady(){
+      return true//获取对方是否摆放飞机成功
    },
-   myResult(){
-      return true
+   sendMyReady(){
+    //告诉后端已经摆放成功
    },
-   isFail(){
-      return 123
-   },
-   sendFail(){
-      return 123
+   myResult(des){
+    //des是提示框元素对象 提示信息直接给它的innerText赋值就行
    }
 }
 export default tool
