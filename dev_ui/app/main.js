@@ -60,33 +60,23 @@ function chooseWay(){
       tip.innerText = 'IP不能为空'
     }else{
     document.querySelector('.chooseGoal').style.top= '-2000px'//房间选择功能已经完成
-    if(joinRoomHandle(ip)){
-      gameService()
-    }
+    joinRoomHandle(ip)
+    gameService()
     }
   }else{
     document.querySelector('.chooseGoal').style.top= '-2000px'//房间选择功能已经完成
-    if(createRoomHandle()){
-      gameService()
-    }
+    createRoomHandle()
+    gameService()
   }
   },false)
   backLast.addEventListener('click',backButton)//返回上一级的处理函数
 }
 chooseWay()
 function createRoomHandle(){
-  if(tool.tellCreateStart()){
-    return true
-  }else{
-    return createRoomHandle()
-  }
+ tool.sendMyIP('')
 }
 function joinRoomHandle(ip){
-  if(tool.tellJoinStart(ip)){
-    return true
-  }else{  
-    return joinRoomHandle()
-  }
+ tool.sendMyIP(ip)
 }
 //此函数接管游戏过程中的所有服务 
 function gameService(){
