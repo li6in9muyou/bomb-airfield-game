@@ -2,10 +2,10 @@ let tool = {
    getYourAttack: function getYourAttack(){
       return 123//得到敌方的攻击位置和结果
    },
-   sendMyAttack: function sendMyAttack(){
+   sendMyAttack: function sendMyAttack(value){
       return true//发送我的攻击位置
    },
-   sendMyPosition: function sendMyPosition(){
+   sendMyPosition: function sendMyPosition(value){
       return true//发送飞机布局位置
    },
    getYourReady(){
