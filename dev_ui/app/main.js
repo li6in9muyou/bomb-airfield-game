@@ -23,6 +23,7 @@ const myLi = document.querySelectorAll('.myself ul li')
 const failure = document.querySelector('.failure')
 const AI = document.querySelector('.AI')
 let type
+tool.connect(description)
 function buttonHandle(){
   button.style.display = 'flex'
   ensure.style.display = 'block'
@@ -99,7 +100,6 @@ function gameService(){
     }else{
       placePlane.style.top = '-2000px'
       imgPlane(positionArr)
-      sendMyReady()
     }
   },false)
 }
@@ -128,11 +128,6 @@ function imgPlane(positionArr){
   myThree.style.top = (positionArr[2][1] - 2) * 84 + 'px'
   rotateHandle(myThree,positionArr[2][2])
   description.innerText = '游戏正式开始!'
-  while(1){
-    if(tool.getYourReady()){
-      break;
-    }
-  }
   gameStart()
 }
 function gameStart(){
