@@ -45,6 +45,13 @@ function chooseWay(){
   buttonHandle()
   type = 'join'
   },false)
+ createRoom.addEventListener('click',function(){
+    tip.style.display = 'block'
+    content.style.display = 'none'
+    tip.innerText =  '创建房间成功 其他人输入您的IP地址即可加入房间'
+    buttonHandle()
+    tool.createRoom()//告知后端创建房间
+  })
   ensure.addEventListener('click',function(e){
     if(type === 'join'){
     let ip = IPInput.value.trim()
@@ -53,7 +60,7 @@ function chooseWay(){
       tip.innerText = 'IP不能为空'
     }else{
     document.querySelector('.chooseGoal').style.top= '-2000px'//房间选择功能已经完成
-    if(joinRoomHandle()){
+    if(joinRoomHandle(ip)){
       gameService()
     }
     }
@@ -64,27 +71,21 @@ function chooseWay(){
     }
   }
   },false)
- createRoom.addEventListener('click',function(){
-    tip.style.display = 'block'
-    content.style.display = 'none'
-    tip.innerText =  '本机的IP地址'+ tool.getMyIP()+ '\n' + '等待其它人加入房间'
-    buttonHandle()
-  })
-  backLast.addEventListener('click',backButton)
+  backLast.addEventListener('click',backButton)//返回上一级的处理函数
 }
 chooseWay()
 function createRoomHandle(){
-  if(tool.getYourIp()){
+  if(tool.tellCreateStart()){
     return true
   }else{
     return createRoomHandle()
   }
 }
-function joinRoomHandle(){
-  if(tool.getYourIp()){
+function joinRoomHandle(ip){
+  if(tool.tellJoinStart(ip)){
     return true
   }else{  
-    return createRoomHandle()
+    return joinRoomHandle()
   }
 }
 //此函数接管游戏过程中的所有服务 
@@ -108,6 +109,7 @@ function gameService(){
     }else{
       placePlane.style.top = '-2000px'
       imgPlane(positionArr)
+      sendMyReady()
     }
   },false)
 }
@@ -135,10 +137,13 @@ function imgPlane(positionArr){
   myThree.style.left = (positionArr[2][0] - 3) * 84 + 'px'
   myThree.style.top = (positionArr[2][1] - 2) * 84 + 'px'
   rotateHandle(myThree,positionArr[2][2])
-  if(tool.allReady){
-    description.innerText = '游戏正式开始!'
-    gameStart()
+  description.innerText = '游戏正式开始!'
+  while(1){
+    if(tool.getYourReady()){
+      break;
+    }
   }
+  gameStart()
 }
 function gameStart(){
    attackEnsure.addEventListener('click',function(e){
@@ -151,26 +156,18 @@ function gameStart(){
       if(res){
        yourLi[num].style.background = 'url(../img/wound.png)'
        yourLi[num].innerText = wound(res[2])
-       description.innerTeres = '等待对手轰炸'
-       res = yourAttack()
+       description.innerText = '等待对手轰炸'
+       res = getYourAttack()
        num = res[1] * 10 + res[0] 
        myLi[num].style.background = 'url(../img/wound.png)'
-       if(tool.myResult){
-       description.innerText = '请你进行轰炸'
-       }else{
-       description.innerText = '您已经失败! 对手获得胜利'
-       }
+       myLi[num].innerText = wound(res[2])
+       tool.myResult(description)
       }
    },false)
-   failure.addEventListener('click',function(e){
-    if(sendFail()){
-      description.innerText = '投降成功! 游戏结束'
-    }
-   })
    AI.addEventListener('click',function(){
       description.innerText = '正在进行AI托管'
       AIGame()
-   },fale)
+   },false)
 }
 function wound(value){
    if(value === 0){
@@ -183,14 +180,6 @@ function wound(value){
     return '死'
    }
 }
-function yourAttack(){
-  let res = tool.getYourAttack()
-  if(!res){
-    return res = yourAttack()
-  }else{
-    return res
-  }
-}
 function AIGame(){
-z
+
 }
