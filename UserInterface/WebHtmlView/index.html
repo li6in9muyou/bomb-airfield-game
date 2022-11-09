@@ -6,16 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link href ='css/index.css' rel="stylesheet">
-  <link href ='css/colors.min.css' rel="stylesheet">
+  <link href ='css/color.min.css' rel="stylesheet">
 </head>
 <body>
 <div class ='container'>
   <div class = 'myself'>
     <img src="img/airplane.png" width='336' height='420' alt="" id="my-one" class="my-airplane">
-    <img src="" alt="" id="my-two" class="my-airplane">
-    <img src="" alt="" id="my-three" class="my-airplane">
+    <img src="img/airplane.png" width='336' height='420' alt="" id="my-two" class="my-airplane">
+    <img src="img/airplane.png" width='336' height='420' alt="" id="my-three" class="my-airplane">
     <ul>
-      <li><img src ='img/wound.png' height="84" width='84' alt=""></li>
+      <li></li>
       <li></li>
       <li></li>
       <li></li>
@@ -118,8 +118,11 @@
     </ul>
   </div>
   <div class="controller">
-    <div class="description"></div>
-    <div class="connect"></div>
+    <p class="description"></p>
+    <div class="connect">
+      <input placeholder="请输入轰炸位置 例如2,3" class="attack">
+      <a class="attackEnsure">确定</a>
+    </div>
     <div class="AI"><a>AI代打</a></div>
     <div class="failure"><a>就地投降</a></div>
   </div>
@@ -245,7 +248,17 @@
       </div>
     </div>
   </div>
+  <div class="placePlane">
+    <div class="planeContainer">
+      <p class="planeTip">请输入飞机头坐标以及飞机头朝向 以左上角为原点 例如2,3,1    2代表飞机头横坐标 3代表飞机头纵坐标  1代表飞机头朝上 2 代表飞机头朝右 3代表飞机头朝下 4代表飞机头朝左</p>
+      <input class="myPlane" placeholder="飞机一">
+      <input class="myPlane" placeholder="飞机二">
+      <input class="myPlane" placeholder="飞机三">
+      <a class="submitPlane">确定提交</a>
+    </div>
+  </div>
 </body>
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./app/main.js" type="module"></script>
+<script type="text/javascript" src="./app/server.js"></script>
 </html>
