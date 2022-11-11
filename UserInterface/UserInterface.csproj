@@ -6,6 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="WebHtmlView\**" />
+    <Compile Remove="WebHtmlView\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
@@ -24,5 +26,8 @@
     <Content Include="./WebHtmlView/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebHtmlView" />
   </ItemGroup>
 </Project>

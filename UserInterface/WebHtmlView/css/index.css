@@ -12,8 +12,8 @@ ul li {
   box-sizing: border-box;
   width: 84px;
   height: 84px;
-  border-right: 1px solid #0074D9;
-  border-bottom: 1px solid #0074D9;
+  border-right: 1px solid #0074d9;
+  border-bottom: 1px solid #0074d9;
 }
 div.container {
   display: flex;
@@ -24,21 +24,17 @@ div.myself,
 div.enemy {
   width: 840px;
   height: 840px;
-  border-top: 1px solid #0074D9;
-  border-left: 1px solid #0074D9;
+  border-top: 1px solid #0074d9;
+  border-left: 1px solid #0074d9;
   background-color: aliceblue;
 }
 div.controller {
   width: 221px;
 }
-.controller div {
+.controller div,
+.controller p {
   width: 80%;
   margin-left: 20px;
-}
-.description {
-  height: 50px;
-  border-radius: 10px;
-  background-color: #0074D9;
 }
 .connect {
   height: 600px;
@@ -51,7 +47,7 @@ div.controller {
   height: 50px;
   margin-top: 30px;
   border-radius: 10px;
-  background-color:lightpink;
+  background-color: lightpink;
 }
 .AI a,
 .failure a {
@@ -62,30 +58,31 @@ div.controller {
   align-items: center;
 }
 .my-airplane,
-.your-airplane{
+.your-airplane {
   position: absolute;
   z-index: 999;
-} 
-.chooseGoal {
+}
+.chooseGoal,
+.placePlane {
   position: fixed;
   width: 100%;
   height: 100%;
   top: -2000px;
   transition: 1s;
-  background-color:darkolivegreen;
-  opacity: .8;
+  background-color: darkolivegreen;
+  opacity: 0.8;
   z-index: 9999;
 }
 .chooseGoalContent {
   display: flex;
   justify-content: space-around;
-  align-items:center;
+  align-items: center;
   flex-wrap: wrap;
   width: 850px;
   height: 500px;
-  margin:  200px auto ;
+  margin: 200px auto;
   font-size: 60px;
-  background-color: #0074D9;
+  background-color: #0074d9;
   color: black;
   border-radius: 100px;
 }
@@ -95,7 +92,7 @@ div.controller {
   text-align: center;
 }
 .backLast,
-.ensure{
+.ensure {
   display: none;
   color: red;
   text-align: center;
@@ -107,10 +104,10 @@ div.controller {
   width: 100%;
 }
 .IPInput {
-   display :none;
-   width: 300px;
-   height: 50px;
-   font-size: 50px;
+  display: none;
+  width: 300px;
+  height: 50px;
+  font-size: 50px;
 }
 .tip {
   width: 100%;
@@ -125,4 +122,67 @@ div.controller {
   height: 100px;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.description {
+  display: flex;
+  width: 177px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #0074d9;
+  color: chartreuse;
+  font-size: 20px;
+}
+.placePlane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.planeContainer {
+  display: flex;
+  width: 500px;
+  height: 350px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-around;
+  font-size: 20px;
+  color: darkred;
+}
+.planeContainer input {
+  width: 500px;
+  height: 50px;
+  font-size: 50px;
+}
+.planeContainer a {
+  width: 200px;
+  height: 50px;
+  margin-top: 30px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 30px;
+  color: black;
+  background-color: red;
+}
+.connect {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.attack {
+  width: 90%;
+  height: 100px;
+  margin: 0 auto;
+}
+.attackEnsure {
+  width: 80%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: -300px;
+  color: mediumblue;
+  border-radius: 10px;
+  background-color: brown;
 }
