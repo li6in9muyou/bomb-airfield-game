@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="WebHtmlView\**" />
+    <Compile Remove="WebHtmlView\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
@@ -38,11 +39,17 @@
     <Content Include="WebHtmlView\node_modules\jquery\package.json" />
     <Content Include="WebHtmlView\node_modules\jquery\README.md" />
     <Content Include="WebHtmlView\node_modules\jquery\src\ajax.js" />
+    <Content Remove="WebHtmlView\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="WebHtmlView\**" />
+    <EmbeddedResource Remove="WebHtmlView\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="WebHtmlView\**" />
+    <None Remove="WebHtmlView\node_modules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebHtmlView" />
   </ItemGroup>
 </Project>
