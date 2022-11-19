@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="WebHtmlView\**" />
+    <Compile Remove="WebHtmlView\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
@@ -25,24 +26,8 @@
     <Content Include="./WebHtmlView/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Remove="WebHtmlView\**" />
-    <Content Include="WebHtmlView\node_modules\jquery\AUTHORS.txt" />
-    <Content Include="WebHtmlView\node_modules\jquery\bower.json" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.js" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.min.js" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.min.map" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.slim.js" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.slim.min.js" />
-    <Content Include="WebHtmlView\node_modules\jquery\dist\jquery.slim.min.map" />
-    <Content Include="WebHtmlView\node_modules\jquery\LICENSE.txt" />
-    <Content Include="WebHtmlView\node_modules\jquery\package.json" />
-    <Content Include="WebHtmlView\node_modules\jquery\README.md" />
-    <Content Include="WebHtmlView\node_modules\jquery\src\ajax.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Remove="WebHtmlView\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="WebHtmlView\**" />
+    <Folder Include="WebHtmlView" />
   </ItemGroup>
 </Project>
