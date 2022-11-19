@@ -11,26 +11,26 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        UIServer.Init();
-        IUserInterface ui = new UserInterfaceAdapter();
-        ICommunicator communicator = new MockReceiving(new[]
-        {
-            "999",
-            "ok",
-            "3,3",
-            "continue",
-            "destroyed",
-            "continue",
-            "0,3",
-            "continue",
-            "destroyed",
-            "continue",
-            "5,5",
-            "continue",
-            "destroy",
-            "yield",
-            "end"
-        });
+        /*        UIServer.Init();
+                IUserInterface ui = new UserInterfaceAdapter();
+                ICommunicator communicator = new MockReceiving(new[]
+                {
+                    "999",
+                    "ok",
+                    "3,3",
+                    "continue",
+                    "destroyed",
+                    "continue",
+                    "0,3",
+                    "continue",
+                    "destroyed",
+                    "continue",
+                    "5,5",
+                    "continue",
+                    "destroyed",
+                    "yield",
+                    "end"
+                });*/
         UIServer.Init();
         IUserInterface ui = new UserInterfaceAdapter();
         ICommunicator communicator = new TcpCom();
@@ -72,14 +72,13 @@ internal static class Program
                 if (isMyTurnToBomb)
                 {    
                     note.Debug("local is going to bomb");
-                    ui.DrawAdditionalContent("请输入你要炸的位置");
-                    var coordinate = ui.WaitLocalUserChooseBombLocation(game);
 
 
+                 
                     Coordinate AICoor = game.AI();
                     String message = "AI推荐坐标：" + AICoor.X +","+ AICoor.Y;
                     ui.DrawAdditionalContent(message);
-
+                    var coordinate = ui.WaitLocalUserChooseBombLocation(game);
 
                     var result = online.BombOpponentAirfieldAndWaitResult(coordinate);
                     game.LogBombResultOnOpponentAirfield(coordinate, result);

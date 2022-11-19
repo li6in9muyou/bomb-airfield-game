@@ -176,6 +176,7 @@ div.controller {
 .attack {
   width: 90%;
   height: 100px;
+  font-size: 80px;
   margin: 0 auto;
 }
 .attackEnsure {
