@@ -94,9 +94,16 @@ internal static class Program
             while (true)
             {
                 if (isMyTurnToBomb)
-                {
+                {    
                     note.Debug("local is going to bomb");
                     var coordinate = ui.WaitLocalUserChooseBombLocation(game);
+
+
+                    Coordinate AICoor = game.AI();
+                    String message = "AI推荐坐标：" + AICoor.X +","+ AICoor.Y;
+                    ui.DrawAdditionalContent(message);
+
+
                     var result = online.BombOpponentAirfieldAndWaitResult(coordinate);
                     game.LogBombResultOnOpponentAirfield(coordinate, result);
                 }
