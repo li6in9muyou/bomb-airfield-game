@@ -162,7 +162,7 @@ function gameStart() {
         num = res[1] * 10 + res[0];
         myLi[num].style.background = "url(../img/wound.png)";
         myLi[num].innerText = wound(res[2]);
-        tool.myResult(description);
+        //tool.myResult(description);
       }
     },
     false
