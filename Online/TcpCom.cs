@@ -1,16 +1,24 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using Common;
+using Easy.Logger.Interfaces;
 
 namespace Online;
 
 public class TcpCom : ICommunicator
 {
+    private readonly IEasyLogger _note;
     private IPAddress? _ipAddr;
     private StreamReader? _reader;
     private TcpClient? _remote;
     private TcpListener? _server;
     private StreamWriter? _writer;
+
+    public TcpCom()
+    {
+        _note = Logging.GetLogger("TcpCom");
+    }
 
     public string RemoteHandle()
     {
@@ -28,7 +36,7 @@ public class TcpCom : ICommunicator
     public string Read()
     {
         var t = _reader!.ReadLine();
-        Console.Out.WriteLine("TcpCom reads: {0}", t);
+        _note.Debug($"TcpCom reads: {t}");
         if (t is null) throw new Exception();
 
         return t;
@@ -45,7 +53,7 @@ public class TcpCom : ICommunicator
     {
         _writer!.WriteLine(message);
         _writer.Flush();
-        Console.Out.WriteLine("TcpCom writes: {0}", message);
+        _note.Debug($"TcpCom writes: {message}");
     }
 
     public void Start()
@@ -65,7 +73,7 @@ public class TcpCom : ICommunicator
         var lastErrorMessage = "";
         for (var retryNum = 0; retryNum < 3; retryNum++)
         {
-            if (retryNum > 0) Console.Out.WriteLine("\nretryNum = {0}", retryNum);
+            if (retryNum > 0) _note.Debug($"\nretryNum = {retryNum}");
 
             try
             {
@@ -77,13 +85,13 @@ public class TcpCom : ICommunicator
             }
             catch (SocketException e)
             {
-                Console.Out.WriteLine("failed");
-                Console.WriteLine(e.Message);
+                _note.Error("failed");
+                _note.Error(e.Message);
                 lastErrorMessage = e.Message;
             }
         }
 
-        Console.Out.WriteLine("give up joining room {0}", _ipAddr);
+        _note.Info($"give up joining room {_ipAddr}");
         throw new CanNotJoin(lastErrorMessage);
     }
 
