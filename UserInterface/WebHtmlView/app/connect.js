@@ -53,12 +53,13 @@ function Connector(){
       return true//发送飞机布局位置
    },
    this.sendMyIP=function (ip){
+      console.log(33333);
        //创建房间ip为空字符串 加入房间为ip地址
       var msg={header:"IpAddress",body:ip};
       this.socket.send(JSON.stringify(msg));
-    }    
-   this.myResult=function (des){
+   }    
+   /*this.myResult=function (des){
     //des是提示框元素对象 提示信息直接给它的innerText赋值就行
-   }
+   }*/
 }
 export default Connector

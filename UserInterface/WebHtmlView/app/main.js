@@ -24,7 +24,7 @@ const failure = document.querySelector('.failure')
 const AI = document.querySelector('.AI')
 let type
 let tool=new Connector();
-console.log(tool);
+console.log(tool)
 tool.connect(description)
 function buttonHandle(){
   button.style.display = 'flex'
@@ -53,7 +53,6 @@ function chooseWay(){
     content.style.display = 'none'
     tip.innerText =  '创建房间成功 其他人输入您的IP地址即可加入房间'
     buttonHandle()
-    tool.createRoom()//告知后端创建房间
   })
   ensure.addEventListener('click',function(e){
     if(type === 'join'){
@@ -148,7 +147,7 @@ function gameStart(){
        num = res[1] * 10 + res[0] 
        myLi[num].style.background = 'url(../img/wound.png)'
        myLi[num].innerText = wound(res[2])
-       tool.myResult(description)
+       /*tool.myResult(description)*/
       }
    },false)
    AI.addEventListener('click',function(){
