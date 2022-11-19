@@ -1,3 +1,4 @@
+using Ai;
 using Common;
 using Database;
 
@@ -5,6 +6,29 @@ namespace GameLogic;
 
 public class GameLogic
 {
+
+  
+    public Coordinate AI()
+    {
+        var ai = new BombAnAirplaneAi();
+        List<Tuple<Coordinate, BombResult>> opp = new List<Tuple<Coordinate, BombResult>>();
+
+        //获取敌方机场，实例化一个单例
+        OpponentAirfield opponentAirfield = OpponentAirfield.getOpponentAirfield();
+        //从单例中获取数据结构,这个数据结构中存有敌方机场的状态
+        Dictionary<int, BombResult> BombResults = opponentAirfield.getOpponent();
+        foreach (int Key in BombResults.Keys)
+        {
+            Coordinate C = new Coordinate(Key / 10, Key % 10);
+            BombResult B = BombResults[Key];
+            Tuple<Coordinate, BombResult> tuple = new(C, B);
+            opp.Add(tuple);
+        }
+
+       return BombAnAirplaneAi.SuggestNextBombLocationAccordingToBombResults(opp.ToArray());
+    }
+
+
     public GameStateSnapShot CaptureCurrentGameState()
     {
         List<Tuple<Coordinate, BombResult>> BombResultsOnOpponentAirfield = new List<Tuple<Coordinate, BombResult>>();

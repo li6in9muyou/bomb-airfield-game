@@ -31,6 +31,9 @@ internal static class Program
             "yield",
             "end"
         });
+        UIServer.Init();
+        IUserInterface ui = new UserInterfaceAdapter();
+        ICommunicator communicator = new TcpCom();
         var online = new Online.Online(communicator);
 
         // 询问玩家如何联机
@@ -67,10 +70,17 @@ internal static class Program
             while (true)
             {
                 if (isMyTurnToBomb)
-                {
+                {    
                     note.Debug("local is going to bomb");
                     ui.DrawAdditionalContent("请输入你要炸的位置");
                     var coordinate = ui.WaitLocalUserChooseBombLocation(game);
+
+
+                    Coordinate AICoor = game.AI();
+                    String message = "AI推荐坐标：" + AICoor.X +","+ AICoor.Y;
+                    ui.DrawAdditionalContent(message);
+
+
                     var result = online.BombOpponentAirfieldAndWaitResult(coordinate);
                     game.LogBombResultOnOpponentAirfield(coordinate, result);
                 }
