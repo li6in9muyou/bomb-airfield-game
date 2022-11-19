@@ -89,7 +89,7 @@ public class UserInterfaceAdapter : IUserInterface
     {
         //发送轰炸位置、结果
         GameStateSnapShot gSSS = game.CaptureCurrentGameState();
-        var br = gSSS.BombResultsOnOpponentAirfield;
+        var br = gSSS.MyAirfieldWasBombedAt;
         String JsonData = "[";
         foreach (var b in br)
         {

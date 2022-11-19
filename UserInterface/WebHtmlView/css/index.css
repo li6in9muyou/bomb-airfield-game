@@ -22,6 +22,7 @@ div.container {
 }
 div.myself,
 div.enemy {
+  position: relative;
   width: 840px;
   height: 840px;
   border-top: 1px solid #0074d9;
@@ -185,4 +186,13 @@ div.controller {
   color: mediumblue;
   border-radius: 10px;
   background-color: brown;
+}
+#my-one{
+ z-index : 5000;!important;
+}
+#my-two{
+  z-index: 5001;!important;
+}
+#my-three {
+  z-index: 5002;!important;
 }

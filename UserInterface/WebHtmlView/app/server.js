@@ -31,12 +31,12 @@ function Cache() {
   this.setStateMsg = function (msg) {
     this.stateMsg = msg;
     this.isStateMsgNew = true;
-    console.log("setStateMsg:" + this.isStateMsgNew);
+    console.log("setStateMsg:" + msg);
   };
   this.setBombResult = function (br) {
     this.bombResult = br;
     this.isBombResultNew = true;
-    console.log("setBombResult:" + this.isBombResultNew);
+    console.log("BombResult:" + br);
   };
   this.waitStateMsg = function () {
     while (!this.isStateMsgNew) {

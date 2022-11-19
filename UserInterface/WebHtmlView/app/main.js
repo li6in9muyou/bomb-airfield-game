@@ -118,16 +118,40 @@ function rotateHandle(goal,deg){
     goal.style.transform = 'rotate(180deg)'
    }
 }
+function handleHead(arr){
+    for(let i = 0 ; i<arr.length;i++){
+        if(arr[i][2] === 1 || arr[i][2] === 3){
+            arr[i][0] = (arr[i][0] - 2) * 84 + 32
+        }
+        if(arr[i][2] === 2){
+            arr[i][0] = (arr[i][0] - 3) * 84 
+        }
+        if(arr[i][2] === 4){
+            arr[i][0] = arr[i][0]* 84
+        }
+        if(arr[i][2] === 2 || arr[i][2] === 4){
+            arr[i][1] = (arr[i][1] - 2) * 84
+        }
+        if(arr[i][2] === 1){
+            arr[i][1] = arr[i][1] * 84
+        }
+        if(arr[i][2] === 3){
+            arr[i][1] = (arr[i][1] - 3) * 84
+        }
+    }
+    return arr;
+}
 function imgPlane(positionArr){
-  myOne.style.left = (positionArr[0][0] - 3) * 84 + 'px'
-  myOne.style.top = (positionArr[0][1] -2) * 84 + 'px'
+    positionArr = handleHead((positionArr))
   rotateHandle(myOne,positionArr[0][2])
-  myTwo.style.left = (positionArr[1][0] - 3) * 84 + 'px'
-  myTwo.style.top = (positionArr[1][1] - 2) * 84 + 'px'
+  myOne.style.left = positionArr[0][0] + 'px'
+  myOne.style.top = positionArr[0][1] -25 +'px';
   rotateHandle(myTwo,positionArr[1][2])
-  myThree.style.left = (positionArr[2][0] - 3) * 84 + 'px'
-  myThree.style.top = (positionArr[2][1] - 2) * 84 + 'px'
-  rotateHandle(myThree,positionArr[2][2])
+    myTwo.style.left = positionArr[1][0] + 'px';
+    myTwo.style.top = positionArr[1][1] -25+ 'px';
+    rotateHandle(myThree,positionArr[2][2])
+  myThree.style.left = positionArr[2][0] + 'px';
+  myThree.style.top = positionArr[2][1] -25+ 'px'
   description.innerText = '游戏正式开始!'
   gameStart()
 }
@@ -143,7 +167,7 @@ function gameStart(){
        yourLi[num].style.background = 'url(../img/wound.png)'
        yourLi[num].innerText = wound(res[2])
        description.innerText = '等待对手轰炸'
-       res = getYourAttack()
+       res = tool.getYourAttack()
        num = res[1] * 10 + res[0] 
        myLi[num].style.background = 'url(../img/wound.png)'
        myLi[num].innerText = wound(res[2])

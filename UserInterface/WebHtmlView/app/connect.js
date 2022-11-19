@@ -7,11 +7,12 @@ function Connector(){
 
       this.cache=new Cache();
       window.addEventListener("onMsg", e => {
+         console.log(des);
          var Msg=JSON.parse(e.detail.Msg);
          var header=Msg.header;
          var body=Msg.body;
          if(header=="stateMsg"){
-            des.innerHTML="stateMsg:"+body;
+            des.innerHTML=body;
          }else if(header=="bombResult"){
             this.cache.setBombResult(body);
          }
@@ -53,7 +54,7 @@ function Connector(){
       return true//发送飞机布局位置
    },
    this.sendMyIP=function (ip){
-      console.log(33333);
+      console.log("调用sendMyIP");
        //创建房间ip为空字符串 加入房间为ip地址
       var msg={header:"IpAddress",body:ip};
       this.socket.send(JSON.stringify(msg));
