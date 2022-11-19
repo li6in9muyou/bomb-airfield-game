@@ -19,7 +19,13 @@ function Connector(){
       });
    },
    this.getYourAttack=function(){
-      return this.cache.waitBombResult();//得到敌方的攻击位置和结果
+      let msg=this.cache.waitBombResult();
+      console.log(msg);
+      let brs=JSON.parse(msg);
+      console.log("轰炸结果:");
+      console.log(brs);
+      //[{"x":2,"y":2,"result":"Destroyed"},{"x":2,"y":2,"result":"Hit"},{"x":2,"y":2,"result":"Miss"}]
+      return brs;//得到敌方的攻击位置和结果
    },
    this.sendMyAttack=function(value){
       //[1,2]

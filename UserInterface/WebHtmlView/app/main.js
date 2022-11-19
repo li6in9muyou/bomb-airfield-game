@@ -161,18 +161,25 @@ function gameStart(){
       target = target.map(function(item){
         return Number(item)
       })
-      let res = tool.sendMyAttack(target)//返回的轰炸结果
-      let num = res[1] * 10 + res[0] 
-      if(res){
-       yourLi[num].style.background = 'url(../img/wound.png)'
-       yourLi[num].innerText = wound(res[2])
+      tool.sendMyAttack(target)//返回的轰炸结果
+      let num = target[1] * 10 + target[0]
+       console.log(num)
+       yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'>"
        description.innerText = '等待对手轰炸'
-       res = tool.getYourAttack()
-       num = res[1] * 10 + res[0] 
-       myLi[num].style.background = 'url(../img/wound.png)'
-       myLi[num].innerText = wound(res[2])
+          let res = tool.getYourAttack()
+          console.log(res)
+          for(let i = 0;i<res.length;i++) {
+              if(res[i]['y']>=10){
+                  num = res[i]['x']* 10 + res[i]['y'] - 10
+                  let key= wound(res[i]['result'])
+                  yourLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>` 
+              }else {
+                  num = res[i]['x'] * 10 + res[i]['y']
+                  let key = wound(res[i]['result'])
+                  myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+              }
+          }
        /*tool.myResult(description)*/
-      }
    },false)
    AI.addEventListener('click',function(){
       description.innerText = '正在进行AI托管'
@@ -180,14 +187,14 @@ function gameStart(){
    },false)
 }
 function wound(value){
-   if(value === 0){
+   if(value === 'Miss'){
     return '空'
    }
-   if(value === 1){
+   if(value === 'Hit'){
     return '伤'
    }
-   if(value === 2){
-    return '死'
+   if(value === 'Destroyed'){
+    return '毁'
    }
 }
 function AIGame(){

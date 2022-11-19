@@ -9,6 +9,7 @@ ul {
   list-style: none;
 }
 ul li {
+  position: relative;
   box-sizing: border-box;
   width: 84px;
   height: 84px;
@@ -195,4 +196,15 @@ div.controller {
 }
 #my-three {
   z-index: 5002;!important;
+}
+.key {
+  position: absolute;
+  text-align: center;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 60px;
+  color: red;
+  z-index: 9999;
 }

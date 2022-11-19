@@ -90,6 +90,7 @@ public class UserInterfaceAdapter : IUserInterface
         //发送轰炸位置、结果
         GameStateSnapShot gSSS = game.CaptureCurrentGameState();
         var br = gSSS.MyAirfieldWasBombedAt;
+        var mbr = gSSS.BombResultsOnOpponentAirfield;
         String JsonData = "[";
         foreach (var b in br)
         {
@@ -97,6 +98,13 @@ public class UserInterfaceAdapter : IUserInterface
             JsonData += JsonConvert.SerializeObject(BL) + ",";
         }
 
+        foreach (var mb in mbr)
+        {
+            var BL = new { x = mb.Item1.X, y = mb.Item1.Y + 10, result = mb.Item2.ToString() };
+            JsonData += JsonConvert.SerializeObject(BL) + ",";
+        }
+        Console.WriteLine("x:"+JsonData);
+        JsonData=JsonData.Substring(0, JsonData.Length - 1);
         JsonData += "]";
         UIServer.SendMsg("bombResult", JsonData);
     }

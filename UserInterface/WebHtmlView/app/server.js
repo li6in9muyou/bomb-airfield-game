@@ -28,24 +28,24 @@ function Cache() {
   this.bombResult = null;
   this.isBombResultNew = false;
 
-  this.setStateMsg = function (msg) {
+  /*this.setStateMsg = function (msg) {
     this.stateMsg = msg;
     this.isStateMsgNew = true;
     console.log("setStateMsg:" + msg);
-  };
+  };*/
   this.setBombResult = function (br) {
     this.bombResult = br;
     this.isBombResultNew = true;
     console.log("BombResult:" + br);
   };
-  this.waitStateMsg = function () {
+  /*this.waitStateMsg = function () {
     while (!this.isStateMsgNew) {
       console.log("StateMsg:");
       sleep(3000);
     }
     this.isStateMsgNew = false;
     return this.stateMsg;
-  };
+  };*/
   this.waitBombResult = function () {
     while (!this.isBombResultNew) {
       console.log("BombResult:");
