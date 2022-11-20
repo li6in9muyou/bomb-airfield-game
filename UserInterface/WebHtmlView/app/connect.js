@@ -12,9 +12,12 @@ function Connector(){
          var body=Msg.body;
          if(header=="stateMsg"){
             if(body.startsWith('aiaiai')){
-               if(document.getElementById("aiToggle").checked){
-                  const [,x,y]=body.split(",")
-                  window.doAttack([x,y])
+               const [,x,y]=body.split(",")
+               const aiSuggestion = [x,y];
+               if(document.getElementById("[data-ai-toggle]").checked){
+                  window.doAttack(aiSuggestion)
+               } else {
+                  window.aiSuggestions.push(aiSuggestion)
                }
             } else {
                des.innerHTML=body;

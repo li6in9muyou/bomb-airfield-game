@@ -22,6 +22,18 @@ const yourLi = document.querySelectorAll('.enemy ul li')
 const myLi = document.querySelectorAll('.myself ul li')
 const failure = document.querySelector('.failure')
 const AI = document.querySelector('.AI')
+
+window.aiSuggestions = []
+const aiToggle = document.querySelector('[data-ai-toggle]')
+aiToggle.addEventListener('change', (ev)=>{
+    if (ev.target.checked) {
+        const suggest = window.aiSuggestions.shift()
+        if (suggest !== undefined){
+            doAttack(suggest)
+        }
+    }
+})
+
 let type = 'create',time = 0;
 let tool=new Connector();
 console.log(tool)
