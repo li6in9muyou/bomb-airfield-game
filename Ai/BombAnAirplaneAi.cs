@@ -45,15 +45,15 @@ public class Node
         return (int)ret;
     }
 
-    public override string ToString()
+    public static string PrettyPrint(AirfieldGridStatus[][] airfield)
     {
         var ans = "";
-        var n = _airfieldSideLength;
+        var n = (int)Math.Floor(Math.Sqrt(airfield.Length));
         for (var i = 0; i < n; i++)
         {
             for (var j = 0; j < n; j++)
             {
-                ans += Airfield[i][j] switch
+                ans += airfield[i][j] switch
                 {
                     AirfieldGridStatus.Empty => "_",
                     AirfieldGridStatus.Fuselage => "*",
@@ -68,6 +68,11 @@ public class Node
         }
 
         return ans;
+    }
+
+    public override string ToString()
+    {
+        return PrettyPrint(Airfield);
     }
 }
 
