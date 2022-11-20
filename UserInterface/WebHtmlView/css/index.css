@@ -13,8 +13,8 @@ ul li {
   box-sizing: border-box;
   width: 84px;
   height: 84px;
-  border-right: 1px solid #0074d9;
-  border-bottom: 1px solid #0074d9;
+  border-right: 5px solid #0074d9;
+  border-bottom: 5px solid #0074d9;
 }
 div.container {
   display: flex;
@@ -26,8 +26,8 @@ div.enemy {
   position: relative;
   width: 840px;
   height: 840px;
-  border-top: 1px solid #0074d9;
-  border-left: 1px solid #0074d9;
+  border-top: 5px solid #0074d9;
+  border-left: 5px solid #0074d9;
   background-color: aliceblue;
 }
 div.controller {
