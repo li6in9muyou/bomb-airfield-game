@@ -156,31 +156,38 @@ function imgPlane(positionArr){
   description.innerText = '游戏正式开始!'
   gameStart()
 }
+
+function doAttack(xy){
+    xy = xy.map(function(item){
+        return Number(item)
+    })
+    tool.sendMyAttack(xy)//返回的轰炸结果
+    let num = xy[1] * 10 + xy[0]
+    yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'></p>"
+    description.innerText = '等待对手轰炸'
+    if(type !== 'create' || time !== 0) {
+        let res = tool.getYourAttack()
+        for (let i = 0; i < res.length; i++) {
+            if (res[i]['x'] >= 10) {
+                num = res[i]['y'] * 10 + res[i]['x'] - 10
+                let key = wound(res[i]['result'])
+                yourLi[num].innerHTML=`<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+            } else {
+                num = res[i]['y'] * 10 + res[i]['x']
+                let key = wound(res[i]['result'])
+                myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+            }
+        }
+    }
+    time++;
+}
+
+window.doAttack = doAttack
+
 function gameStart(){
    attackEnsure.addEventListener('click',function(e){
       let target = attack.value.split(',');
-      target = target.map(function(item){
-        return Number(item)
-      })
-      tool.sendMyAttack(target)//返回的轰炸结果
-      let num = target[1] * 10 + target[0]
-       yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'></p>"
-       description.innerText = '等待对手轰炸'
-       if(type !== 'create' || time !== 0) {
-           let res = tool.getYourAttack()
-           for (let i = 0; i < res.length; i++) {
-               if (res[i]['x'] >= 10) {
-                   num = res[i]['y'] * 10 + res[i]['x'] - 10
-                   let key = wound(res[i]['result'])
-                   yourLi[num].innerHTML=`<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
-               } else {
-                   num = res[i]['y'] * 10 + res[i]['x']
-                   let key = wound(res[i]['result'])
-                   myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
-               }
-           }
-       }
-       time++;
+      doAttack(target);
    },false)
    AI.addEventListener('click',function(){
       description.innerText = '正在进行AI托管'

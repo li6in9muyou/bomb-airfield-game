@@ -80,6 +80,7 @@ internal static class Program
                     Coordinate AICoor = game.AI();
                     String message = "AI推荐坐标：" + AICoor.X +","+ AICoor.Y;
                     ui.DrawAdditionalContent(message);
+                    ui.DrawAdditionalContent($"aiaiai,{AICoor.X},{AICoor.Y}");
                     var coordinate = ui.WaitLocalUserChooseBombLocation(game);
 
                     var result = online.BombOpponentAirfieldAndWaitResult(coordinate);

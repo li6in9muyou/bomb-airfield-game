@@ -11,7 +11,14 @@ function Connector(){
          var header=Msg.header;
          var body=Msg.body;
          if(header=="stateMsg"){
-            des.innerHTML=body;
+            if(body.startsWith('aiaiai')){
+               if(document.getElementById("aiToggle").checked){
+                  const [,x,y]=body.split(",")
+                  window.doAttack([x,y])
+               }
+            } else {
+               des.innerHTML=body;
+            }
          }else if(header=="bombResult"){
             this.cache.setBombResult(body);
          }

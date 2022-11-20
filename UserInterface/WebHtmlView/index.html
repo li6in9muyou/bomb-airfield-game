@@ -143,7 +143,16 @@
           <input placeholder="请输入轰炸位置 例如2,3" class="attack" />
           <a class="attackEnsure">确定</a>
         </div>
-        <div class="AI"><a>AI代打</a></div>
+        <div class="AI" style="
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+">
+          <label for="aiToggle" style="margin:auto">
+            <input type="checkbox" name="ai" id="aiToggle" style="margin-right: 5px;">
+            <span>AI代打</span>
+          </label>
+        </div>
         <div class="failure"><a>就地投降</a></div>
       </div>
       <div class="enemy">
