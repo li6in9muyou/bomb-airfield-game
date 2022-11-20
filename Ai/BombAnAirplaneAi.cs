@@ -133,7 +133,7 @@ public class BombAnAirplaneAi
             BombResult.Miss => AirfieldGridStatus.Empty,
             _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
         };
-        _prospectiveAirfields = _allAirfields.Where(
+        _prospectiveAirfields = _prospectiveAirfields.Where(
             airfield =>
             {
                 return airfield[x][y] == result switch
