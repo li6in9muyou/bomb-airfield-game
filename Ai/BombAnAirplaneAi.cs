@@ -153,6 +153,16 @@ public class BombAnAirplaneAi
 
     public Coordinate SuggestNextBombLocation()
     {
+        if (_prospectiveAirfields.Length == 1)
+        {
+            var one = _prospectiveAirfields[0];
+            for (var x = 0; x < 10; x++)
+            for (var y = 0; y < 10; y++)
+                if (one[x][y] == AirfieldGridStatus.Cockpit &&
+                    _knownOpponentAirfield[x][y] == AirfieldGridStatus.Unknown)
+                    return new Coordinate(x, y);
+        }
+
         int ii = 0, jj = 0, maxEarn = 0;
         for (var i = 0; i < 10; i++)
         for (var j = 0; j < 10; j++)
