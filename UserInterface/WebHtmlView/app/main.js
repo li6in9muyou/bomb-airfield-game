@@ -22,7 +22,7 @@ const yourLi = document.querySelectorAll('.enemy ul li')
 const myLi = document.querySelectorAll('.myself ul li')
 const failure = document.querySelector('.failure')
 const AI = document.querySelector('.AI')
-let type
+let type = 'create',time = 0;
 let tool=new Connector();
 console.log(tool)
 tool.connect(description)
@@ -82,6 +82,7 @@ function joinRoomHandle(ip){
 }
 //此函数接管游戏过程中的所有服务 
 function gameService(){
+    console.log(type)
   description.innerHTML = '游戏开始咯!'
   setTimeout(function(){
      description.innerHTML = '请你进行飞机布局'
@@ -166,20 +167,21 @@ function gameStart(){
        console.log(num)
        yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'>"
        description.innerText = '等待对手轰炸'
-          let res = tool.getYourAttack()
-          console.log(res)
-          for(let i = 0;i<res.length;i++) {
-              if(res[i]['y']>=10){
-                  num = res[i]['x']* 10 + res[i]['y'] - 10
-                  let key= wound(res[i]['result'])
-                  yourLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>` 
-              }else {
-                  num = res[i]['x'] * 10 + res[i]['y']
-                  let key = wound(res[i]['result'])
-                  myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
-              }
-          }
-       /*tool.myResult(description)*/
+       if(type !== 'create' || time !== 0) {
+           let res = tool.getYourAttack()
+           for (let i = 0; i < res.length; i++) {
+               if (res[i]['y'] >= 10) {
+                   num = res[i]['x'] * 10 + res[i]['y'] - 10
+                   let key = wound(res[i]['result'])
+                   yourLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+               } else {
+                   num = res[i]['x'] * 10 + res[i]['y']
+                   let key = wound(res[i]['result'])
+                   myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+               }
+           }
+       }
+       time++;
    },false)
    AI.addEventListener('click',function(){
       description.innerText = '正在进行AI托管'

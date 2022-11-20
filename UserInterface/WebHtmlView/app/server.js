@@ -20,11 +20,15 @@ function sleep(time) {
   while (1) {
     var t2 = Date.now();
     if (t2 - t1 > time) break;
+    setTimeout(()=>{},0);
   }
 }
+/*async function sleep(time){
+  await new Promise(resolve => setTimeout(resolve, time))
+}*/
 function Cache() {
-  this.stateMsg = null;
-  this.isStateMsgNew = false;
+  /*this.stateMsg = null;
+  this.isStateMsgNew = false;*/
   this.bombResult = null;
   this.isBombResultNew = false;
 
@@ -36,7 +40,7 @@ function Cache() {
   this.setBombResult = function (br) {
     this.bombResult = br;
     this.isBombResultNew = true;
-    console.log("BombResult:" + br);
+    console.log("BombResultSetted:" + br);
   };
   /*this.waitStateMsg = function () {
     while (!this.isStateMsgNew) {
@@ -47,8 +51,9 @@ function Cache() {
     return this.stateMsg;
   };*/
   this.waitBombResult = function () {
+    console.log("WaitingBombResult:");
     while (!this.isBombResultNew) {
-      console.log("BombResult:");
+      console.log("WaitingBombResult:");
       sleep(3000);
     }
     this.isBombResultNew = false;

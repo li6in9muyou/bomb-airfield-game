@@ -11,29 +11,31 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        /*        UIServer.Init();
-                IUserInterface ui = new UserInterfaceAdapter();
-                ICommunicator communicator = new MockReceiving(new[]
-                {
-                    "999",
-                    "ok",
-                    "3,3",
-                    "continue",
-                    "destroyed",
-                    "continue",
-                    "0,3",
-                    "continue",
-                    "destroyed",
-                    "continue",
-                    "5,5",
-                    "continue",
-                    "destroyed",
-                    "yield",
-                    "end"
-                });*/
         UIServer.Init();
         IUserInterface ui = new UserInterfaceAdapter();
-        ICommunicator communicator = new TcpCom();
+        ICommunicator communicator = new MockReceiving(new[]
+        {
+            "000",
+            "ok",
+            "miss",
+            "continue",
+            "3,3",
+            "continue",
+            "destroyed",
+            "continue",
+            "0,3",
+            "continue",
+            "destroyed",
+            "continue",
+            "5,5",
+            "continue",
+            "destroyed",
+            "yield",
+            "end"
+        });
+        /*UIServer.Init();
+        IUserInterface ui = new UserInterfaceAdapter();
+        ICommunicator communicator = new TcpCom();*/
         var online = new Online.Online(communicator);
 
         // 询问玩家如何联机

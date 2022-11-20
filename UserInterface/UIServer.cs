@@ -20,7 +20,7 @@ public class UIServer
 
     public static void Init()
     {
-        Task.Run(() =>
+        /*Task.Run(() =>
         {
             Process.Start("explorer", "http:/127.0.0.1:8080/index.html");
             new WebHostBuilder()
@@ -28,7 +28,7 @@ public class UIServer
                 .UseUrls("http://127.0.0.1:8080")
                 .UseStartup<StartUp>()
                 .Build().Run();
-        });
+        });*/
         var serverThread = new Thread(ServerRun);
         serverThread.Start();
     }

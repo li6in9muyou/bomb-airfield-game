@@ -7,7 +7,6 @@ function Connector(){
 
       this.cache=new Cache();
       window.addEventListener("onMsg", e => {
-         console.log(des);
          var Msg=JSON.parse(e.detail.Msg);
          var header=Msg.header;
          var body=Msg.body;
@@ -20,13 +19,24 @@ function Connector(){
    },
    this.getYourAttack=function(){
       let msg=this.cache.waitBombResult();
-      console.log(msg);
       let brs=JSON.parse(msg);
-      console.log("轰炸结果:");
-      console.log(brs);
       //[{"x":2,"y":2,"result":"Destroyed"},{"x":2,"y":2,"result":"Hit"},{"x":2,"y":2,"result":"Miss"}]
       return brs;//得到敌方的攻击位置和结果
    },
+   this.showYourAttack=function (num){
+      let res = this.getYourAttack();
+      for(let i = 0;i<res.length;i++) {
+         if(res[i]['y']>=10){
+            num = res[i]['x']* 10 + res[i]['y'] - 10
+            let key= wound(res[i]['result'])
+            yourLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+         }else {
+            num = res[i]['x'] * 10 + res[i]['y']
+            let key = wound(res[i]['result'])
+            myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+         }
+      }
+   },  
    this.sendMyAttack=function(value){
       //[1,2]
       var coor={x:value[0],y:value[1]};
@@ -60,7 +70,6 @@ function Connector(){
       return true//发送飞机布局位置
    },
    this.sendMyIP=function (ip){
-      console.log("调用sendMyIP");
        //创建房间ip为空字符串 加入房间为ip地址
       var msg={header:"IpAddress",body:ip};
       this.socket.send(JSON.stringify(msg));
