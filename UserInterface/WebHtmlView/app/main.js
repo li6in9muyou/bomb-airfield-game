@@ -164,18 +164,17 @@ function gameStart(){
       })
       tool.sendMyAttack(target)//返回的轰炸结果
       let num = target[1] * 10 + target[0]
-       console.log(num)
-       yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'>"
+       yourLi[num].innerHTML = "<img src='../img/wound.png' width='84' height='84'></p>"
        description.innerText = '等待对手轰炸'
        if(type !== 'create' || time !== 0) {
            let res = tool.getYourAttack()
            for (let i = 0; i < res.length; i++) {
-               if (res[i]['y'] >= 10) {
-                   num = res[i]['x'] * 10 + res[i]['y'] - 10
+               if (res[i]['x'] >= 10) {
+                   num = res[i]['y'] * 10 + res[i]['x'] - 10
                    let key = wound(res[i]['result'])
-                   yourLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
+                   yourLi[num].innerHTML=`<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
                } else {
-                   num = res[i]['x'] * 10 + res[i]['y']
+                   num = res[i]['y'] * 10 + res[i]['x']
                    let key = wound(res[i]['result'])
                    myLi[num].innerHTML = `<img src='../img/wound.png' width='84' height='84'><p class="key">${key}</p>`
                }

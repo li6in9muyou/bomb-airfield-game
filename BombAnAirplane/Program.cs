@@ -11,7 +11,7 @@ internal static class Program
         var note = Logging.GetLogger("GameMainLoop");
         note.Debug("game has started");
         // 各子系统初始化
-        UIServer.Init();
+        /*UIServer.Init();
         IUserInterface ui = new UserInterfaceAdapter();
         ICommunicator communicator = new MockReceiving(new[]
         {
@@ -32,10 +32,10 @@ internal static class Program
             "destroyed",
             "yield",
             "end"
-        });
-        /*UIServer.Init();
+        });*/
+        UIServer.Init();
         IUserInterface ui = new UserInterfaceAdapter();
-        ICommunicator communicator = new TcpCom();*/
+        ICommunicator communicator = new TcpCom();
         var online = new Online.Online(communicator);
 
         // 询问玩家如何联机

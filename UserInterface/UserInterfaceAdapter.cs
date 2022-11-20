@@ -100,7 +100,7 @@ public class UserInterfaceAdapter : IUserInterface
 
         foreach (var mb in mbr)
         {
-            var BL = new { x = mb.Item1.X, y = mb.Item1.Y + 10, result = mb.Item2.ToString() };
+            var BL = new { x = mb.Item1.X+10, y = mb.Item1.Y , result = mb.Item2.ToString() };
             JsonData += JsonConvert.SerializeObject(BL) + ",";
         }
         Console.WriteLine("x:"+JsonData);
